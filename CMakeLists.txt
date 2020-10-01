@@ -29,6 +29,45 @@ find_package(OpenMP)
 
 add_library(ContinentalFuzzy
     src/Version.cpp
+    src/domain/fis/System.cpp
+    src/domain/fuzzy/SugenoController.cpp
+    src/domain/fis/RuleVariable.cpp
+    src/domain/fis/Variable.cpp
+    src/domain/fis/Rule.cpp
+    src/domain/fis/MembershipFunction.cpp
+    src/domain/fis/definition/AggMethods.cpp
+    src/domain/fis/definition/AndMethods.cpp
+    src/domain/fis/definition/Blocks.cpp
+    src/domain/fis/definition/Connections.cpp
+    src/domain/fis/definition/ControllerType.cpp
+    src/domain/fis/definition/DefuzzMethods.cpp
+    src/domain/fis/definition/Functions.cpp
+    src/domain/fis/definition/ImpMethods.cpp
+    src/domain/fis/definition/OrMethods.cpp
+    src/domain/fis/rulevariable/RuleInput.cpp
+    src/domain/fis/rulevariable/RuleOutput.cpp
+    src/domain/fis/membershipfunction/ConstantMF.cpp
+    src/domain/fis/membershipfunction/Gauss2MF.cpp
+    src/domain/fis/membershipfunction/GaussMF.cpp
+    src/domain/fis/membershipfunction/LinearMF.cpp
+    src/domain/fis/membershipfunction/TrapMF.cpp
+    src/domain/fis/membershipfunction/TriMF.cpp
+    src/domain/fuzzy/definition/sugeno/SugenoAggMethods.cpp
+    src/domain/fuzzy/definition/sugeno/SugenoAndMethods.cpp
+    src/domain/fuzzy/definition/sugeno/SugenoDefuzzMethods.cpp
+    src/domain/fuzzy/definition/sugeno/SugenoImpMethods.cpp
+    src/domain/fuzzy/definition/sugeno/SugenoInputFunctions.cpp
+    src/domain/fuzzy/definition/sugeno/SugenoOrMethods.cpp
+    src/domain/fuzzy/definition/sugeno/SugenoOutputFunctions.cpp
+    src/domain/fuzzy/rulevariable/SugenoRuleInput.cpp
+    src/domain/fuzzy/rulevariable/SugenoRuleOutput.cpp
+    src/domain/fuzzy/variable/SugenoInput.cpp
+    src/domain/fuzzy/variable/SugenoOutput.cpp
+    src/domain/fuzzy/SugenoRule.cpp
+    src/domain/fuzzy/SugenoRuleVariable.cpp
+    src/domain/fuzzy/SugenoVariable.cpp
+    src/domain/fis/variable/Input.cpp
+    src/domain/fis/variable/Output.cpp
     src/service/fuzzy/FuzzyService.cpp
 )
 
