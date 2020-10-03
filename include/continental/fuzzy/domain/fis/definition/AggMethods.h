@@ -11,9 +11,10 @@ namespace domain {
 namespace fis {
 namespace definition {
 
-enum AggMethods
+enum class AggMethods
 {
-    max = 1
+    sum = 1,
+    none = 2
 };
 
 }

@@ -11,9 +11,11 @@ namespace domain {
 namespace fis {
 namespace definition {
 
-enum DefuzzMethods
+enum class DefuzzMethods
 {
-    centroid = 1
+    wtaver = 1,
+    wtsum = 2,
+    none = 3
 };
 
 }

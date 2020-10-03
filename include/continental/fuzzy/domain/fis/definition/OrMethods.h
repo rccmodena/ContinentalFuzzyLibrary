@@ -11,9 +11,11 @@ namespace domain {
 namespace fis {
 namespace definition {
 
-enum OrMethods
+enum class OrMethods
 {
-    Max = 1
+    max = 1,
+    probor = 2,
+    none = 3
 };
 
 }

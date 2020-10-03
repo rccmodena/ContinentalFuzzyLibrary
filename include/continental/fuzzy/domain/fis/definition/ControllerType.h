@@ -11,9 +11,10 @@ namespace domain {
 namespace fis {
 namespace definition {
 
-enum ControllerType
+enum class ControllerType
 {
-    mamdani = 1
+    sugeno = 1,
+    none = 2
 };
 
 }

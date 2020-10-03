@@ -9,9 +9,10 @@ namespace domain {
 namespace fis {
 namespace definition {
 
-enum ImpMethods
+enum class ImpMethods
 {
-    Min = 1
+    prod = 1,
+    none = 2
 };
 
 }

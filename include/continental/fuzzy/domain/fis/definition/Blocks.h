@@ -11,12 +11,13 @@ namespace domain {
 namespace fis {
 namespace definition {
 
-enum Blocks
+enum class Blocks
 {
     system = 1,
     inputs = 2,
     outputs = 3,
-    rules = 4
+    rules = 4,
+    none = 5
 };
 
 }

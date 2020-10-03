@@ -81,18 +81,18 @@ public:
     void setName(const QString &name);
 
 private:
-    QString m_name;
-    QString m_filename;
-    definition::ControllerType m_type;
-    QString m_version;
-    int m_numInputs;
-    int m_numOutputs;
-    int m_numRules;
-    definition::AndMethods m_andMethod;
-    definition::OrMethods m_orMethod;
-    definition::ImpMethods m_impMethod;
-    definition::AggMethods m_aggMethod;
-    definition::DefuzzMethods m_defuzzMethod;
+    QString m_name = "";
+    QString m_filename = "";
+    definition::ControllerType m_type = definition::ControllerType::none;
+    QString m_version = "";
+    int m_numInputs = 0;
+    int m_numOutputs = 0;
+    int m_numRules = 0;
+    definition::AndMethods m_andMethod = definition::AndMethods::none;
+    definition::OrMethods m_orMethod = definition::OrMethods::none;
+    definition::ImpMethods m_impMethod = definition::ImpMethods::none;
+    definition::AggMethods m_aggMethod = definition::AggMethods::none;
+    definition::DefuzzMethods m_defuzzMethod = definition::DefuzzMethods::none;
     std::map<int, variable::Input> m_inputs;
     std::map<int, variable::Output> m_outputs;
     std::map<int, fis::Rule> m_rules;

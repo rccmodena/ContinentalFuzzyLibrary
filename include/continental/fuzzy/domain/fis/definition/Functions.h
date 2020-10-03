@@ -11,7 +11,7 @@ namespace domain {
 namespace fis {
 namespace definition {
 
-enum  Functions
+enum class Functions
 {
     trimf = 1,
     gaussmf = 2,

@@ -11,9 +11,11 @@ namespace domain {
 namespace fis {
 namespace definition {
 
-enum AndMethods
+enum class AndMethods
 {
-    min = 1
+    min = 1,
+    prod = 2,
+    none = 3
 };
 
 }

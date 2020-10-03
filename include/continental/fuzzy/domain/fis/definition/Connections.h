@@ -9,10 +9,11 @@ namespace domain {
 namespace fis {
 namespace definition {
 
-enum Connections
+enum class Connections
 {
     AND = 1,
-    OR = 2
+    OR = 2,
+    none = 3
 };
 
 }
