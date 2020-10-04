@@ -3,6 +3,8 @@
 
 #include "continental/fuzzy/export.h"
 #include "continental/fuzzy/domain/fis/Variable.h"
+#include "continental/fuzzy/domain/fis/definition/VariableType.h"
+#include <memory>
 #include <QString>
 #include <list>
 
@@ -18,19 +20,16 @@ public:
     /// Construtor.
     Input();
 
-    QString getName() const;
-    void setName(const QString &name);
+    /// Destrutor.
+    ~Input();
 
-    std::list<float> getRange() const;
-    void setRange(const std::list<float> &value);
-
-    int getNumMfs() const;
-    void setNumMfs(int numMfs);
+    continental::fuzzy::domain::fis::definition::VariableType getVariableType() const;
 
 private:
-    QString m_name;
-    std::list<float> range;
-    int m_numMfs;
+    //QString m_name = "";
+    continental::fuzzy::domain::fis::definition::VariableType m_variableType = continental::fuzzy::domain::fis::definition::VariableType::antecedent;
+    //std::shared_ptr<std::pair<float, float>> m_range = std::make_shared<std::pair<float, float>>(0, 0);
+    //int m_numMfs = 0;
     //std::map<int, MembershipFunction> m_mfs;
 };
 

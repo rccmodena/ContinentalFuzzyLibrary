@@ -12,6 +12,7 @@
 #include "continental/fuzzy/domain/fis/rulevariable/RuleInput.h"
 #include "continental/fuzzy/domain/fis/rulevariable/RuleOutput.h"
 #include "continental/fuzzy/domain/fis/definition/Blocks.h"
+#include "continental/fuzzy/service/fis/InputService.h"
 #include <memory>
 #include <list>
 #include <QString>
@@ -34,38 +35,38 @@ public:
     /// Destrutor.
     ~FisService();
 
-    //def import_file(self, filename: str, use_dict_facies_association = False):
+    // Importa um arquivo .fis e cria todos os componentes de um sistema fuzzy.
     std::shared_ptr<domain::fis::System> importFile(const QString &filename, const bool &useFaciesAssociationConverter);
 
 private:
     /// Membros.
     std::shared_ptr<domain::fis::System> m_system = std::make_shared<domain::fis::System>();
 
-    //def create_system_from_list(self, s_list: List[str])
-    void createSystemFromList(const std::list<QString> &systemList);
+    // Preenche as informações do bloco sistema a partir das informações de um arquivo .fis.
+    void createSystemFromList(const std::shared_ptr<std::list<QString>> systemList);
 
-    //def valid_system(self):
+    // Verifica se todos os atributos do sistema foram preechidos.
     void validSystem();
 
-    //def create_inputs_from_list(self, i_list: List[List[str]])
-    void createInputsFromMap(const std::map<int, std::list<QString>> &inputsMap);
+    // Cria os antecedentes com as informações dos blocos de inputs do arquivo .fis.
+    void createInputsFromMap(const std::shared_ptr<std::map<int, std::list<QString>>> inputsMap);
 
-    //def create_outputs_from_list(self, o_list: List[List[str]])
-    void createOutputsFromMap(const std::map<int, std::list<QString>> &outputsList);
+    // Cria os consequentes com as informações dos blocos de inputs do arquivo .fis.
+    void createOutputsFromMap(const std::shared_ptr<std::map<int, std::list<QString>>> outputsList);
 
-    //def create_inputs_rule(self, i_r_list: List[str]) -> List[RuleInput]:
-    std::shared_ptr<domain::fis::rulevariable::RuleInput> createRuleInputsFromList(const std::map<int, std::list<QString>> &ruleInputsList);
+    // Cria os antededentes das regras com as informações do bloco de rules do arquivo .fis.
+    std::shared_ptr<domain::fis::rulevariable::RuleInput> createRuleInputsFromList(const std::shared_ptr<std::map<int, std::list<QString>>> ruleInputsList);
 
-    //def create_outputs_rule(self, o_r_list: List[str]) -> List[RuleOutput]:
-    std::shared_ptr<domain::fis::rulevariable::RuleOutput> createRuleOutputsFromList(const std::map<int, std::list<QString>> &ruleOutputsList);
+    // Cria os consequentes das regras com as informações do bloco de rules do arquivo .fis.
+    std::shared_ptr<domain::fis::rulevariable::RuleOutput> createRuleOutputsFromList(const std::shared_ptr<std::map<int, std::list<QString>>> ruleOutputsList);
 
-    //def create_rules_from_list(self, r_list: List[str]):
-    void createRulesFromList(const std::list<QString> &ruleList);
+    // Cria as regras com as informações do bloco de rules do arquivo .fis.
+    void createRulesFromList(const std::shared_ptr<std::list<QString>> ruleList);
 
     //def create_dict_facies_association(self, p_use_dict: bool):
     void createFaciesAssociationConverter(const bool &useFaciesAssociationConverter);
 
-    //def valid_import(self):
+    // Verifica se a importação preencheu todas as informações.
     void validImport();
 };
 

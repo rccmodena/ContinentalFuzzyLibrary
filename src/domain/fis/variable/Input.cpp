@@ -11,34 +11,14 @@ Input::Input()
 
 }
 
-QString Input::getName() const
+Input::~Input()
 {
-    return m_name;
+
 }
 
-void Input::setName(const QString &name)
+continental::fuzzy::domain::fis::definition::VariableType Input::getVariableType() const
 {
-    m_name = name;
-}
-
-std::list<float> Input::getRange() const
-{
-    return range;
-}
-
-void Input::setRange(const std::list<float> &value)
-{
-    range = value;
-}
-
-int Input::getNumMfs() const
-{
-    return m_numMfs;
-}
-
-void Input::setNumMfs(int numMfs)
-{
-    m_numMfs = numMfs;
+    return m_variableType;
 }
 
 }

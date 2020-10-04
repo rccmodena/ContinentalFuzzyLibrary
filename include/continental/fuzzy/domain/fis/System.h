@@ -68,8 +68,9 @@ public:
     definition::DefuzzMethods getDefuzzMethod() const;
     void setDefuzzMethod(const definition::DefuzzMethods &defuzzMethod);
 
-    std::map<int, variable::Input> getInputs() const;
-    void setInputs(const std::map<int, variable::Input> &inputs);
+    std::shared_ptr<std::map<int, variable::Input>> getInputs() const;
+    void setInputs(const std::shared_ptr<std::map<int, variable::Input>> inputs);
+    void addInput(const int inputNumber,const std::shared_ptr<variable::Input> input);
 
     std::map<int, variable::Output> getOutputs() const;
     void setOutputs(const std::map<int, variable::Output> &outputs);
@@ -93,7 +94,7 @@ private:
     definition::ImpMethods m_impMethod = definition::ImpMethods::none;
     definition::AggMethods m_aggMethod = definition::AggMethods::none;
     definition::DefuzzMethods m_defuzzMethod = definition::DefuzzMethods::none;
-    std::map<int, variable::Input> m_inputs;
+    std::shared_ptr<std::map<int, domain::fis::variable::Input>> m_inputs = std::make_shared<std::map<int, domain::fis::variable::Input>>();
     std::map<int, variable::Output> m_outputs;
     std::map<int, fis::Rule> m_rules;
 };

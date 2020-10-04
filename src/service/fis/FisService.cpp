@@ -1,9 +1,9 @@
 #include "continental/fuzzy/service/fis/FisService.h"
-#include <QDebug>
 
 using namespace continental::fuzzy::domain::fis;
 using namespace continental::fuzzy::domain::fis::rulevariable;
 using namespace continental::fuzzy::domain::fis::definition;
+using namespace continental::fuzzy::service::fis;
 
 namespace continental {
 namespace fuzzy {
@@ -20,9 +20,10 @@ FisService::~FisService()
 
 }
 
-void FisService::createSystemFromList(const std::list<QString> &systemList)
+void FisService::createSystemFromList(const std::shared_ptr<std::list<QString>> systemList)
 {
-    for (QString line : systemList) {
+    for (QString line : (*systemList))
+    {
         // Divide a string das linhas no sinal de "=" em nome e valor
         QStringList splitLine = line.split("=");
         const QString systemField = splitLine[0];
@@ -182,29 +183,45 @@ void FisService::validSystem()
     }
 }
 
-void FisService::createInputsFromMap(const std::map<int, std::list<QString>> &inputsMap)
+void FisService::createInputsFromMap(const std::shared_ptr<std::map<int, std::list<QString>>> inputsMap)
+{
+    // Verifica se a quantidade de antecedentes está correta
+    int sizeInputMap = static_cast<int>(inputsMap->size());
+    if (sizeInputMap == m_system->getNumInputs())
+    {
+        // Percorre cada um dos antecedentes
+        for (auto const& inputList : (*inputsMap))
+        {
+            auto fisInputService = InputService();
+            auto inputListPointer = std::make_shared<std::list<QString>>(inputList.second);
+            fisInputService.createFromFisBlock(inputListPointer);
+            m_system->addInput(inputList.first, fisInputService.getInput());
+        }
+    }
+    else
+    {
+        throw std::exception("Quantidade de antecedentes é diferente do número de antecedentes informado no bloco System!");
+    }
+    }
+
+void FisService::createOutputsFromMap(const std::shared_ptr<std::map<int, std::list<QString>>> outputsList)
 {
 
 }
 
-void FisService::createOutputsFromMap(const std::map<int, std::list<QString>> &outputsMap)
-{
-
-}
-
-std::shared_ptr<RuleInput> FisService::createRuleInputsFromList(const std::map<int, std::list<QString>> &ruleInputsList)
+std::shared_ptr<RuleInput> FisService::createRuleInputsFromList(const std::shared_ptr<std::map<int, std::list<QString>>> ruleInputsList)
 {
     std::shared_ptr<RuleInput> ruleInputs;
     return ruleInputs;
 }
 
-std::shared_ptr<RuleOutput> FisService::createRuleOutputsFromList(const std::map<int, std::list<QString>> &ruleOutputsList)
+std::shared_ptr<RuleOutput> FisService::createRuleOutputsFromList(const std::shared_ptr<std::map<int, std::list<QString>>> ruleOutputsList)
 {
     std::shared_ptr<RuleOutput> ruleOutput;
     return ruleOutput;
 }
 
-void FisService::createRulesFromList(const std::list<QString> &ruleList)
+void FisService::createRulesFromList(const std::shared_ptr<std::list<QString>> ruleList)
 {
 
 }
@@ -229,16 +246,16 @@ std::shared_ptr<System> FisService::importFile(const QString &filename, const bo
     Blocks fisBlock = Blocks::none;
 
     // Armazena as informações sobre o sistema
-    std::list<QString> systemList;
+    std::shared_ptr<std::list<QString>> systemList = std::make_shared<std::list<QString>>();
 
     // Armazena as informações sobre os antecedentes
-    std::map<int, std::list<QString>> inputsMap;
+    std::shared_ptr<std::map<int, std::list<QString>>> inputsMap = std::make_shared<std::map<int, std::list<QString>>>();
 
     // Armazena as informações sobre os consequentes
-    std::map<int, std::list<QString>> outputsMap;
+    std::shared_ptr<std::map<int, std::list<QString>>> outputsMap = std::make_shared<std::map<int, std::list<QString>>>();
 
     // Armazena as informações sobre as regras
-    std::list<QString> rulesList;
+    std::shared_ptr<std::list<QString>> rulesList = std::make_shared<std::list<QString>>();
 
     // Armazena o número atual do antecedente ou consequente
     int linguisticVariableNumber;
@@ -270,14 +287,14 @@ std::shared_ptr<System> FisService::importFile(const QString &filename, const bo
 
                     // Obtém o número do antecedente
                     linguisticVariableNumber = line.mid(6, 1).toInt();
-                    int sizeInputList = static_cast<int>(inputsMap.size()) + 1;
+                    int sizeInputMap = static_cast<int>(inputsMap->size()) + 1;
 
                     // Verifica se os antecedentes estão ordenados
-                    if (linguisticVariableNumber != sizeInputList)
+                    if (linguisticVariableNumber != sizeInputMap)
                     {
                         throw std::exception("Os antecedente não estão ordenados!");
                     }
-                    inputsMap.insert(std::pair<int, std::list<QString>>(linguisticVariableNumber, std::list<QString>()));
+                    inputsMap->insert(std::pair<int, std::list<QString>>(linguisticVariableNumber, std::list<QString>()));
                 }
 
                 // Verifica se está no bloco de consequentes
@@ -287,14 +304,14 @@ std::shared_ptr<System> FisService::importFile(const QString &filename, const bo
 
                     // Obtém o número do consequentes
                     linguisticVariableNumber = line.mid(7, 1).toInt();
-                    int sizeOutputList = static_cast<int>(outputsMap.size()) + 1;
+                    int sizeOutputMap = static_cast<int>(outputsMap->size()) + 1;
 
                     // Verifica se os consequentes estão ordenados
-                    if (linguisticVariableNumber != sizeOutputList)
+                    if (linguisticVariableNumber != sizeOutputMap)
                     {
                         throw std::exception("Os consequentes não estão ordenados!");
                     }
-                    outputsMap.insert(std::pair<int, std::list<QString>>(linguisticVariableNumber, std::list<QString>()));
+                    outputsMap->insert(std::pair<int, std::list<QString>>(linguisticVariableNumber, std::list<QString>()));
                 }
 
                 // Verifica se está nos bloco de regras
@@ -317,18 +334,18 @@ std::shared_ptr<System> FisService::importFile(const QString &filename, const bo
                     switch( fisBlock )
                     {
                         case Blocks::system:
-                            systemList.push_back(line);
+                            systemList->push_back(line);
                             break;
                         case Blocks::inputs:
                             // Adciona a linha no antecedente com o número correto
-                            inputsMap[linguisticVariableNumber].push_back(line);
+                            (*inputsMap)[linguisticVariableNumber].push_back(line);
                             break;
                         case Blocks::outputs:
                             // Adciona a linha no consequente com o número correto
-                            outputsMap[linguisticVariableNumber].push_back(line);
+                            (*outputsMap)[linguisticVariableNumber].push_back(line);
                             break;
                         case Blocks::rules:
-                            rulesList.push_back(line);
+                            rulesList->push_back(line);
                             break;
                         default:
                             throw std::exception("Bloco não identificado!");

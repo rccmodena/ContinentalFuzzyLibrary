@@ -9,6 +9,11 @@ Variable::Variable()
 {
 }
 
+Variable::~Variable()
+{
+
+}
+
 QString Variable::getName() const
 {
     return m_name;
@@ -18,15 +23,14 @@ void Variable::setName(const QString &name)
 {
     m_name = name;
 }
-
-std::list<float> Variable::getRange() const
+std::shared_ptr<std::pair<float, float>> Variable::getRange() const
 {
-    return range;
+    return m_range;
 }
 
-void Variable::setRange(const std::list<float> &value)
+void Variable::setRange(const std::shared_ptr<std::pair<float, float>> range)
 {
-    range = value;
+    m_range = range;
 }
 
 int Variable::getNumMfs() const
