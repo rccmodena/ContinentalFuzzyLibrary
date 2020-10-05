@@ -4,12 +4,12 @@
 * email: rmodena@unisinos.br
 * date: October, 2020
 */
-#ifndef CONTINENTAL_FUZZY_SERVICE_FIS_OUTPUTSERVICE_H
-#define CONTINENTAL_FUZZY_SERVICE_FIS_OUTPUTSERVICE_H
+#ifndef CONTINENTAL_FUZZY_SERVICE_FIS_OUTPUTFISSERVICE_H
+#define CONTINENTAL_FUZZY_SERVICE_FIS_OUTPUTFISSERVICE_H
 
 #include "continental/fuzzy/export.h"
 #include "continental/fuzzy/domain/fis/variable/Output.h"
-#include "continental/fuzzy/service/fis/MembershipFunctionService.h"
+#include "continental/fuzzy/service/fis/MembershipFunctionFisService.h"
 #include <memory>
 #include <iostream>
 #include <QString>
@@ -21,26 +21,26 @@ namespace fuzzy {
 namespace service {
 namespace fis {
 
-class CONTINENTALFUZZY_EXPORT_DECL OutputService
+class CONTINENTALFUZZY_EXPORT_DECL OutputFisService
 {
 
 public:
     /// Construtor.
-    OutputService();
+    OutputFisService();
 
     /// Destrutor.
-    ~OutputService();
+    ~OutputFisService();
 
     // Cria uma variável a partir das informações de um arquivo .fis.
-    void createFromFisBlock(const std::list<QString> &fisOutputList, const int numInputs);
+    void createFromFisBlock(const std::list<QString> &fisOutputFisList, const int numInputsFis);
 
     domain::fis::variable::Output getOutput() const;
 
-    void setOutput(const domain::fis::variable::Output &output);
+    void setOutput(const domain::fis::variable::Output &outputFis);
 
 private:
     /// Membros.
-    domain::fis::variable::Output m_output = domain::fis::variable::Output();
+    domain::fis::variable::Output m_outputFis = domain::fis::variable::Output();
 };
 
 }
@@ -48,4 +48,4 @@ private:
 }
 }
 
-#endif // CONTINENTAL_FUZZY_SERVICE_FIS_OUTPUTSERVICE_H
+#endif // CONTINENTAL_FUZZY_SERVICE_FIS_OUTPUTFISSERVICE_H

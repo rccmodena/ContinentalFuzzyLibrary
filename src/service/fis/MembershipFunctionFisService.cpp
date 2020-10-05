@@ -1,4 +1,4 @@
-#include "continental/fuzzy/service/fis/MembershipFunctionService.h"
+#include "continental/fuzzy/service/fis/MembershipFunctionFisService.h"
 
 using namespace continental::fuzzy::domain::fis::membershipfunction;
 using namespace continental::fuzzy::domain::fis::definition;
@@ -8,19 +8,19 @@ namespace fuzzy {
 namespace service {
 namespace fis {
 
-MembershipFunctionService::MembershipFunctionService()
+MembershipFunctionFisService::MembershipFunctionFisService()
 {
 
 }
 
-MembershipFunctionService::~MembershipFunctionService()
+MembershipFunctionFisService::~MembershipFunctionFisService()
 {
 
 }
 
-void MembershipFunctionService::createInputMembershipFunction(const QString &mfName,
-                                                              const QString &functionName,
-                                                              const QString &functionValues)
+void MembershipFunctionFisService::createInputMembershipFisFunction(const QString &mfName,
+                                                                    const QString &functionName,
+                                                                    const QString &functionValues)
 {
     if (functionName == "trimf")
     {
@@ -36,7 +36,7 @@ void MembershipFunctionService::createInputMembershipFunction(const QString &mfN
             triMF.setB(splitValues[1].toDouble());
             triMF.setC(splitValues[2].toDouble());
             membershipFunction.setTrimf(triMF);
-            m_inputMembershipFunction = membershipFunction;
+            m_inputMembershipFisFunction = membershipFunction;
         }
         else
         {
@@ -58,7 +58,7 @@ void MembershipFunctionService::createInputMembershipFunction(const QString &mfN
             trapMF.setC(splitValues[2].toDouble());
             trapMF.setD(splitValues[3].toDouble());
             membershipFunction.setTrapmf(trapMF);
-            m_inputMembershipFunction = membershipFunction;
+            m_inputMembershipFisFunction = membershipFunction;
         }
         else
         {
@@ -78,7 +78,7 @@ void MembershipFunctionService::createInputMembershipFunction(const QString &mfN
             gaussmf.setSigma(splitValues[0].toDouble());
             gaussmf.setMean(splitValues[1].toDouble());
             membershipFunction.setGaussmf(gaussmf);
-            m_inputMembershipFunction = membershipFunction;
+            m_inputMembershipFisFunction = membershipFunction;
         }
         else
         {
@@ -100,7 +100,7 @@ void MembershipFunctionService::createInputMembershipFunction(const QString &mfN
             gauss2mf.setSigma2(splitValues[2].toDouble());
             gauss2mf.setMean2(splitValues[3].toDouble());
             membershipFunction.setGauss2mf(gauss2mf);
-            m_inputMembershipFunction = membershipFunction;
+            m_inputMembershipFisFunction = membershipFunction;
         }
         else
         {
@@ -113,7 +113,7 @@ void MembershipFunctionService::createInputMembershipFunction(const QString &mfN
     }
 }
 
-void MembershipFunctionService::createOutputMembershipFunction(const QString &mfName,
+void MembershipFunctionFisService::createOutputMembershipFisFunction(const QString &mfName,
                                                                const QString &functionName,
                                                                const QString &functionValues,
                                                                const int numberOfInputs)
@@ -133,7 +133,7 @@ void MembershipFunctionService::createOutputMembershipFunction(const QString &mf
                 linearMF.addParams((i + 1), splitValues[i].toDouble());
             }
             membershipFunction.setLinearmf(linearMF);
-            m_outputMembershipFunction = membershipFunction;
+            m_outputMembershipFisFunction = membershipFunction;
         }
         else
         {
@@ -152,7 +152,7 @@ void MembershipFunctionService::createOutputMembershipFunction(const QString &mf
             ConstantMF constantMF = ConstantMF();
             constantMF.setValue(splitValues[0].toDouble());
             membershipFunction.setConstantmf(constantMF);
-            m_outputMembershipFunction = membershipFunction;
+            m_outputMembershipFisFunction = membershipFunction;
         }
         else
         {
@@ -165,24 +165,24 @@ void MembershipFunctionService::createOutputMembershipFunction(const QString &mf
     }
 }
 
-InputMembershipFunction MembershipFunctionService::getInputMembershipFunction() const
+InputMembershipFunction MembershipFunctionFisService::getInputMembershipFisFunction() const
 {
-    return m_inputMembershipFunction;
+    return m_inputMembershipFisFunction;
 }
 
-void MembershipFunctionService::setInputMembershipFunction(const InputMembershipFunction &inputMembershipFunction)
+void MembershipFunctionFisService::setInputMembershipFisFunction(const InputMembershipFunction &inputMembershipFunction)
 {
-    m_inputMembershipFunction = inputMembershipFunction;
+    m_inputMembershipFisFunction = inputMembershipFunction;
 }
 
-OutputMembershipFunction MembershipFunctionService::getOutputMembershipFunction() const
+OutputMembershipFunction MembershipFunctionFisService::getOutputMembershipFisFunction() const
 {
-    return m_outputMembershipFunction;
+    return m_outputMembershipFisFunction;
 }
 
-void MembershipFunctionService::setOutputMembershipFunction(const OutputMembershipFunction &outputMembershipFunction)
+void MembershipFunctionFisService::setOutputMembershipFisFunction(const OutputMembershipFunction &outputMembershipFisFunction)
 {
-    m_outputMembershipFunction = outputMembershipFunction;
+    m_outputMembershipFisFunction = outputMembershipFisFunction;
 }
 
 

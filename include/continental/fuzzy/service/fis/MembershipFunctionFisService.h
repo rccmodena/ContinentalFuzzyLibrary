@@ -4,8 +4,8 @@
 * email: rmodena@unisinos.br
 * date: October, 2020
 */
-#ifndef CONTINENTAL_FUZZY_SERVICE_FIS_MEMBERSHIPFUNCTIONSERVICE_H
-#define CONTINENTAL_FUZZY_SERVICE_FIS_MEMBERSHIPFUNCTIONSERVICE_H
+#ifndef CONTINENTAL_FUZZY_SERVICE_FIS_MEMBERSHIPFUNCTIONFISSERVICE_H
+#define CONTINENTAL_FUZZY_SERVICE_FIS_MEMBERSHIPFUNCTIONFISSERVICE_H
 
 #include "continental/fuzzy/export.h"
 #include "continental/fuzzy/domain/fis/definition/InputFunctions.h"
@@ -28,35 +28,35 @@ namespace fuzzy {
 namespace service {
 namespace fis {
 
-class CONTINENTALFUZZY_EXPORT_DECL MembershipFunctionService
+class CONTINENTALFUZZY_EXPORT_DECL MembershipFunctionFisService
 {
 
 public:
     /// Construtor.
-    MembershipFunctionService();
+    MembershipFunctionFisService();
 
     /// Destrutor.
-    ~MembershipFunctionService();
+    ~MembershipFunctionFisService();
 
-    void createInputMembershipFunction(const QString &mfName,
+    void createInputMembershipFisFunction(const QString &mfName,
                                   const QString &functionName,
                                   const QString &functionValues);
 
-    void createOutputMembershipFunction(const QString &mfName,
+    void createOutputMembershipFisFunction(const QString &mfName,
                                   const QString &functionName,
                                   const QString &functionValues,
                                   const int numberOfInputs);
 
-    domain::fis::membershipfunction::InputMembershipFunction getInputMembershipFunction() const;
-    void setInputMembershipFunction(const domain::fis::membershipfunction::InputMembershipFunction &inputMembershipFunction);
+    domain::fis::membershipfunction::InputMembershipFunction getInputMembershipFisFunction() const;
+    void setInputMembershipFisFunction(const domain::fis::membershipfunction::InputMembershipFunction &inputMembershipFisFunction);
 
-    domain::fis::membershipfunction::OutputMembershipFunction getOutputMembershipFunction() const;
-    void setOutputMembershipFunction(const domain::fis::membershipfunction::OutputMembershipFunction &outputMembershipFunction);
+    domain::fis::membershipfunction::OutputMembershipFunction getOutputMembershipFisFunction() const;
+    void setOutputMembershipFisFunction(const domain::fis::membershipfunction::OutputMembershipFunction &outputMembershipFisFunction);
 
 private:
     /// Membros.
-    domain::fis::membershipfunction::InputMembershipFunction m_inputMembershipFunction = domain::fis::membershipfunction::InputMembershipFunction();
-    domain::fis::membershipfunction::OutputMembershipFunction m_outputMembershipFunction = domain::fis::membershipfunction::OutputMembershipFunction();
+    domain::fis::membershipfunction::InputMembershipFunction m_inputMembershipFisFunction = domain::fis::membershipfunction::InputMembershipFunction();
+    domain::fis::membershipfunction::OutputMembershipFunction m_outputMembershipFisFunction = domain::fis::membershipfunction::OutputMembershipFunction();
 };
 
 }
@@ -64,4 +64,4 @@ private:
 }
 }
 
-#endif // CONTINENTAL_FUZZY_SERVICE_FIS_MEMBERSHIPFUNCTIONSERVICE_H
+#endif // CONTINENTAL_FUZZY_SERVICE_FIS_MEMBERSHIPFUNCTIONFISSERVICE_H

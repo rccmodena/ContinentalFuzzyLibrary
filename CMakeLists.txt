@@ -74,9 +74,9 @@ add_library(ContinentalFuzzy
     src/domain/fis/variable/Output.cpp
     src/service/fuzzy/FuzzyService.cpp
     src/service/fis/FisService.cpp
-    src/service/fis/InputService.cpp
-    src/service/fis/OutputService.cpp
-    src/service/fis/MembershipFunctionService.cpp
+    src/service/fis/InputFisService.cpp
+    src/service/fis/OutputFisService.cpp
+    src/service/fis/MembershipFunctionFisService.cpp
 )
 
 #Add an alias so that library can be used inside the build tree, e.g. when testing

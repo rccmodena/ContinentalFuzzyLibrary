@@ -14,16 +14,6 @@ Rule::Rule()
 {
 }
 
-QString Rule::getName() const
-{
-    return m_name;
-}
-
-void Rule::setName(const QString &name)
-{
-    m_name = name;
-}
-
 float Rule::getWeight() const
 {
     return m_weight;
@@ -44,24 +34,24 @@ void Rule::setConnection(const Connections &connection)
     m_connection = connection;
 }
 
-std::list<RuleInput> Rule::getInputs() const
+std::map<int, RuleInput> Rule::getInputs() const
 {
-    return m_inputs;
+    return m_ruleInputs;
 }
 
-void Rule::setInputs(const std::list<RuleInput> &inputs)
+void Rule::setInputs(const std::map<int, RuleInput> &ruleInputs)
 {
-    m_inputs = inputs;
+    m_ruleInputs = ruleInputs;
 }
 
-std::list<RuleOutput> Rule::getOutputs() const
+std::map<int, RuleOutput> Rule::getOutputs() const
 {
-    return m_outputs;
+    return m_ruleOutputs;
 }
 
-void Rule::setOutputs(const std::list<RuleOutput> &outputs)
+void Rule::setOutputs(const std::map<int, RuleOutput> &ruleOutputs)
 {
-    m_outputs = outputs;
+    m_ruleOutputs = ruleOutputs;
 }
 
 

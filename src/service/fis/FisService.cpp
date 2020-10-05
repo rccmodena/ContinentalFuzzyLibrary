@@ -192,7 +192,7 @@ void FisService::createInputsFromMap(const std::map<int, std::list<QString>> &in
         // Percorre cada um dos antecedentes
         for (auto const& inputList : inputsMap)
         {
-            InputService fisInputService = InputService();
+            InputFisService fisInputService = InputFisService();
             fisInputService.createFromFisBlock(inputList.second);
             m_system.addInput(inputList.first, fisInputService.getInput());
         }
@@ -212,7 +212,7 @@ void FisService::createOutputsFromMap(const std::map<int, std::list<QString>> &o
         // Percorre cada um dos antecedentes
         for (auto const& outputList : outputsMap)
         {
-            OutputService fisOutputService = OutputService();
+            OutputFisService fisOutputService = OutputFisService();
             fisOutputService.createFromFisBlock(outputList.second, m_system.getNumInputs());
             m_system.addOutput(outputList.first, fisOutputService.getOutput());
         }
@@ -238,6 +238,91 @@ RuleOutput& FisService::createRuleOutputsFromList(const std::map<int, std::list<
 void FisService::createRulesFromList(const std::list<QString> &ruleList)
 {
 
+    // Verifica se a quantidade de regras está correta
+    int sizeRuleList = static_cast<int>(ruleList.size());
+    if (sizeRuleList == m_system.getNumRules())
+    {
+        int ruleNumber = 1;
+        // Percorre cada uma das regras
+        for (auto const& line : ruleList)
+        {
+            Rule fisRule = Rule();
+
+            // Separa a string em antecedentes e o restante
+            QStringList splitRule = line.split(",");
+//            const QString systemField = splitLine[0];
+//            const QString systemFieldValue = splitLine[1].replace("'","");
+
+//            fisInputService.createFromFisBlock(inputList.second);
+//            m_system.addInput(inputList.first, fisInputService.getInput());
+            ++ruleNumber;
+        }
+    }
+    else
+    {
+        throw std::exception("Quantidade de regras é diferente do número de regras informado no bloco System!");
+    }
+
+/*
+
+            for rule_number, entry in enumerate(r_list):
+
+                # Separa a string em antecedentes e o restante
+                inputs_other = entry.split(sep=',')
+
+                # Separa os antecedentes da regra
+                r_inputs = inputs_other[0].split()
+
+                # Verifica se a quantidade de antecedentes está correta
+                if len(r_inputs) != self.system.num_inputs:
+                    raise Exception(
+                        "Quantidade de antecedentes da regra é diferente do "
+                        "número de antecedentes informado no bloco System!")
+
+                # Cria os antededentes das regras
+                new_rule.inputs = self.create_inputs_rule(r_inputs)
+
+                # Separa o consequentes do tipo de conector
+                output_conn = inputs_other[1].split(':')
+
+                # Separa o consequentes do peso
+                output_weight = output_conn[0].strip().split()
+
+                # Separa os consequentes da regra
+                r_outputs = output_weight[:-1]
+
+                # Verifica se a quantidade de consequentes está correta
+                if len(r_outputs) != self.system.num_outputs:
+                    raise Exception(
+                        "Quantidade de consequentes da regra é diferente do "
+                        "número de consequentes informado no bloco System!")
+
+                # Cria os consequentes das regras
+                new_rule.outputs = self.create_outputs_rule(r_outputs)
+
+                # Verifica se o peso do consequente é um número float
+                try:
+                    # Salva o peso do consequente
+                    new_rule.weight = float(output_weight[-1][1:-1])
+                except Exception:
+                    raise Exception("O peso do consequente da regra não é um "
+                                    "número float!")
+
+                r_connection = self.system.DICT_CONNECTORS.get(
+                    output_conn[1].strip())
+
+                # Verifica se o conector informado foi implementado
+                if r_connection is None:
+                    raise Exception(f"O conector {output_conn[1].strip()} da "
+                                    f"regra {new_rule.name}, não foi "
+                                    f"implementado!")
+
+                # Salva os conectores dos antecedentes
+                new_rule.connection = Connections[r_connection]
+
+                self.system.add_rule(new_rule)
+
+*/
 }
 
 void FisService::createFaciesAssociationConverter(const bool &useFaciesAssociationConverter)

@@ -12,8 +12,8 @@
 #include "continental/fuzzy/domain/fis/rulevariable/RuleInput.h"
 #include "continental/fuzzy/domain/fis/rulevariable/RuleOutput.h"
 #include "continental/fuzzy/domain/fis/definition/Blocks.h"
-#include "continental/fuzzy/service/fis/InputService.h"
-#include "continental/fuzzy/service/fis/OutputService.h"
+#include "continental/fuzzy/service/fis/InputFisService.h"
+#include "continental/fuzzy/service/fis/OutputFisService.h"
 #include <memory>
 #include <list>
 #include <QString>

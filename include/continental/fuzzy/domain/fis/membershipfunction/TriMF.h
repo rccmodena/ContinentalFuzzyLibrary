@@ -9,7 +9,7 @@ namespace domain {
 namespace fis {
 namespace membershipfunction {
 
-class CONTINENTALFUZZY_EXPORT_DECL TriMF
+class CONTINENTALFUZZY_EXPORT_DECL TriMF // : public continental::fuzzy::domain::fis::membershipfunction::InputMembershipFunction
 {
 
 public:

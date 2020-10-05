@@ -6,7 +6,7 @@
 #include "continental/fuzzy/domain/fis/rulevariable/RuleInput.h"
 #include "continental/fuzzy/domain/fis/rulevariable/RuleOutput.h"
 #include <QString>
-#include <list>
+#include <map>
 namespace continental {
 namespace fuzzy {
 namespace domain {
@@ -21,27 +21,23 @@ public:
     /// Construtor.
     Rule();
 
-    QString getName() const;
-    void setName(const QString &name);
-
     float getWeight() const;
     void setWeight(float weight);
 
     definition::Connections getConnection() const;
     void setConnection(const definition::Connections &connection);
 
-    std::list<continental::fuzzy::domain::fis::rulevariable::RuleInput> getInputs() const;
-    void setInputs(const std::list<continental::fuzzy::domain::fis::rulevariable::RuleInput> &inputs);
+    std::map<int, continental::fuzzy::domain::fis::rulevariable::RuleInput> getInputs() const;
+    void setInputs(const std::map<int, continental::fuzzy::domain::fis::rulevariable::RuleInput> &ruleInputs);
 
-    std::list<continental::fuzzy::domain::fis::rulevariable::RuleOutput> getOutputs() const;
-    void setOutputs(const std::list<continental::fuzzy::domain::fis::rulevariable::RuleOutput> &outputs);
+    std::map<int, continental::fuzzy::domain::fis::rulevariable::RuleOutput> getOutputs() const;
+    void setOutputs(const std::map<int, continental::fuzzy::domain::fis::rulevariable::RuleOutput> &ruleOutputs);
 
 private:
-    QString m_name;
     float m_weight;
     definition::Connections m_connection;
-    std::list<continental::fuzzy::domain::fis::rulevariable::RuleInput> m_inputs;
-    std::list<continental::fuzzy::domain::fis::rulevariable::RuleOutput> m_outputs;
+    std::map<int, continental::fuzzy::domain::fis::rulevariable::RuleInput> m_ruleInputs;
+    std::map<int, continental::fuzzy::domain::fis::rulevariable::RuleOutput> m_ruleOutputs;
 };
 
 }
