@@ -9,6 +9,7 @@
 
 #include "continental/fuzzy/export.h"
 #include "continental/fuzzy/domain/fis/variable/Input.h"
+#include "continental/fuzzy/service/fis/MembershipFunctionService.h"
 #include <memory>
 #include <iostream>
 #include <QString>
@@ -31,15 +32,15 @@ public:
     ~InputService();
 
     // Cria uma variável a partir das informações de um arquivo .fis.
-    std::shared_ptr<domain::fis::variable::Input> createFromFisBlock(const std::shared_ptr<std::list<QString>> fisInputList);
+    void createFromFisBlock(const std::list<QString> &fisInputList);
 
-    std::shared_ptr<domain::fis::variable::Input> getInput() const;
+    domain::fis::variable::Input getInput() const;
 
-    void setInput(const std::shared_ptr<domain::fis::variable::Input> input);
+    void setInput(const domain::fis::variable::Input &input);
 
 private:
     /// Membros.
-    std::shared_ptr<domain::fis::variable::Input> m_input = std::make_shared<domain::fis::variable::Input>();
+    domain::fis::variable::Input m_input = domain::fis::variable::Input();
 };
 
 }

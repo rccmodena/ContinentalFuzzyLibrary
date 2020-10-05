@@ -1,5 +1,7 @@
 #include "continental/fuzzy/domain/fis/variable/Output.h"
 
+using namespace continental::fuzzy::domain::fis::membershipfunction;
+
 namespace continental {
 namespace fuzzy {
 namespace domain {
@@ -11,35 +13,31 @@ Output::Output()
 
 }
 
-QString Output::getName() const
+Output::~Output()
 {
-    return m_name;
+
 }
 
-void Output::setName(const QString &name)
+definition::VariableType Output::getVariableType() const
 {
-    m_name = name;
+    return m_variableType;
 }
 
-std::list<float> Output::getRange() const
+std::map<int, OutputMembershipFunction> Output::getOutputMfs() const
 {
-    return range;
+    return m_outputMfs;
 }
 
-void Output::setRange(const std::list<float> &value)
+void Output::setOutputMfs(const std::map<int, OutputMembershipFunction> &outputMfs)
 {
-    range = value;
+    m_outputMfs = outputMfs;
 }
 
-int Output::getNumMfs() const
+void Output::addOutputMfs(const int mfsNumber, const OutputMembershipFunction &outputMfs)
 {
-    return m_numMfs;
+    m_outputMfs.insert(std::pair<int, OutputMembershipFunction>(mfsNumber, outputMfs));
 }
 
-void Output::setNumMfs(int numMfs)
-{
-    m_numMfs = numMfs;
-}
 
 }
 }

@@ -3,7 +3,9 @@
 #include <QCoreApplication>
 #include <continental/fuzzy/service/fuzzy/FuzzyService.h>
 #include <continental/fuzzy/service/fis/FisService.h>
+#include <continental/fuzzy/domain/fis/definition/InputFunctions.h>
 
+using namespace continental::fuzzy::domain::fis::definition;
 using namespace continental::fuzzy::service::fuzzy;
 using namespace continental::fuzzy::service::fis;
 
@@ -19,7 +21,7 @@ int main(int argc, char **argv)
     try
     {
         auto my_system = import.importFile("C:/stratbr-oiv-1.12.5/plugins/visual/ContinentalCarbonatePlugin/Ramp_Arid.fis", false);
-        std::cout << my_system->getName().toStdString() << std::endl;
+        std::cout << my_system.getName().toStdString() << std::endl;
     }
     catch (const std::exception& e)
     {

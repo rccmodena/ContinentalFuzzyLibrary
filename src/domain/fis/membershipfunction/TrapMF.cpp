@@ -8,21 +8,52 @@ namespace membershipfunction {
 
 TrapMF::TrapMF()
 {
+
 }
 
-QString TrapMF::getName() const
+TrapMF::~TrapMF()
 {
-    return m_name;
+
 }
 
-std::list<float> TrapMF::getAbcd() const
+double TrapMF::getA() const
 {
-    return m_abcd;
+    return m_a;
 }
 
-void TrapMF::setAbcd(const std::list<float> &abcd)
+void TrapMF::setA(double a)
 {
-    m_abcd = abcd;
+    m_a = a;
+}
+
+double TrapMF::getB() const
+{
+    return m_b;
+}
+
+void TrapMF::setB(double b)
+{
+    m_b = b;
+}
+
+double TrapMF::getC() const
+{
+    return m_c;
+}
+
+void TrapMF::setC(double c)
+{
+    m_c = c;
+}
+
+double TrapMF::getD() const
+{
+    return m_d;
+}
+
+void TrapMF::setD(double d)
+{
+    m_d = d;
 }
 
 }

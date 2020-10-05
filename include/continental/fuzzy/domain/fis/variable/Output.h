@@ -3,6 +3,8 @@
 
 #include "continental/fuzzy/export.h"
 #include "continental/fuzzy/domain/fis/Variable.h"
+#include "continental/fuzzy/domain/fis/definition/VariableType.h"
+#include "continental/fuzzy/domain/fis/membershipFunction/OutputMembershipFunction.h"
 #include <QString>
 #include <list>
 
@@ -19,20 +21,19 @@ public:
     /// Construtor.
     Output();
 
-    QString getName() const;
-    void setName(const QString &name);
+    /// Destrutor.
+    ~Output();
 
-    std::list<float> getRange() const;
-    void setRange(const std::list<float> &value);
+    continental::fuzzy::domain::fis::definition::VariableType getVariableType() const;
 
-    int getNumMfs() const;
-    void setNumMfs(int numMfs);
+    std::map<int, continental::fuzzy::domain::fis::membershipfunction::OutputMembershipFunction> getOutputMfs() const;
+    void setOutputMfs(const std::map<int, continental::fuzzy::domain::fis::membershipfunction::OutputMembershipFunction> &outputMfs);
+    void addOutputMfs(const int mfsNumber, const continental::fuzzy::domain::fis::membershipfunction::OutputMembershipFunction &outputMfs);
 
 private:
-    QString m_name;
-    std::list<float> range;
-    int m_numMfs;
-    //std::map<int, MembershipFunction> m_mfs;
+    continental::fuzzy::domain::fis::definition::VariableType m_variableType = continental::fuzzy::domain::fis::definition::VariableType::consequent;
+    std::map<int, continental::fuzzy::domain::fis::membershipfunction::OutputMembershipFunction> m_outputMfs;
+
 };
 
 }

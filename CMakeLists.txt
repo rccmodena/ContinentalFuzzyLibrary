@@ -41,7 +41,8 @@ add_library(ContinentalFuzzy
     src/domain/fis/definition/Connections.cpp
     src/domain/fis/definition/ControllerType.cpp
     src/domain/fis/definition/DefuzzMethods.cpp
-    src/domain/fis/definition/Functions.cpp
+    src/domain/fis/definition/InputFunctions.cpp
+    src/domain/fis/definition/OutputFunctions.cpp
     src/domain/fis/definition/ImpMethods.cpp
     src/domain/fis/definition/OrMethods.cpp
     src/domain/fis/definition/VariableType.cpp
@@ -53,6 +54,8 @@ add_library(ContinentalFuzzy
     src/domain/fis/membershipfunction/LinearMF.cpp
     src/domain/fis/membershipfunction/TrapMF.cpp
     src/domain/fis/membershipfunction/TriMF.cpp
+    src/domain/fis/membershipfunction/InputMembershipFunction.cpp
+    src/domain/fis/membershipfunction/OutputMembershipFunction.cpp
     src/domain/fuzzy/definition/sugeno/SugenoAggMethods.cpp
     src/domain/fuzzy/definition/sugeno/SugenoAndMethods.cpp
     src/domain/fuzzy/definition/sugeno/SugenoDefuzzMethods.cpp
@@ -72,6 +75,8 @@ add_library(ContinentalFuzzy
     src/service/fuzzy/FuzzyService.cpp
     src/service/fis/FisService.cpp
     src/service/fis/InputService.cpp
+    src/service/fis/OutputService.cpp
+    src/service/fis/MembershipFunctionService.cpp
 )
 
 #Add an alias so that library can be used inside the build tree, e.g. when testing

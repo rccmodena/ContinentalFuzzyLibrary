@@ -132,19 +132,19 @@ void System::setDefuzzMethod(const definition::DefuzzMethods &defuzzMethod)
     m_defuzzMethod = defuzzMethod;
 }
 
-std::shared_ptr<std::map<int, variable::Input>> System::getInputs() const
+std::map<int, variable::Input> System::getInputs() const
 {
     return m_inputs;
 }
 
-void System::setInputs(const std::shared_ptr<std::map<int, variable::Input>> inputs)
+void System::setInputs(const std::map<int, variable::Input> &inputs)
 {
     m_inputs = inputs;
 }
 
-void System::addInput(const int inputNumber, const std::shared_ptr<variable::Input> input)
+void System::addInput(const int inputNumber, const variable::Input &input)
 {
-    (*m_inputs).insert(std::pair<int,variable::Input>(inputNumber, (*input)));
+    m_inputs.insert(std::pair<int,variable::Input>(inputNumber, input));
 }
 
 std::map<int, variable::Output> System::getOutputs() const
@@ -155,6 +155,11 @@ std::map<int, variable::Output> System::getOutputs() const
 void System::setOutputs(const std::map<int, variable::Output> &outputs)
 {
     m_outputs = outputs;
+}
+
+void System::addOutput(const int outputNumber, const variable::Output &output)
+{
+    m_outputs.insert(std::pair<int,variable::Output>(outputNumber, output));
 }
 
 std::map<int, Rule> System::getRules() const

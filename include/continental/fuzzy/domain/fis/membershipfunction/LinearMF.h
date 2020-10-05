@@ -1,10 +1,8 @@
-#ifndef CONTINENTAFUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_LINEARMF_H
-#define CONTINENTAFUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_LINEARMF_H
+#ifndef CONTINENTAL_FUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_LINEARMF_H
+#define CONTINENTAL_FUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_LINEARMF_H
 
 #include "continental/fuzzy/export.h"
-#include "continental/fuzzy/export.h"
-#include <QString>
-#include <list>
+#include <map>
 
 namespace continental {
 namespace fuzzy {
@@ -19,20 +17,15 @@ public:
     /// Construtor.
     LinearMF();
 
-    QString getName() const;
-    void setName(const QString &name);
+    /// Destrutor.
+    ~LinearMF();
 
-    int getNumInputs() const;
-    void setNumInputs(int numInputs);
-
-    std::list<float> getParams() const;
-    void setParams(const std::list<float> &params);
+    std::map<int, double> getParams() const;
+    void setParams(const std::map<int, double> &params);
+    void addParams(const int numParam, const double valorParam);
 
 private:
-    QString m_name;
-    int m_numInputs = 1;
-    std::list<float>m_params;
-
+    std::map<int, double> m_params;
 };
 
 }
@@ -41,4 +34,4 @@ private:
 }
 }
 
-#endif // CONTINENTAFUZZY_SERVICE_FUZZY_FUZZYSERVICE_H
+#endif // CONTINENTAL_FUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_LINEARMF_H

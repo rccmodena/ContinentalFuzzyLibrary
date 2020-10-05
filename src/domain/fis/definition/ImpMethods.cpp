@@ -1,1 +1,1 @@
-#include "continental/fuzzy/domain/fis/definition/Functions.h"
+#include "continental/fuzzy/domain/fis/definition/ImpMethods.h"

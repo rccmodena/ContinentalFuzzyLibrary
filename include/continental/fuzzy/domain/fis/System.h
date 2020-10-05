@@ -8,7 +8,8 @@
 #include "continental/fuzzy/domain/fis/definition/Connections.h"
 #include "continental/fuzzy/domain/fis/definition/ControllerType.h"
 #include "continental/fuzzy/domain/fis/definition/DefuzzMethods.h"
-#include "continental/fuzzy/domain/fis/definition/Functions.h"
+#include "continental/fuzzy/domain/fis/definition/InputFunctions.h"
+#include "continental/fuzzy/domain/fis/definition/OutputFunctions.h"
 #include "continental/fuzzy/domain/fis/definition/ImpMethods.h"
 #include "continental/fuzzy/domain/fis/definition/OrMethods.h"
 #include "continental/fuzzy/domain/fis/Rule.h"
@@ -68,12 +69,13 @@ public:
     definition::DefuzzMethods getDefuzzMethod() const;
     void setDefuzzMethod(const definition::DefuzzMethods &defuzzMethod);
 
-    std::shared_ptr<std::map<int, variable::Input>> getInputs() const;
-    void setInputs(const std::shared_ptr<std::map<int, variable::Input>> inputs);
-    void addInput(const int inputNumber,const std::shared_ptr<variable::Input> input);
+    std::map<int, variable::Input> getInputs() const;
+    void setInputs(const std::map<int, variable::Input> &inputs);
+    void addInput(const int inputNumber,const variable::Input &input);
 
     std::map<int, variable::Output> getOutputs() const;
     void setOutputs(const std::map<int, variable::Output> &outputs);
+    void addOutput(const int outputNumber,const variable::Output &output);
 
     std::map<int, Rule> getRules() const;
     void setRules(const std::map<int, Rule> &rules);
@@ -94,8 +96,8 @@ private:
     definition::ImpMethods m_impMethod = definition::ImpMethods::none;
     definition::AggMethods m_aggMethod = definition::AggMethods::none;
     definition::DefuzzMethods m_defuzzMethod = definition::DefuzzMethods::none;
-    std::shared_ptr<std::map<int, domain::fis::variable::Input>> m_inputs = std::make_shared<std::map<int, domain::fis::variable::Input>>();
-    std::map<int, variable::Output> m_outputs;
+    std::map<int, domain::fis::variable::Input> m_inputs = std::map<int, domain::fis::variable::Input>();
+    std::map<int, domain::fis::variable::Output> m_outputs = std::map<int, domain::fis::variable::Output>();
     std::map<int, fis::Rule> m_rules;
 };
 

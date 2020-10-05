@@ -1,9 +1,7 @@
-#ifndef CONTINENTAFUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_CONSTANTMF_H
-#define CONTINENTAFUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_CONSTANTMF_H
+#ifndef CONTINENTAL_FUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_CONSTANT_H
+#define CONTINENTAL_FUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_CONSTANT_H
 
 #include "continental/fuzzy/export.h"
-#include "continental/fuzzy/export.h"
-#include <QString>
 
 namespace continental {
 namespace fuzzy {
@@ -18,15 +16,14 @@ public:
     /// Construtor.
     ConstantMF();
 
-    QString getName() const;
-    void setName(const QString &name);
+    /// Destrutor.
+    ~ConstantMF();
 
-    QString getValue() const;
-    void setValue(const QString &value);
+    double getValue() const;
+    void setValue(const double value);
 
 private:
-    QString m_name;
-    QString m_value;
+    double m_value;
 };
 
 }
@@ -35,4 +32,4 @@ private:
 }
 }
 
-#endif // CONTINENTAFUZZY_SERVICE_FUZZY_FUZZYSERVICE_H
+#endif // CONTINENTAL_FUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_CONSTANT_H

@@ -4,6 +4,7 @@
 #include "continental/fuzzy/export.h"
 #include "continental/fuzzy/domain/fis/Variable.h"
 #include "continental/fuzzy/domain/fis/definition/VariableType.h"
+#include "continental/fuzzy/domain/fis/membershipFunction/InputMembershipFunction.h"
 #include <memory>
 #include <QString>
 #include <list>
@@ -25,12 +26,13 @@ public:
 
     continental::fuzzy::domain::fis::definition::VariableType getVariableType() const;
 
+    std::map<int, continental::fuzzy::domain::fis::membershipfunction::InputMembershipFunction> getInputMfs() const;
+    void setInputMfs(const std::map<int, continental::fuzzy::domain::fis::membershipfunction::InputMembershipFunction> &inputMfs);
+    void addInputMfs(const int mfsNumber, const continental::fuzzy::domain::fis::membershipfunction::InputMembershipFunction &inputMfs);
+
 private:
-    //QString m_name = "";
     continental::fuzzy::domain::fis::definition::VariableType m_variableType = continental::fuzzy::domain::fis::definition::VariableType::antecedent;
-    //std::shared_ptr<std::pair<float, float>> m_range = std::make_shared<std::pair<float, float>>(0, 0);
-    //int m_numMfs = 0;
-    //std::map<int, MembershipFunction> m_mfs;
+    std::map<int, continental::fuzzy::domain::fis::membershipfunction::InputMembershipFunction> m_inputMfs;
 };
 
 }

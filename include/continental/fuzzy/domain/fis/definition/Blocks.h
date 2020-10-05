@@ -1,9 +1,7 @@
-#ifndef CONTINENTAFUZZY_DOMAIN_FIS_DEFINITIONS_BLOCKS_H
-#define CONTINENTAFUZZY_DOMAIN_FIS_DEFINITIONS_BLOCKS_H
+#ifndef CONTINENTAL_FUZZY_DOMAIN_FIS_DEFINITION_BLOCKS_H
+#define CONTINENTAL_FUZZY_DOMAIN_FIS_DEFINITION_BLOCKS_H
 
 #include "continental/fuzzy/export.h"
-#include "continental/fuzzy/export.h"
-
 
 namespace continental {
 namespace fuzzy {
@@ -26,4 +24,4 @@ enum class Blocks
 }
 }
 
-#endif // CONTINENTAFUZZY_SERVICE_FUZZY_FUZZYSERVICE_H
+#endif // CONTINENTAL_FUZZY_DOMAIN_FIS_DEFINITION_BLOCKS_H

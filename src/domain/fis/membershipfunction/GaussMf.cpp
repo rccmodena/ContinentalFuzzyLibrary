@@ -11,32 +11,27 @@ GaussMF::GaussMF()
 
 }
 
-QString GaussMF::getName() const
+GaussMF::~GaussMF()
 {
-    return m_name;
+
 }
 
-void GaussMF::setName(const QString &name)
-{
-    m_name = name;
-}
-
-float GaussMF::getSigma() const
+double GaussMF::getSigma() const
 {
     return m_sigma;
 }
 
-void GaussMF::setSigma(float sigma)
+void GaussMF::setSigma(double sigma)
 {
     m_sigma = sigma;
 }
 
-float GaussMF::getMean() const
+double GaussMF::getMean() const
 {
     return m_mean;
 }
 
-void GaussMF::setMean(float mean)
+void GaussMF::setMean(double mean)
 {
     m_mean = mean;
 }

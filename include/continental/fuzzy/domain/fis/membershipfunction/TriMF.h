@@ -1,10 +1,7 @@
-#ifndef CONTINENTAFUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_TRIMF_H
-#define CONTINENTAFUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_TRIMF_H
+#ifndef CONTINENTAL_FUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_TRIMF_H
+#define CONTINENTAL_FUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_TRIMF_H
 
 #include "continental/fuzzy/export.h"
-#include "continental/fuzzy/export.h"
-#include <QString>
-#include <list>
 
 namespace continental {
 namespace fuzzy {
@@ -19,15 +16,22 @@ public:
     /// Construtor.
     TriMF();
 
-    QString getName() const;
-    void setName(const QString &name);
+    /// Destrutor.
+    ~TriMF();
 
-    std::list<float> getAbcd() const;
-    void setAbcd(const std::list<float> &abcd);
+    double getA() const;
+    void setA(double a);
+
+    double getB() const;
+    void setB(double b);
+
+    double getC() const;
+    void setC(double c);
 
 private:
-    QString m_name;
-    std::list<float>m_abcd;
+    double m_a = 0.0;
+    double m_b = 0.0;
+    double m_c = 0.0;
 
 };
 
@@ -37,4 +41,4 @@ private:
 }
 }
 
-#endif // CONTINENTAFUZZY_SERVICE_FUZZY_FUZZYSERVICE_H
+#endif // CONTINENTAL_FUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_TRIMF_H

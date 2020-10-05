@@ -1,9 +1,7 @@
-#ifndef CONTINENTAFUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_GAUSSMF_H
-#define CONTINENTAFUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_GAUSSMF_H
+#ifndef CONTINENTAL_FUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_GAUSSMF_H
+#define CONTINENTAL_FUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_GAUSSMF_H
 
 #include "continental/fuzzy/export.h"
-#include "continental/fuzzy/export.h"
-#include <QString>
 
 namespace continental {
 namespace fuzzy {
@@ -18,20 +16,18 @@ public:
     /// Construtor.
     GaussMF();
 
-    QString getName() const;
-    void setName(const QString &name);
+    /// Destrutor.
+    ~GaussMF();
 
-    float getSigma() const;
-    void setSigma(float sigma);
+    double getSigma() const;
+    void setSigma(double sigma);
 
-    float getMean() const;
-    void setMean(float mean);
+    double getMean() const;
+    void setMean(double mean);
 
 private:
-    QString m_name;
-    float m_sigma;
-    float m_mean;
-
+    double m_sigma;
+    double m_mean;
 };
 
 }
@@ -40,4 +36,4 @@ private:
 }
 }
 
-#endif // CONTINENTAFUZZY_SERVICE_FUZZY_FUZZYSERVICE_H
+#endif // CONTINENTAL_FUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_GAUSSMF_H

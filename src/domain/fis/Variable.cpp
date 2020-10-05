@@ -23,12 +23,13 @@ void Variable::setName(const QString &name)
 {
     m_name = name;
 }
-std::shared_ptr<std::pair<float, float>> Variable::getRange() const
+
+std::pair<double, double>& Variable::getRange()
 {
     return m_range;
 }
 
-void Variable::setRange(const std::shared_ptr<std::pair<float, float>> range)
+void Variable::setRange(const std::pair<double, double> &range)
 {
     m_range = range;
 }

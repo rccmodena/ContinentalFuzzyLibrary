@@ -10,36 +10,25 @@ LinearMF::LinearMF()
 {
 }
 
-QString LinearMF::getName() const
+LinearMF::~LinearMF()
 {
-    return m_name;
+
 }
 
-void LinearMF::setName(const QString &name)
-{
-    m_name = name;
-}
-
-int LinearMF::getNumInputs() const
-{
-    return m_numInputs;
-}
-
-void LinearMF::setNumInputs(int numInputs)
-{
-    m_numInputs = numInputs;
-}
-
-std::list<float> LinearMF::getParams() const
+std::map<int, double> LinearMF::getParams() const
 {
     return m_params;
 }
 
-void LinearMF::setParams(const std::list<float> &params)
+void LinearMF::setParams(const std::map<int, double> &params)
 {
     m_params = params;
 }
 
+void LinearMF::addParams(const int numParam, const double valorParam)
+{
+    m_params.insert(std::pair<int, double>(numParam, valorParam));
+}
 
 }
 }

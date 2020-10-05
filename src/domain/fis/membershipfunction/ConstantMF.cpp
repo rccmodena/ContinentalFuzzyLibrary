@@ -11,22 +11,17 @@ ConstantMF::ConstantMF()
 
 }
 
-QString ConstantMF::getName() const
+ConstantMF::~ConstantMF()
 {
-    return m_name;
+
 }
 
-void ConstantMF::setName(const QString &name)
-{
-    m_name = name;
-}
-
-QString ConstantMF::getValue() const
+double ConstantMF::getValue() const
 {
     return m_value;
 }
 
-void ConstantMF::setValue(const QString &value)
+void ConstantMF::setValue(const double value)
 {
     m_value = value;
 }
