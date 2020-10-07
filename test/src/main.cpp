@@ -7,11 +7,16 @@
 #include <continental/fuzzy/domain/fis/definition/ImpMethods.h>
 #include <continental/fuzzy/domain/fis/definition/OrMethods.h>
 #include <continental/fuzzy/domain/fis/definition/InputFunctions.h>
+#include <continental/fuzzy/service/fuzzy/membershipfunction/GaussMembershipFunctionService.h>
+#include <continental/fuzzy/service/fuzzy/membershipfunction/GaussTwoMembershipFunctionService.h>
+#include <continental/fuzzy/service/fuzzy/membershipfunction/TriangularMembershipFunctionService.h>
+#include <continental/fuzzy/service/fuzzy/membershipfunction/TrapezoidalMembershipFunctionService.h>
 
 #include <QString>
 
 using namespace continental::fuzzy::service::fis;
 using namespace continental::fuzzy::domain::fis::definition;
+using namespace continental::fuzzy::service::fuzzy::membershipfunction;
 
 TEST(ContinentalFuzzyTest, TestImportFisFile)
 {
@@ -213,6 +218,33 @@ TEST(ContinentalFuzzyTest, TestImportFisFile)
 
     // (6):Undefined -> (12):Undefined
     ASSERT_EQ(12,  myFaciesAssociation[6]);
+}
+
+TEST(ContinentalFuzzyTest, TestMembershipFunctions)
+{
+    // Teste da função gaussiana
+    ASSERT_NEAR(0.44829, GaussMembershipFunctionService::calculeGaussMf(4.9, 3.0, 1.5), 0.0001);
+
+    // Teste da função combinação de duas curvas gaussianas
+    ASSERT_NEAR(0.89683, GaussTwoMembershipFunctionService::calculeTwoGaussMf(2.3, 3.0, 1.5, 8.0, 2.7), 0.0001);
+    ASSERT_NEAR(0.92035, GaussTwoMembershipFunctionService::calculeTwoGaussMf(9.1, 3.0, 1.5, 8.0, 2.7), 0.0001);
+    ASSERT_NEAR(1.0, GaussTwoMembershipFunctionService::calculeTwoGaussMf(5.0, 3.0, 1.5, 8.0, 2.7), 0.0001);
+    ASSERT_NEAR(0.19691, GaussTwoMembershipFunctionService::calculeTwoGaussMf(5.0, 8.0, 2, 4.0, 1.0), 0.0001);
+
+    // Teste da função triangular
+    ASSERT_NEAR(0.3, TriangularMembershipFunctionService::calculeTriangularMf(2.7, 1.0, 2.0, 3.0), 0.01);
+    ASSERT_NEAR(0.5, TriangularMembershipFunctionService::calculeTriangularMf(1.5, 1.0, 2.0, 3.0), 0.01);
+    ASSERT_NEAR(1.0, TriangularMembershipFunctionService::calculeTriangularMf(2.0, 1.0, 2.0, 3.0), 0.01);
+    ASSERT_NEAR(1.0, TriangularMembershipFunctionService::calculeTriangularMf(2.0, 1.0, 2.0, 3.0), 0.01);
+    ASSERT_NEAR(0.0, TriangularMembershipFunctionService::calculeTriangularMf(7.0, 1.0, 2.0, 3.0), 0.01);
+
+    // Teste da função trapezoidal
+    ASSERT_NEAR(0.0, TrapezoidalMembershipFunctionService::calculeTrapezoidalMf(0.0, 1.0, 2.0, 3.0, 4.0), 0.01);
+    ASSERT_NEAR(0.7, TrapezoidalMembershipFunctionService::calculeTrapezoidalMf(1.7, 1.0, 2.0, 3.0, 4.0), 0.01);
+    ASSERT_NEAR(1.0, TrapezoidalMembershipFunctionService::calculeTrapezoidalMf(2.7, 1.0, 2.0, 3.0, 4.0), 0.01);
+    ASSERT_NEAR(0.9, TrapezoidalMembershipFunctionService::calculeTrapezoidalMf(3.1, 1.0, 2.0, 3.0, 4.0), 0.01);
+    ASSERT_NEAR(1.0, TrapezoidalMembershipFunctionService::calculeTrapezoidalMf(2.0, 1.0, 2.0, 3.0, 4.0), 0.01);
+
 }
 
 int main(int argc, char **argv)

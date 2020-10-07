@@ -78,6 +78,10 @@ add_library(ContinentalFuzzy
     src/service/fis/InputFisService.cpp
     src/service/fis/OutputFisService.cpp
     src/service/fis/MembershipFunctionFisService.cpp
+    src/service/fuzzy/membershipfunction/GaussMembershipFunctionService.cpp
+    src/service/fuzzy/membershipfunction/GaussTwoMembershipFunctionService.cpp
+    src/service/fuzzy/membershipfunction/TrapezoidalMembershipFunctionService.cpp
+    src/service/fuzzy/membershipfunction/TriangularMembershipFunctionService.cpp
 )
 
 #Add an alias so that library can be used inside the build tree, e.g. when testing
