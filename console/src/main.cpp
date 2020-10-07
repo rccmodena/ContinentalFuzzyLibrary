@@ -1,12 +1,11 @@
 #include <iostream>
 #include <QString>
 #include <QCoreApplication>
-#include <continental/fuzzy/service/fuzzy/FuzzyService.h>
+
 #include <continental/fuzzy/service/fis/FisService.h>
 #include <continental/fuzzy/domain/fis/definition/InputFunctions.h>
 
 using namespace continental::fuzzy::domain::fis::definition;
-using namespace continental::fuzzy::service::fuzzy;
 using namespace continental::fuzzy::service::fis;
 
 int main(int argc, char **argv)
