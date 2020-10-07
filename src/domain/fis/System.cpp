@@ -12,6 +12,11 @@ System::System()
 {
 }
 
+System::~System()
+{
+
+}
+
 QString System::getName() const
 {
     return m_name;
@@ -20,6 +25,21 @@ QString System::getName() const
 void System::setName(const QString &name)
 {
     m_name = name;
+}
+
+std::map<int, int> System::getFaciesAssociationConversion() const
+{
+    return m_faciesAssociationConversion;
+}
+
+void System::setFaciesAssociationConversion(const std::map<int, int> &faciesAssociationConversion)
+{
+    m_faciesAssociationConversion = faciesAssociationConversion;
+}
+
+void System::addFaciesAssociationConversion(const int fisFaciesAssociation, const int faciesAssociation)
+{
+    m_faciesAssociationConversion.insert(std::pair<int, int>(fisFaciesAssociation, faciesAssociation));
 }
 
 QString System::getFilename() const
@@ -172,7 +192,10 @@ void System::setRules(const std::map<int, Rule> &rules)
     m_rules = rules;
 }
 
-
+void System::addRule(const int ruleNumber, const Rule &rule)
+{
+    m_rules.insert(std::pair<int, Rule>(ruleNumber, rule));
+}
 
 }
 }

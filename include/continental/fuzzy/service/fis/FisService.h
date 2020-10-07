@@ -9,9 +9,9 @@
 
 #include "continental/fuzzy/export.h"
 #include "continental/fuzzy/domain/fis/System.h"
-#include "continental/fuzzy/domain/fis/rulevariable/RuleInput.h"
-#include "continental/fuzzy/domain/fis/rulevariable/RuleOutput.h"
+#include "continental/fuzzy/domain/fis/RuleVariable.h"
 #include "continental/fuzzy/domain/fis/definition/Blocks.h"
+#include "continental/fuzzy/domain/fis/definition/FaciesAssociationsImplemented.h"
 #include "continental/fuzzy/service/fis/InputFisService.h"
 #include "continental/fuzzy/service/fis/OutputFisService.h"
 #include <memory>
@@ -37,7 +37,7 @@ public:
     ~FisService();
 
     // Importa um arquivo .fis e cria todos os componentes de um sistema fuzzy.
-    domain::fis::System& importFile(const QString &filename, const bool &useFaciesAssociationConverter);
+    domain::fis::System& importFile(const QString &filename);
 
 private:
     /// Membros.
@@ -55,17 +55,11 @@ private:
     // Cria os consequentes com as informações dos blocos de inputs do arquivo .fis.
     void createOutputsFromMap(const std::map<int, std::list<QString>> &outputsList);
 
-    // Cria os antededentes das regras com as informações do bloco de rules do arquivo .fis.
-    domain::fis::rulevariable::RuleInput& createRuleInputsFromList(const std::map<int, std::list<QString>> &ruleInputsList);
-
-    // Cria os consequentes das regras com as informações do bloco de rules do arquivo .fis.
-    domain::fis::rulevariable::RuleOutput& createRuleOutputsFromList(const std::map<int, std::list<QString>> &ruleOutputsList);
-
     // Cria as regras com as informações do bloco de rules do arquivo .fis.
     void createRulesFromList(const std::list<QString> &ruleList);
 
     //def create_dict_facies_association(self, p_use_dict: bool):
-    void createFaciesAssociationConverter(const bool &useFaciesAssociationConverter);
+    void createFaciesAssociationConverter();
 
     // Verifica se a importação preencheu todas as informações.
     void validImport();
