@@ -11,12 +11,20 @@
 #include <continental/fuzzy/service/fuzzy/membershipfunction/GaussTwoMembershipFunctionService.h>
 #include <continental/fuzzy/service/fuzzy/membershipfunction/TriangularMembershipFunctionService.h>
 #include <continental/fuzzy/service/fuzzy/membershipfunction/TrapezoidalMembershipFunctionService.h>
+#include <continental/fuzzy/service/fuzzy/membershipfunction/LinearMembershipFunctionService.h>
+#include <continental/fuzzy/service/fuzzy/operators/MaxOrMethod.h>
+#include <continental/fuzzy/service/fuzzy/operators/MinAndMethod.h>
+#include <continental/fuzzy/service/fuzzy/operators/NotMethod.h>
+#include <continental/fuzzy/service/fuzzy/operators/MinAndMethod.h>
+#include <continental/fuzzy/service/fuzzy/operators/ProborOrMethod.h>
+#include <continental/fuzzy/service/fuzzy/operators/ProdAndMethod.h>
 
 #include <QString>
 
 using namespace continental::fuzzy::service::fis;
 using namespace continental::fuzzy::domain::fis::definition;
 using namespace continental::fuzzy::service::fuzzy::membershipfunction;
+using namespace continental::fuzzy::service::fuzzy::operators;
 
 TEST(ContinentalFuzzyTest, TestImportFisFile)
 {
@@ -232,19 +240,44 @@ TEST(ContinentalFuzzyTest, TestMembershipFunctions)
     ASSERT_NEAR(0.19691, GaussTwoMembershipFunctionService::calculeTwoGaussMf(5.0, 8.0, 2, 4.0, 1.0), 0.0001);
 
     // Teste da função triangular
-    ASSERT_NEAR(0.3, TriangularMembershipFunctionService::calculeTriangularMf(2.7, 1.0, 2.0, 3.0), 0.01);
-    ASSERT_NEAR(0.5, TriangularMembershipFunctionService::calculeTriangularMf(1.5, 1.0, 2.0, 3.0), 0.01);
-    ASSERT_NEAR(1.0, TriangularMembershipFunctionService::calculeTriangularMf(2.0, 1.0, 2.0, 3.0), 0.01);
-    ASSERT_NEAR(1.0, TriangularMembershipFunctionService::calculeTriangularMf(2.0, 1.0, 2.0, 3.0), 0.01);
-    ASSERT_NEAR(0.0, TriangularMembershipFunctionService::calculeTriangularMf(7.0, 1.0, 2.0, 3.0), 0.01);
+    ASSERT_NEAR(0.3, TriangularMembershipFunctionService::calculeTriangularMf(2.7, 1.0, 2.0, 3.0), 0.0001);
+    ASSERT_NEAR(0.5, TriangularMembershipFunctionService::calculeTriangularMf(1.5, 1.0, 2.0, 3.0), 0.0001);
+    ASSERT_NEAR(1.0, TriangularMembershipFunctionService::calculeTriangularMf(2.0, 1.0, 2.0, 3.0), 0.0001);
+    ASSERT_NEAR(1.0, TriangularMembershipFunctionService::calculeTriangularMf(2.0, 1.0, 2.0, 3.0), 0.0001);
+    ASSERT_NEAR(0.0, TriangularMembershipFunctionService::calculeTriangularMf(7.0, 1.0, 2.0, 3.0), 0.0001);
 
     // Teste da função trapezoidal
-    ASSERT_NEAR(0.0, TrapezoidalMembershipFunctionService::calculeTrapezoidalMf(0.0, 1.0, 2.0, 3.0, 4.0), 0.01);
-    ASSERT_NEAR(0.7, TrapezoidalMembershipFunctionService::calculeTrapezoidalMf(1.7, 1.0, 2.0, 3.0, 4.0), 0.01);
-    ASSERT_NEAR(1.0, TrapezoidalMembershipFunctionService::calculeTrapezoidalMf(2.7, 1.0, 2.0, 3.0, 4.0), 0.01);
-    ASSERT_NEAR(0.9, TrapezoidalMembershipFunctionService::calculeTrapezoidalMf(3.1, 1.0, 2.0, 3.0, 4.0), 0.01);
-    ASSERT_NEAR(1.0, TrapezoidalMembershipFunctionService::calculeTrapezoidalMf(2.0, 1.0, 2.0, 3.0, 4.0), 0.01);
+    ASSERT_NEAR(0.0, TrapezoidalMembershipFunctionService::calculeTrapezoidalMf(0.0, 1.0, 2.0, 3.0, 4.0), 0.0001);
+    ASSERT_NEAR(0.7, TrapezoidalMembershipFunctionService::calculeTrapezoidalMf(1.7, 1.0, 2.0, 3.0, 4.0), 0.0001);
+    ASSERT_NEAR(1.0, TrapezoidalMembershipFunctionService::calculeTrapezoidalMf(2.7, 1.0, 2.0, 3.0, 4.0), 0.0001);
+    ASSERT_NEAR(0.9, TrapezoidalMembershipFunctionService::calculeTrapezoidalMf(3.1, 1.0, 2.0, 3.0, 4.0), 0.0001);
+    ASSERT_NEAR(1.0, TrapezoidalMembershipFunctionService::calculeTrapezoidalMf(2.0, 1.0, 2.0, 3.0, 4.0), 0.0001);
 
+    // Teste da função linear
+    std::vector<double> inputsVector = {1.0, 2.0, 3.0};
+    std::vector<double> parametersVector = {4.0, 3.0, 2.0, 1.0};
+
+    ASSERT_NEAR(17.0, LinearMembershipFunctionService::calculeLinearMembershipFunctionService(parametersVector, inputsVector), 0.0001);
+}
+
+TEST(ContinentalFuzzyTest, TestOperators)
+{
+    std::vector<double> testValues = {0.3, 0.1, 0.7, 0.5, 0.4};
+
+    // Teste da método Or (Max)
+    ASSERT_NEAR(0.7, MaxOrMethod::calculeMaxOrMethod(testValues), 0.0001);
+
+    // Teste da método And (Min)
+    ASSERT_NEAR(0.1, MinAndMethod::calculeMinAndMethod(testValues), 0.0001);
+
+    // Teste da método Not
+    ASSERT_NEAR(0.3, NotMethod::calculeNotMethod(0.7), 0.0001);
+
+    // Teste da método Or (Probor)
+    ASSERT_NEAR(1.6482, ProborOrMethod::calculeProborOrMethod(testValues), 0.0001);
+
+    // Teste da método And (Prod)
+    ASSERT_NEAR(0.0042, ProdAndMethod::calculeProdAndMethod(testValues), 0.0001);
 }
 
 int main(int argc, char **argv)
