@@ -16,6 +16,11 @@
 #include "continental/fuzzy/domain/fuzzy/rulevariable/SugenoRuleOutput.h"
 #include "continental/fuzzy/domain/fuzzy/SugenoRule.h"
 #include "continental/fuzzy/domain/fuzzy/SugenoRuleVariable.h"
+#include "continental/fuzzy/service/fuzzy/membershipfunction/GaussMembershipFunctionService.h"
+#include "continental/fuzzy/service/fuzzy/membershipfunction/GaussTwoMembershipFunctionService.h"
+#include "continental/fuzzy/service/fuzzy/membershipfunction/TrapezoidalMembershipFunctionService.h"
+#include "continental/fuzzy/service/fuzzy/membershipfunction/TriangularMembershipFunctionService.h"
+#include <vector>
 
 
 using namespace  continental::fuzzy::domain::fuzzy;
@@ -24,6 +29,7 @@ using namespace  continental::fuzzy::domain::fis::variable;
 using namespace  continental::fuzzy::domain::fis::definition;
 using namespace  continental::fuzzy::domain::fuzzy::variable;
 using namespace  continental::fuzzy::domain::fuzzy::rulevariable;
+using namespace  continental::fuzzy::service::fuzzy::membershipfunction;
 
 namespace continental {
 namespace fuzzy {
@@ -46,7 +52,7 @@ void SugenoControllerService::getConnection(domain::fis::Rule p_rule)
     {
         if(m_sugenoController.getSugenoFisSystem().getAndMethod() == AndMethods::min)
         {
-            //return MinAndMethod.calculate_min_and
+            return MinAndMethod.calculate_min_and
         }
         else
         {
@@ -79,6 +85,7 @@ void SugenoControllerService::getConnection(domain::fis::Rule p_rule)
 void SugenoControllerService::getMFFunction(domain::fis::MembershipFunction p_membershipFunction)
 {
 
+    /*
     //reotrna um dic
     //switch(p_membershipFunction.function)
     int aux = 1;
@@ -109,58 +116,97 @@ void SugenoControllerService::getMFFunction(domain::fis::MembershipFunction p_me
 
         break;
     }
-
+    */
 
 }
 
-double SugenoControllerService::executeCalcOutputFunctions(OutputFunctions p_outputFunction, std::list<float> valueOfPoint)
+double SugenoControllerService::executeCalcOutputFunctions(OutputFunctions p_outputFunction, std::vector<double> valueOfPoint)
 {
 
-    return  1;
+    double result = 0;
+
+    if(p_outputFunction == OutputFunctions::linear)
+    {
+       result = 0;//LinearMembershipFunction.calculate_linear(r_output.params, v_inputs))
+    }
+    else
+    {
+        result = 10;
+    }
+
+    return  result;
 }
 
-double SugenoControllerService::executeCalcInputFunctions(continental::fuzzy::domain::fis::definition::InputFunctions p_inputFunction, std::list<float> valueOfPoint)
+double SugenoControllerService::executeCalcInputFunctions(
+        double inputValue,
+        size_t indexInput,
+        size_t indexMemberFunction)
 {
     double result = 0;
 
-    switch(p_inputFunction)
+    auto inputObject = m_sugenoController.getSugenoFisSystem().getInputs()[indexInput+1];
+    auto memberFunction = inputObject.getInputMfs()[indexMemberFunction];
+
+    switch(memberFunction.getFunction())
     {
         case InputFunctions::trimf:
-
-            double pointA = valueOfPoint[0];
-            double pointB = valueOfPoint[1];
-            double pointC = valueOfPoint[2];
-            result = TriangularMembershipFunction::calculate_trimf(parameterValue, pointA, pointB, pointC);
+            {
+                result = TriangularMembershipFunctionService::calculeTriangularMf
+                        (
+                            inputValue,
+                            memberFunction.getTrimf().getA(),
+                            memberFunction.getTrimf().getB(),
+                            memberFunction.getTrimf().getC()
+                        );
+            }
         break;
 
         case InputFunctions::trapmf:
-            double mean = valueOfPoint[0];
-            double sigma = valueOfPoint[1];
-            result = TrapezoidalMembershipFunction::calculate_trapmf(parameterValue, mean, sigma);
+            {
+                result = TrapezoidalMembershipFunctionService::calculeTrapezoidalMf
+                        (
+                            inputValue,
+                            memberFunction.getTrapmf().getA(),
+                            memberFunction.getTrapmf().getB(),
+                            memberFunction.getTrapmf().getC(),
+                            memberFunction.getTrapmf().getD()
+                        );
+            }
         break;
 
         case InputFunctions::gaussmf:
-            double mean = valueOfPoint[0];
-            double sigma = valueOfPoint[1];
-            result = GaussMembershipFunction::calculate_gaussmf(parameterValue, mean, sigma);
+            {
+                result = GaussMembershipFunctionService::calculeGaussMf
+                         (
+                            inputValue,
+                            memberFunction.getGaussmf().getMean(),
+                            memberFunction.getGaussmf().getSigma()
+                         );
+            }
         break;
 
         case InputFunctions::gauss2mf:
-            double mean1 = valueOfPoint[0];
-            double sigma1 = valueOfPoint[1];
-            double mean2 = valueOfPoint[0];
-            double sigma2 = valueOfPoint[1];
-            result = GaussTwoMembershipFunction::calculate_gauss2mf(parameterValue, mean1, sigma1, mean2, sigma2);
+            {
+                result = GaussTwoMembershipFunctionService::calculeTwoGaussMf
+                        (
+                            inputValue,
+                            memberFunction.getGauss2mf().getMean1(),
+                            memberFunction.getGauss2mf().getSigma1(),
+                            memberFunction.getGauss2mf().getMean2(),
+                            memberFunction.getGauss2mf().getSigma2()
+                        );
+            }
         break;
     }
 
     return result;
-
 }
 
 void SugenoControllerService::createFromFisSystem(System p_system)
 {
     m_sugenoController.setSugenoFisSystem(p_system);
+
+   /*
 
     //Import inputs
     for (auto f_input  : p_system.getInputs())
@@ -219,84 +265,114 @@ void SugenoControllerService::createFromFisSystem(System p_system)
 
 
         m_sugenoController.addSugenoOutput(f_rule.second.getName(), sugenoOutput)
-    }
+    }*/
 }
 
-std::list<float> SugenoControllerService::calcRuleWeights()
+std::vector<double> SugenoControllerService::calcRuleWeights()
 {
-    std::list<float> resultWeightsList;
+    std::vector<double> resultWeightsList;
 
-    for (auto o_rule : m_sugenoController.getSugenoRules())
+    for (int index = 0; index <=  m_sugenoController.getSugenoFisSystem().getRules().size(); ++index)
     {
-        resultWeightsList.push_back(o_rule.second.getWeight());
+        resultWeightsList.push_back(m_sugenoController.getSugenoFisSystem().getRules()[index].getWeight());
     }
 
     return resultWeightsList;
 }
 
-void SugenoControllerService::calcRuleOutputLevel(std::map<QString, double> v_inputs)
-{
-    std::list<float> listResults;
 
-    for (auto r_rule : m_sugenoController.getSugenoRules())
+
+
+std::vector<double> SugenoControllerService::calcRuleOutputLevel(std::vector<double> v_inputs)
+{
+    std::vector<double> listResults;
+
+    for (auto r_rule : m_sugenoController.getSugenoFisSystem().getRules())
     {
-        //auto rOutput = (o_rule.second.getOutputs()).front();
-        //LinearMembershipFunction.calculate_linear(r_output.params, v_inputs))
-        //listResults.push_back(o_rule.second.getWeight());
+        //indicie do output
+        auto indiceOutput = (r_rule.second.getOutputs()[0]);
+
+        auto listOutputs = m_sugenoController.getSugenoFisSystem().getOutputs();
+        auto listMfs = listOutputs[0].getOutputMfs();
+        auto objectMembershipFunction = listMfs[0];
+
+        //vetor com os inputs
+        std::vector<double> vectorInput;
+        vectorInput.push_back(r_rule.second.getWeight());
+
+        auto result = executeCalcOutputFunctions(objectMembershipFunction.getFunction(), vectorInput);
+
+        //list_results.add(result);
     }
 
     //return np.array(list_results)
 
 }
 
-void SugenoControllerService::calcRuleFiring(std::map<QString, double> v_inputs)
+/*
+[0] => Profundidade = 10
+[1] => DispercaoEnergia = 1
+**/
+std::vector<double> SugenoControllerService::calcRuleFiring(std::vector<double> inputsStratBR)
 {
-    std::list<float> listResults;
+    std::vector<double> listResults;
 
-    for (auto r_rule : m_sugenoController.getSugenoRules())
+    for (auto r_rule : m_sugenoController.getSugenoFisSystem().getRules())
     {
-        if(r_rule.second.getInputs().size() == 1)
-        {
-            auto rInput = (r_rule.second.getInputs()).front();
-            auto result = 1 =  executeCalcMembershipFunction(m_sugenoController.get);
+        //r_rule.second.getInputs() == FIS [1] = Profundidade, 1 = DispercaoEnergia
 
-
-            rInput.rule_func(v_inputs[rInput.getName()],**rInput.params);
-
-            if(rInput.getInputVarNot())
+            size_t auxIndiceInputs = 0;
+            for (auto i_input : r_rule.second.getInputs())
             {
-               // listResults.push_back(NotMethod.calculate_not(result));
+                //Busca as informações do input da regra
+                size_t indiceMemebershipFunction = static_cast<size_t>(i_input.second.getIndex());
+
+                double auxValue = inputsStratBR[auxIndiceInputs];
+
+                double result = executeCalcInputFunctions(
+                            auxValue,
+                            indiceMemebershipFunction,
+                            auxIndiceInputs);
+
+                if(i_input.second.getInputVarNot())
+                {
+                   double resultNot =  NotMethod.calculate_not(result);
+                   listResults.push_back(resultNot);
+                }
+                else
+                {
+                    listResults.push_back(result);
+                }
+                auxIndiceInputs++;
             }
-            else
-            {
-                listResults.push_back(result);
-            }
-        }
-        else
+        //}
+        /*else
         {
+            //??
             //listResults.push_back(rule.connection_func(rule.inputs,v_inputs));
-        }
+        }*/
    }
 
     //return np.array(list_results)
 }
 
-void SugenoControllerService::sugenoCalcSingleValue(std::map<QString, double> v_inputs)
+void SugenoControllerService::sugenoCalcSingleValue(std::vector<double> v_inputs)
 {
+    double result = -1;
+
     if(m_sugenoController.getSugenoInputs().size() != v_inputs.size())
     {
         //Exception
     }
 
-    auto result = -1;
 
     if(m_sugenoController.getSugenoFisSystem().getDefuzzMethod() == DefuzzMethods::wtaver)
     {
-        auto w_array = calcRuleFiring(v_inputs);
-        auto z_array = calcRuleOutput_level(v_inputs);
+        std::vector<double> w_array = calcRuleFiring(v_inputs);
+        std::vector<double> z_array = calcRuleOutputLevel(v_inputs);
 
-        auto weights = calcRuleWeights();
-        auto w_array_weights = w_array * weights;
+        std::vector<double> weights = calcRuleWeights();
+        std::vector<double> w_array_weights = (w_array * weights);
 
         for ()
         {
@@ -309,11 +385,11 @@ void SugenoControllerService::sugenoCalcSingleValue(std::map<QString, double> v_
     {
         if(m_sugenoController.getSugenoFisSystem().getDefuzzMethod() == DefuzzMethods::wtsum)
         {
-            auto w_array = calcRuleFiring(v_inputs);
-            auto z_array = calcRuleOutputLevel(v_inputs);
+            std::vector<double> w_array = calcRuleFiring(v_inputs);
+            std::vector<double> z_array = calcRuleOutputLevel(v_inputs);
 
-            auto weights = calcRuleWeights();
-            auto w_array_weights = w_array * weights;
+            std::vector<double> weights = calcRuleWeights();
+            std::vector<double> w_array_weights = w_array * weights;
 
         //    result = np.sum(w_array_weights * z_array);
         }
@@ -324,11 +400,11 @@ void SugenoControllerService::sugenoCalcSingleValue(std::map<QString, double> v_
         }
         else
         {
-             //return result;
+             return result;
         }
     }
 
-
+    return result;
 }
 
 

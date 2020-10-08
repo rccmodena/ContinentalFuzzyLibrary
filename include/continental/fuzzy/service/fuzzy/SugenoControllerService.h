@@ -6,6 +6,8 @@
 #include "continental/fuzzy/domain/fis/Rule.h"
 #include "continental/fuzzy/domain/fis/System.h"
 #include "continental/fuzzy/domain/fis/MembershipFunction.h"
+#include <vector>
+
 namespace continental {
 namespace fuzzy {
 namespace service {
@@ -27,19 +29,21 @@ private:
 
     void getMFFunction(continental::fuzzy::domain::fis::MembershipFunction p_membershipFunction);
 
-    double executeCalcInputFunctions(continental::fuzzy::domain::fis::definition::InputFunctions p_inputFunction, std::list<float> valueOfPoint);
+    double executeCalcInputFunctions(double inputValue,
+                                     size_t indexInput,
+                                     size_t indexMemberFunction);
 
-    double executeCalcOutputFunctions(continental::fuzzy::domain::fis::definition::OutputFunctions p_outputFunction, std::list<float> valueOfPoint);
+    double executeCalcOutputFunctions(continental::fuzzy::domain::fis::definition::OutputFunctions p_outputFunction, std::vector<double> valueOfPoint);
 
     void createFromFisSystem(continental::fuzzy::domain::fis::System p_system);
 
-    std::list<float> calcRuleWeights();
+    std::vector<double> calcRuleWeights();
 
-    void calcRuleOutputLevel(std::map<QString, double> v_inputs);
+    std::vector<double> calcRuleOutputLevel(std::vector<double> v_inputs);
 
-    void calcRuleFiring(std::map<QString, double> v_inputs);
+    std::vector<double> calcRuleFiring(std::vector<double> v_inputs);
 
-    void sugenoCalcSingleValue(std::map<QString, double> v_inputs);
+    void sugenoCalcSingleValue(std::vector<double> v_inputs);
 };
 
 }
