@@ -25,15 +25,18 @@ public:
 private:
     continental::fuzzy::domain::fuzzy::SugenoController m_sugenoController;
 
-    void getConnection(continental::fuzzy::domain::fis::Rule p_rule);
+    double getResultConnection(continental::fuzzy::domain::fis::Rule p_rule, std::vector<double> listTempInput);
 
-    void getMFFunction(continental::fuzzy::domain::fis::MembershipFunction p_membershipFunction);
+    double executeCalcInputFunctions(
+            double inputValue,
+            size_t indexInput,
+            size_t indexMemberFunction
+    );
 
-    double executeCalcInputFunctions(double inputValue,
-                                     size_t indexInput,
-                                     size_t indexMemberFunction);
-
-    double executeCalcOutputFunctions(continental::fuzzy::domain::fis::definition::OutputFunctions p_outputFunction, std::vector<double> valueOfPoint);
+    double executeCalcOutputFunctions(
+            std::vector<double> valueOfPoint,
+            size_t indexMemberFunction
+    );
 
     void createFromFisSystem(continental::fuzzy::domain::fis::System p_system);
 
@@ -43,7 +46,7 @@ private:
 
     std::vector<double> calcRuleFiring(std::vector<double> v_inputs);
 
-    void sugenoCalcSingleValue(std::vector<double> v_inputs);
+    double sugenoCalcSingleValue(std::vector<double> v_inputs, bool useDictFaciesAssociation);
 };
 
 }

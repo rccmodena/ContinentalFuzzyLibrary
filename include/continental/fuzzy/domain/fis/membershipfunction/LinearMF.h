@@ -2,7 +2,7 @@
 #define CONTINENTAL_FUZZY_DOMAIN_FIS_MEMBERSHIPFUNCTION_LINEARMF_H
 
 #include "continental/fuzzy/export.h"
-#include <map>
+#include <vector>
 
 namespace continental {
 namespace fuzzy {
@@ -20,12 +20,12 @@ public:
     /// Destrutor.
     ~LinearMF();
 
-    std::map<int, double> getParams() const;
-    void setParams(const std::map<int, double> &params);
-    void addParams(const int numParam, const double valorParam);
+    std::vector<double> getParams() const;
+    void setParams(const std::vector<double> &params);
+    void addParams(const double valorParam);
 
 private:
-    std::map<int, double> m_params;
+   std::vector<double> m_params;
 };
 
 }

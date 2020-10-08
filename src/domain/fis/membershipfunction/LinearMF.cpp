@@ -1,4 +1,5 @@
 #include "continental/fuzzy/domain/fis/membershipfunction/LinearMF.h"
+#include <vector>
 
 namespace continental {
 namespace fuzzy {
@@ -15,19 +16,19 @@ LinearMF::~LinearMF()
 
 }
 
-std::map<int, double> LinearMF::getParams() const
+std::vector<double> LinearMF::getParams() const
 {
     return m_params;
 }
 
-void LinearMF::setParams(const std::map<int, double> &params)
+void LinearMF::setParams(const std::vector<double> &params)
 {
     m_params = params;
 }
 
-void LinearMF::addParams(const int numParam, const double valorParam)
+void LinearMF::addParams( const double valorParam)
 {
-    m_params.insert(std::pair<int, double>(numParam, valorParam));
+    m_params.push_back(valorParam);
 }
 
 }

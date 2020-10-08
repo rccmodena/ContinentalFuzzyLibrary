@@ -130,7 +130,7 @@ void MembershipFunctionFisService::createOutputMembershipFisFunction(const QStri
             LinearMF linearMF = LinearMF();
             for (short i = 0; i < (numberOfInputs + 1); ++i)
             {
-                linearMF.addParams((i + 1), splitValues[i].toDouble());
+                linearMF.addParams(splitValues[i].toDouble());
             }
             membershipFunction.setLinearmf(linearMF);
             m_outputMembershipFisFunction = membershipFunction;
