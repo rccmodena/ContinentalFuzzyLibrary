@@ -46,6 +46,7 @@ add_library(ContinentalFuzzy
     src/domain/fis/definition/ImpMethods.cpp
     src/domain/fis/definition/OrMethods.cpp
     src/domain/fis/definition/VariableType.cpp
+    src/domain/fis/definition/FaciesAssociationsImplemented.cpp
     src/domain/fis/rulevariable/RuleInput.cpp
     src/domain/fis/rulevariable/RuleOutput.cpp
     src/domain/fis/membershipfunction/ConstantMF.cpp

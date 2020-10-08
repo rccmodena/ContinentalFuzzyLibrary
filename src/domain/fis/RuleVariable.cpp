@@ -9,24 +9,29 @@ RuleVariable::RuleVariable()
 {
 }
 
-QString RuleVariable::getName() const
+RuleVariable::~RuleVariable()
 {
-    return m_name;
+
 }
 
-void RuleVariable::setName(const QString &name)
+int RuleVariable::getIndex() const
 {
-    m_name = name;
+    return m_index;
 }
 
-QString RuleVariable::getMf() const
+void RuleVariable::setIndex(const int index)
 {
-    return m_mf;
+    m_index = index;
 }
 
-void RuleVariable::setMf(const QString &mf)
+bool RuleVariable::getInputVarNot() const
 {
-    m_mf = mf;
+    return m_inputVarNot;
+}
+
+void RuleVariable::setInputVarNot(bool inputVarNot)
+{
+    m_inputVarNot = inputVarNot;
 }
 
 }

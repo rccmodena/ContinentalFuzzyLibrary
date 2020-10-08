@@ -12,15 +12,6 @@ SugenoInput::SugenoInput()
     setType("antecedent");
 }
 
-std::list<float> SugenoInput::getRange() const
-{
-    return m_range;
-}
-
-void SugenoInput::setRange(const std::list<float> &range)
-{
-    m_range = range;
-}
 
 int SugenoInput::getNumMfs() const
 {
@@ -32,14 +23,16 @@ void SugenoInput::setNumMfs(int numMfs)
     m_numMfs = numMfs;
 }
 
-std::map<std::string, fis::MembershipFunction> SugenoInput::getMfs() const
+
+
+std::pair<double, double> SugenoInput::getRange() const
 {
-    return m_mfs;
+    return m_range;
 }
 
-void SugenoInput::setMfs(const std::map<std::string, fis::MembershipFunction> &mfs)
+void SugenoInput::setRange(const std::pair<double, double> &range)
 {
-    m_mfs = mfs;
+    m_range = range;
 }
 
 }

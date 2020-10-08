@@ -1,7 +1,6 @@
 #include "continental/fuzzy/service/fis/FisService.h"
 
 using namespace continental::fuzzy::domain::fis;
-using namespace continental::fuzzy::domain::fis::rulevariable;
 using namespace continental::fuzzy::domain::fis::definition;
 using namespace continental::fuzzy::service::fis;
 
@@ -157,6 +156,10 @@ void FisService::validSystem()
     {
         throw std::exception("O número de consequentes não foi informado!");
     }
+    else if (m_system.getNumOutputs() > 1)
+    {
+        throw std::exception("Somente é permitido um consequente!");
+    }
     else if (m_system.getNumRules() == 0)
     {
         throw std::exception("O número de regras não foi informado!");
@@ -223,18 +226,6 @@ void FisService::createOutputsFromMap(const std::map<int, std::list<QString>> &o
     }
 }
 
-RuleInput& FisService::createRuleInputsFromList(const std::map<int, std::list<QString>> &ruleInputsList)
-{
-    RuleInput ruleInputs;
-    return ruleInputs;
-}
-
-RuleOutput& FisService::createRuleOutputsFromList(const std::map<int, std::list<QString>> &ruleOutputsList)
-{
-    RuleOutput ruleOutput;
-    return ruleOutput;
-}
-
 void FisService::createRulesFromList(const std::list<QString> &ruleList)
 {
 
@@ -250,11 +241,95 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
 
             // Separa a string em antecedentes e o restante
             QStringList splitRule = line.split(",");
-//            const QString systemField = splitLine[0];
-//            const QString systemFieldValue = splitLine[1].replace("'","");
+            QStringList splitRuleInputs = splitRule[0].split(" ");
 
-//            fisInputService.createFromFisBlock(inputList.second);
-//            m_system.addInput(inputList.first, fisInputService.getInput());
+            // Armazena as entradas das regras
+            if (splitRuleInputs.size() == m_system.getNumInputs())
+            {
+                std::map<int, RuleVariable> inputsRuleMap;
+                int numInputRule = 1;
+                for (QString const& ruleInputString : splitRuleInputs)
+                {
+                    RuleVariable ruleInput = RuleVariable();
+                    int ruleInputValue = ruleInputString.toInt();
+
+                    // Se o valor do antecedente for zero pula para o próximo
+                    if (ruleInputValue == 0)
+                    {
+                        continue;
+                    }
+                    // Verificar o operador NOT
+                    else if (ruleInputValue < 0)
+                    {
+                        ruleInput.setInputVarNot(true);
+                    }
+                    else
+                    {
+                        ruleInput.setInputVarNot(false);
+                    }
+                    ruleInput.setIndex(std::abs(ruleInputValue));
+                    inputsRuleMap.insert(std::pair<int, RuleVariable>(numInputRule, ruleInput));
+                    ++numInputRule;
+                }
+                fisRule.setInputs(inputsRuleMap);
+            }
+            else
+            {
+                throw std::exception("Quantidade de antecedentes da regra é diferente do número de antecedentes informado no bloco System!");
+            }
+
+            // Separa o consequentes do tipo de conector
+            QStringList splitOutputConnector = splitRule[1].split(":");
+
+            // Separa o consequentes do peso
+            QStringList splitOutputWeight = splitOutputConnector[0].simplified().split(" ");
+
+            // Separa os consequentes
+            QStringList splitRuleOutputs = splitOutputWeight[0].split(" ");
+
+            // Armazena a saída das regras
+            if (splitRuleOutputs.size() == m_system.getNumOutputs())
+            {
+                std::map<int, RuleVariable> outputsRuleMap;
+                int numInputRule = 1;
+                for (QString const& ruleOuputString : splitRuleOutputs)
+                {
+                    RuleVariable ruleOutput = RuleVariable();
+                    int ruleOutputValue = ruleOuputString.toInt();
+
+                    // Se o valor do antecedente for zero pula para o próximo
+                    if (ruleOutputValue == 0)
+                    {
+                        continue;
+                    }
+                    // Verificar o operador NOT
+                    else if (ruleOutputValue < 0)
+                    {
+                        throw std::exception("O consequente da regra não pode ser negado!");
+                    }
+                    else
+                    {
+                        ruleOutput.setInputVarNot(false);
+                    }
+                    ruleOutput.setIndex(ruleOutputValue);
+                    outputsRuleMap.insert(std::pair<int, RuleVariable>(numInputRule, ruleOutput));
+                    ++numInputRule;
+                }
+                fisRule.setOutputs(outputsRuleMap);
+            }
+            else
+            {
+                throw std::exception("Quantidade de consequentes da regra é diferente do número de consequentes informado no bloco System!");
+            }
+
+            // Salva o peso do consequente
+            int outputWeightSize = splitOutputWeight[1].size();
+            fisRule.setWeight(splitOutputWeight[1].mid(1, (outputWeightSize - 2)).toDouble());
+
+            // Salva os conectores dos antecedentes
+            fisRule.setConnection(static_cast<Connections>(splitOutputConnector[1].toInt()));
+
+            m_system.addRule(ruleNumber, fisRule);
             ++ruleNumber;
         }
     }
@@ -262,80 +337,93 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
     {
         throw std::exception("Quantidade de regras é diferente do número de regras informado no bloco System!");
     }
-
-/*
-
-            for rule_number, entry in enumerate(r_list):
-
-                # Separa a string em antecedentes e o restante
-                inputs_other = entry.split(sep=',')
-
-                # Separa os antecedentes da regra
-                r_inputs = inputs_other[0].split()
-
-                # Verifica se a quantidade de antecedentes está correta
-                if len(r_inputs) != self.system.num_inputs:
-                    raise Exception(
-                        "Quantidade de antecedentes da regra é diferente do "
-                        "número de antecedentes informado no bloco System!")
-
-                # Cria os antededentes das regras
-                new_rule.inputs = self.create_inputs_rule(r_inputs)
-
-                # Separa o consequentes do tipo de conector
-                output_conn = inputs_other[1].split(':')
-
-                # Separa o consequentes do peso
-                output_weight = output_conn[0].strip().split()
-
-                # Separa os consequentes da regra
-                r_outputs = output_weight[:-1]
-
-                # Verifica se a quantidade de consequentes está correta
-                if len(r_outputs) != self.system.num_outputs:
-                    raise Exception(
-                        "Quantidade de consequentes da regra é diferente do "
-                        "número de consequentes informado no bloco System!")
-
-                # Cria os consequentes das regras
-                new_rule.outputs = self.create_outputs_rule(r_outputs)
-
-                # Verifica se o peso do consequente é um número float
-                try:
-                    # Salva o peso do consequente
-                    new_rule.weight = float(output_weight[-1][1:-1])
-                except Exception:
-                    raise Exception("O peso do consequente da regra não é um "
-                                    "número float!")
-
-                r_connection = self.system.DICT_CONNECTORS.get(
-                    output_conn[1].strip())
-
-                # Verifica se o conector informado foi implementado
-                if r_connection is None:
-                    raise Exception(f"O conector {output_conn[1].strip()} da "
-                                    f"regra {new_rule.name}, não foi "
-                                    f"implementado!")
-
-                # Salva os conectores dos antecedentes
-                new_rule.connection = Connections[r_connection]
-
-                self.system.add_rule(new_rule)
-
-*/
 }
 
-void FisService::createFaciesAssociationConverter(const bool &useFaciesAssociationConverter)
+void FisService::createFaciesAssociationConverter()
 {
-
+    //for mf in self.system.outputs.get(1).mfs.values():
+    for (auto const& nameOutput : m_system.getOutputs()[1].getOutputMfs())
+    {
+        if (nameOutput.second.getName() == "Cape")
+        {
+            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::Cape));
+        }
+        else if (nameOutput.second.getName() == "ShallowPlain")
+        {
+            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::ShallowPlain));
+        }
+        else if (nameOutput.second.getName() == "LowEnergyUnderwaterPlain")
+        {
+            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::LowEnergyUnderwaterPlain));
+        }
+        else if (nameOutput.second.getName() == "InterpatchesPlain")
+        {
+            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::InterpatchesPlain));
+        }
+        else if (nameOutput.second.getName() == "ClayeyEmbayment")
+        {
+            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::ClayeyEmbayment));
+        }
+        else if (nameOutput.second.getName() == "StromatoliteEmbayment")
+        {
+            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::StromatoliteEmbayment));
+        }
+        else if (nameOutput.second.getName() == "LaminiteRamp")
+        {
+            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::LaminiteRamp));
+        }
+        else if (nameOutput.second.getName() == "ModerateEnergyIntraclastic")
+        {
+            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::ModerateEnergyIntraclastic));
+        }
+        else if (nameOutput.second.getName() == "HighEnergyIntraclastic")
+        {
+            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::HighEnergyIntraclastic));
+        }
+        else if (nameOutput.second.getName() == "SubCoastal")
+        {
+            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::SubCoastal));
+        }
+        else if (nameOutput.second.getName() == "Reef")
+        {
+            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::Reef));
+        }
+        else if (nameOutput.second.getName() == "ClayeyClasticDeposit")
+        {
+            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::ClayeyClasticDeposit));
+        }
+        else if (nameOutput.second.getName() == "Undefined")
+        {
+            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::Undefined));
+        }
+        else
+        {
+            throw std::exception("A Associação de fácies não cadastrada!");
+        }
+    }
 }
 
 void FisService::validImport()
 {
-
+    if (m_system.getFilename() == "")
+    {
+        throw std::exception("Não foi importada a quantidade correta de antecedentes!");
+    }
+    else if (static_cast<int>(m_system.getInputs().size()) != m_system.getNumInputs())
+    {
+        throw std::exception("Não foi importada a quantidade correta de antecedentes!");
+    }
+    else if (static_cast<int>(m_system.getOutputs().size()) != m_system.getNumOutputs())
+    {
+        throw std::exception("Não foi importada a quantidade correta de consequentes!");
+    }
+    else if (static_cast<int>(m_system.getRules().size()) != m_system.getNumRules())
+    {
+        throw std::exception("Não foi importada a quantidade correta de regras!");
+    }
 }
 
-System& FisService::importFile(const QString &filename, const bool &useFaciesAssociationConverter)
+System& FisService::importFile(const QString &filename)
 {
 
     // Armazena o caminho do arquivo .fis
@@ -471,7 +559,7 @@ System& FisService::importFile(const QString &filename, const bool &useFaciesAss
     createRulesFromList(rulesList);
 
     // Cria dicionário de fácies
-    createFaciesAssociationConverter(useFaciesAssociationConverter);
+    createFaciesAssociationConverter();
 
     // Valida a importação
     validImport();

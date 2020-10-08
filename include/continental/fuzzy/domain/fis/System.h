@@ -31,10 +31,7 @@ public:
     /// Construtor.
     System();
 
-  //  const int MAX_NUM_OUTPUTS = 1;
-
-    //const std::map<std::string, std::string> DICT_CONNECTORS = { std::pair<std::string, std::string> ("1", "AND"), std::pair<std::string, std::string> ("2", "OR")};
-
+    ~System();
 
     QString getFilename() const;
     void setFilename(const QString &filename);
@@ -79,9 +76,14 @@ public:
 
     std::map<int, Rule> getRules() const;
     void setRules(const std::map<int, Rule> &rules);
+    void addRule(const int ruleNumber,const Rule &rule);
 
     QString getName() const;
     void setName(const QString &name);
+
+    std::map<int, int> getFaciesAssociationConversion() const;
+    void setFaciesAssociationConversion(const std::map<int, int> &faciesAssociationConversion);
+    void addFaciesAssociationConversion(const int fisFaciesAssociation,const int faciesAssociation);
 
 private:
     QString m_name = "";
@@ -99,6 +101,7 @@ private:
     std::map<int, domain::fis::variable::Input> m_inputs = std::map<int, domain::fis::variable::Input>();
     std::map<int, domain::fis::variable::Output> m_outputs = std::map<int, domain::fis::variable::Output>();
     std::map<int, fis::Rule> m_rules;
+    std::map<int, int> m_faciesAssociationConversion = std::map<int, int>();
 };
 
 }

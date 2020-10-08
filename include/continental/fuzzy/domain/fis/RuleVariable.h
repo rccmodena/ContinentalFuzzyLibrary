@@ -17,15 +17,17 @@ public:
     /// Construtor.
     RuleVariable();
 
-    QString getName() const;
-    void setName(const QString &name);
+    ~RuleVariable();
 
-    QString getMf() const;
-    void setMf(const QString &mf);
+    int  getIndex() const;
+    void setIndex(const int index);
+
+    bool getInputVarNot() const;
+    void setInputVarNot(bool inputVarNot);
 
 private:
-    QString m_name;
-    QString m_mf;
+    int m_index;
+    bool m_inputVarNot;
 };
 
 }
