@@ -31,6 +31,11 @@ void SugenoController::setSugenoInputs(const std::map<QString, fuzzy::variable::
     m_sugenoInputs = sugenoInputs;
 }
 
+void SugenoController::addSugenoInput(QString nameInput, variable::SugenoInput &sugenoInputs)
+{
+    m_sugenoInputs.insert(std::pair<QString,variable::SugenoInput>(nameInput, sugenoInputs));
+}
+
 std::map<QString, fuzzy::variable::SugenoOutput> SugenoController::getSugenoOutputs() const
 {
     return m_sugenoOutputs;
@@ -39,6 +44,11 @@ std::map<QString, fuzzy::variable::SugenoOutput> SugenoController::getSugenoOutp
 void SugenoController::setSugenoOutputs(const std::map<QString, fuzzy::variable::SugenoOutput> &sugenoOutputs)
 {
     m_sugenoOutputs = sugenoOutputs;
+}
+
+void SugenoController::addSugenoOutput(QString nameInput, variable::SugenoOutput &sugenoOutputs)
+{
+    m_sugenoOutputs.insert(std::pair<QString,variable::SugenoOutput>(nameInput, sugenoOutputs));
 }
 
 std::map<QString, SugenoRule> SugenoController::getSugenoRules() const

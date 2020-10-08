@@ -22,17 +22,14 @@ public:
     /// Construtor.
     SugenoInput();
 
-    std::list<float> getRange() const;
-    void setRange(const std::list<float> &range);
-
     int getNumMfs() const;
     void setNumMfs(int numMfs);
 
-    std::map<std::string, continental::fuzzy::domain::fis::MembershipFunction> getMfs() const;
-    void setMfs(const std::map<std::string, continental::fuzzy::domain::fis::MembershipFunction> &mfs);
+    std::pair<double, double> getRange() const;
+    void setRange(const std::pair<double, double> &range);
 
 private:
-    std::list<float> m_range;
+    std::pair<double, double> m_range = std::pair<double, double>(0.0, 0.0);
     int m_numMfs;
     std::map<std::string, continental::fuzzy::domain::fis::MembershipFunction> m_mfs;
 };

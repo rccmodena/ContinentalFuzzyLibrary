@@ -18,23 +18,24 @@ public:
     /// Construtor.
     SugenoVariable();
 
-    std::list<float> getRange() const;
-    void setRange(const std::list<float> &range);
-
     int getNumMfs() const;
     void setNumMfs(int numMfs);
 
     std::map<std::string, continental::fuzzy::domain::fis::MembershipFunction> getMfs() const;
     void setMfs(const std::map<std::string, continental::fuzzy::domain::fis::MembershipFunction> &mfs);
+    void addMfs(std::string name, continental::fuzzy::domain::fis::MembershipFunction &mfs);
 
     std::string getType() const;
     void setType(const std::string &type);
+
+    std::pair<double, double> getRange() const;
+    void setRange(const std::pair<double, double> &range);
 
 protected:
     std::string m_type = "";
 
 private:
-    std::list<float> m_range;
+    std::pair<double, double> m_range = std::pair<double, double>(0.0, 0.0);
     int m_numMfs;
     std::map<std::string, continental::fuzzy::domain::fis::MembershipFunction> m_mfs;
 

@@ -10,16 +10,6 @@ SugenoVariable::SugenoVariable()
 
 }
 
-std::list<float> SugenoVariable::getRange() const
-{
-    return m_range;
-}
-
-void SugenoVariable::setRange(const std::list<float> &range)
-{
-    m_range = range;
-}
-
 int SugenoVariable::getNumMfs() const
 {
     return m_numMfs;
@@ -28,6 +18,27 @@ int SugenoVariable::getNumMfs() const
 void SugenoVariable::setNumMfs(int numMfs)
 {
     m_numMfs = numMfs;
+}
+
+
+std::string SugenoVariable::getType() const
+{
+    return m_type;
+}
+
+void SugenoVariable::setType(const std::string &type)
+{
+    m_type = type;
+}
+
+std::pair<double, double> SugenoVariable::getRange() const
+{
+    return m_range;
+}
+
+void SugenoVariable::setRange(const std::pair<double, double> &range)
+{
+    m_range = range;
 }
 
 std::map<std::string, fis::MembershipFunction> SugenoVariable::getMfs() const
@@ -40,14 +51,10 @@ void SugenoVariable::setMfs(const std::map<std::string, fis::MembershipFunction>
     m_mfs = mfs;
 }
 
-std::string SugenoVariable::getType() const
+void SugenoVariable::addMfs(std::string name, fis::MembershipFunction &mfs)
 {
-    return m_type;
-}
+    m_mfs.insert(std::pair<std::string, fis::MembershipFunction>(name, mfs));
 
-void SugenoVariable::setType(const std::string &type)
-{
-    m_type = type;
 }
 
 }
