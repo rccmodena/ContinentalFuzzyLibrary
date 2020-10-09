@@ -339,6 +339,7 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
     }
 }
 
+
 void FisService::createFaciesAssociationConverter()
 {
     //for mf in self.system.outputs.get(1).mfs.values():
@@ -346,55 +347,55 @@ void FisService::createFaciesAssociationConverter()
     {
         if (nameOutput.second.getName() == "Cape")
         {
-            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::Cape));
+            m_system.addFaciesAssociationConversion(nameOutput.first-1, static_cast<int>(FaciesAssociationsImplemented::Cape));
         }
         else if (nameOutput.second.getName() == "ShallowPlain")
         {
-            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::ShallowPlain));
+            m_system.addFaciesAssociationConversion(nameOutput.first-1, static_cast<int>(FaciesAssociationsImplemented::ShallowPlain));
         }
         else if (nameOutput.second.getName() == "LowEnergyUnderwaterPlain")
         {
-            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::LowEnergyUnderwaterPlain));
+            m_system.addFaciesAssociationConversion(nameOutput.first-1, static_cast<int>(FaciesAssociationsImplemented::LowEnergyUnderwaterPlain));
         }
         else if (nameOutput.second.getName() == "InterpatchesPlain")
         {
-            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::InterpatchesPlain));
+            m_system.addFaciesAssociationConversion(nameOutput.first-1, static_cast<int>(FaciesAssociationsImplemented::InterpatchesPlain));
         }
         else if (nameOutput.second.getName() == "ClayeyEmbayment")
         {
-            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::ClayeyEmbayment));
+            m_system.addFaciesAssociationConversion(nameOutput.first-1, static_cast<int>(FaciesAssociationsImplemented::ClayeyEmbayment));
         }
         else if (nameOutput.second.getName() == "StromatoliteEmbayment")
         {
-            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::StromatoliteEmbayment));
+            m_system.addFaciesAssociationConversion(nameOutput.first-1, static_cast<int>(FaciesAssociationsImplemented::StromatoliteEmbayment));
         }
         else if (nameOutput.second.getName() == "LaminiteRamp")
         {
-            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::LaminiteRamp));
+            m_system.addFaciesAssociationConversion(nameOutput.first-1, static_cast<int>(FaciesAssociationsImplemented::LaminiteRamp));
         }
         else if (nameOutput.second.getName() == "ModerateEnergyIntraclastic")
         {
-            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::ModerateEnergyIntraclastic));
+            m_system.addFaciesAssociationConversion(nameOutput.first-1, static_cast<int>(FaciesAssociationsImplemented::ModerateEnergyIntraclastic));
         }
         else if (nameOutput.second.getName() == "HighEnergyIntraclastic")
         {
-            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::HighEnergyIntraclastic));
+            m_system.addFaciesAssociationConversion(nameOutput.first-1, static_cast<int>(FaciesAssociationsImplemented::HighEnergyIntraclastic));
         }
         else if (nameOutput.second.getName() == "SubCoastal")
         {
-            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::SubCoastal));
+            m_system.addFaciesAssociationConversion(nameOutput.first-1, static_cast<int>(FaciesAssociationsImplemented::SubCoastal));
         }
         else if (nameOutput.second.getName() == "Reef")
         {
-            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::Reef));
+            m_system.addFaciesAssociationConversion(nameOutput.first-1, static_cast<int>(FaciesAssociationsImplemented::Reef));
         }
         else if (nameOutput.second.getName() == "ClayeyClasticDeposit")
         {
-            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::ClayeyClasticDeposit));
+            m_system.addFaciesAssociationConversion(nameOutput.first-1, static_cast<int>(FaciesAssociationsImplemented::ClayeyClasticDeposit));
         }
         else if (nameOutput.second.getName() == "Undefined")
         {
-            m_system.addFaciesAssociationConversion(nameOutput.first, static_cast<int>(FaciesAssociationsImplemented::Undefined));
+            m_system.addFaciesAssociationConversion(nameOutput.first-1, static_cast<int>(FaciesAssociationsImplemented::Undefined));
         }
         else
         {

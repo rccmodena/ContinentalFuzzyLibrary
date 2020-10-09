@@ -20,7 +20,9 @@ public:
     /// Construtor.
     SugenoControllerService();
 
-    continental::fuzzy::domain::fuzzy::SugenoController getSugenoController() const;
+    void createFromFisSystem(continental::fuzzy::domain::fis::System p_system);
+
+    double sugenoCalcSingleValue(std::vector<double> v_inputs, bool useDictFaciesAssociation);
 
 private:
     continental::fuzzy::domain::fuzzy::SugenoController m_sugenoController;
@@ -38,15 +40,13 @@ private:
             size_t indexMemberFunction
     );
 
-    void createFromFisSystem(continental::fuzzy::domain::fis::System p_system);
+    continental::fuzzy::domain::fuzzy::SugenoController getSugenoController() const;
 
     std::vector<double> calcRuleWeights();
 
     std::vector<double> calcRuleOutputLevel(std::vector<double> v_inputs);
 
     std::vector<double> calcRuleFiring(std::vector<double> v_inputs);
-
-    double sugenoCalcSingleValue(std::vector<double> v_inputs, bool useDictFaciesAssociation);
 };
 
 }

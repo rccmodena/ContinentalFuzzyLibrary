@@ -2,9 +2,11 @@
 #include <QString>
 #include <QCoreApplication>
 #include <continental/fuzzy/service/fis/FisService.h>
+#include <continental/fuzzy/service/fuzzy/SugenoControllerService.h>
 
 using namespace continental::fuzzy::domain::fis::definition;
 using namespace continental::fuzzy::service::fis;
+using namespace continental::fuzzy::service::fuzzy;
 
 int main(int argc, char **argv)
 {
@@ -12,6 +14,18 @@ int main(int argc, char **argv)
     QStringList args = app.arguments();
 
     std::cout << "CONSOLE CONTINENTAL FUZZY" << std::endl;
+
+
+
+    FisService import = FisService();
+    auto mySystem = import.importFile("C:/stratbr-oiv-1.12.5/plugins/visual/ContinentalCarbonatePlugin/Ramp_Arid.fis");
+
+    SugenoControllerService sugenoControllerService = SugenoControllerService();
+    sugenoControllerService.createFromFisSystem(mySystem);
+
+    std::vector<double> listInputs = {120.0, 0.7};
+    double resultFuzzy = sugenoControllerService.sugenoCalcSingleValue(listInputs, true);
+
 
     std::cout << "***************** INICIO - TESTE IMPORTACAO ARQUIVO .FIS *****************" << std::endl;
 //    FisService import;

@@ -18,13 +18,16 @@
 #include <continental/fuzzy/service/fuzzy/operators/MinAndMethod.h>
 #include <continental/fuzzy/service/fuzzy/operators/ProborOrMethod.h>
 #include <continental/fuzzy/service/fuzzy/operators/ProdAndMethod.h>
+#include <continental/fuzzy/service/fuzzy/SugenoControllerService.h>
 
 #include <QString>
 
 using namespace continental::fuzzy::service::fis;
+using namespace continental::fuzzy::service::fuzzy;
 using namespace continental::fuzzy::domain::fis::definition;
 using namespace continental::fuzzy::service::fuzzy::membershipfunction;
 using namespace continental::fuzzy::service::fuzzy::operators;
+
 
 TEST(ContinentalFuzzyTest, TestImportFisFile)
 {
@@ -279,6 +282,21 @@ TEST(ContinentalFuzzyTest, TestOperators)
     // Teste da método And (Prod)
     ASSERT_NEAR(0.0042, ProdAndMethod::calculeProdAndMethod(testValues), 0.0001);
 }
+
+TEST(ContinentalFuzzyTest, TestSugeno)
+{
+    FisService import = FisService();
+    auto mySystem = import.importFile("C:/stratbr-oiv-1.12.5/plugins/visual/ContinentalCarbonatePlugin/Ramp_Arid.fis");
+
+    SugenoControllerService sugenoControllerService = SugenoControllerService();
+    sugenoControllerService.createFromFisSystem(mySystem);
+
+    std::vector<double> listInputs = {120.0, 0.7};
+    double resultFuzzy = sugenoControllerService.sugenoCalcSingleValue(listInputs, false);
+
+    ASSERT_NEAR(11.0, resultFuzzy, 0.0001);
+}
+
 
 int main(int argc, char **argv)
 {
