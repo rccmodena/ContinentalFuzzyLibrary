@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     sugenoControllerService.createFromFisSystem(mySystem);
 
     std::vector<double> listInputs = {120.0, 0.7};
-    double resultFuzzy = sugenoControllerService.sugenoCalcSingleValue(listInputs, true);
+    double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, true);
 
 
     std::cout << "***************** INICIO - TESTE IMPORTACAO ARQUIVO .FIS *****************" << std::endl;

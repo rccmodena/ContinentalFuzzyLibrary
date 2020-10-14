@@ -259,7 +259,7 @@ std::vector<double> SugenoControllerService::calcRuleFiring(std::vector<double> 
    return listResults;
 }
 
-double SugenoControllerService::sugenoCalcSingleValue(std::vector<double> v_inputs, bool useDictFaciesAssociation)
+double SugenoControllerService::calcSingleValue(std::vector<double> v_inputs, bool useDictFaciesAssociation)
 {
     double result = -1;
 

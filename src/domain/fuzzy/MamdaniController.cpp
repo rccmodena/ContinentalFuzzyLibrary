@@ -1,4 +1,4 @@
-#include "continental/fuzzy/domain/fis/SugenoController.h"
+#include "continental/fuzzy/domain/fis/MaController.h"
 
 namespace continental {
 namespace fuzzy {

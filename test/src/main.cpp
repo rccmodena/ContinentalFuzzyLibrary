@@ -292,7 +292,7 @@ TEST(ContinentalFuzzyTest, TestSugeno)
     sugenoControllerService.createFromFisSystem(mySystem);
 
     std::vector<double> listInputs = {120.0, 0.7};
-    double resultFuzzy = sugenoControllerService.sugenoCalcSingleValue(listInputs, false);
+    double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
 
     ASSERT_NEAR(11.0, resultFuzzy, 0.0001);
 }
