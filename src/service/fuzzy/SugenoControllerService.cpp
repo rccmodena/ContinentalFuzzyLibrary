@@ -26,6 +26,7 @@
 #include "continental/fuzzy/service/fuzzy/operators/ProborOrMethod.h"
 #include "continental/fuzzy/service/fuzzy/operators/ProdAndMethod.h"
 #include <vector>
+#include <iostream>
 
 using namespace  continental::fuzzy::domain::fuzzy;
 using namespace  continental::fuzzy::domain::fis;
@@ -79,10 +80,10 @@ double SugenoControllerService::getResultConnection(domain::fis::Rule p_rule, st
             switch (m_sugenoController.getSugenoFisSystem().getOrMethod())
             {
                 case definition::OrMethods::max:
-                    resultCalc =  MaxOrMethod::calculeMaxOrMethod(listTempInput);
+                    resultCalc = MaxOrMethod::calculeMaxOrMethod(listTempInput);
                 break;
                 case definition::OrMethods::probor:
-                    resultCalc =  ProborOrMethod::calculeProborOrMethod(listTempInput);
+                    resultCalc = ProborOrMethod::calculeProborOrMethod(listTempInput);
                 break;
                 case definition::OrMethods::none:
                     resultCalc =  0;
@@ -128,7 +129,7 @@ double SugenoControllerService::executeCalcInputFunctions(
     double result = 0;
 
     auto inputObject = m_sugenoController.getSugenoFisSystem().getInputs()[indexInput];
-    auto memberFunction = inputObject.getInputMfs()[indexMemberFunction + 1];
+    auto memberFunction = inputObject.getInputMfs()[indexMemberFunction];
 
     switch(memberFunction.getFunction())
     {
@@ -194,7 +195,8 @@ std::vector<double> SugenoControllerService::calcRuleWeights()
 {
     std::vector<double> resultWeightsList;
 
-    for (int index = 0; index < m_sugenoController.getSugenoFisSystem().getRules().size(); index++)
+    int sizeRules = m_sugenoController.getSugenoFisSystem().getRules().size();
+    for (int index = 0; index < sizeRules; index++)
     {
         resultWeightsList.push_back(m_sugenoController.getSugenoFisSystem().getRules()[index+1].getWeight());
     }
@@ -223,7 +225,8 @@ std::vector<double> SugenoControllerService::calcRuleFiring(std::vector<double> 
 {
     std::vector<double> listResults;
 
-    for (size_t auxIndiceRule = 1; auxIndiceRule <= m_sugenoController.getSugenoFisSystem().getRules().size(); auxIndiceRule++)
+    size_t numberRules = m_sugenoController.getSugenoFisSystem().getRules().size();
+    for (size_t auxIndiceRule = 1; auxIndiceRule <= numberRules; auxIndiceRule++)
     {
         Rule rule = m_sugenoController.getSugenoFisSystem().getRules()[static_cast<int>(auxIndiceRule)];
         std::vector<double> listTempInput;
@@ -238,8 +241,8 @@ std::vector<double> SugenoControllerService::calcRuleFiring(std::vector<double> 
 
             double result = executeCalcInputFunctions(
                         auxValue,
-                        indiceMemebershipFunction,
-                        auxIndiceInputs);
+                        auxIndiceInputs,
+                        indiceMemebershipFunction);
 
             if(inputObject.getInputVarNot())
             {
@@ -278,7 +281,7 @@ double SugenoControllerService::calcSingleValue(std::vector<double> v_inputs, bo
     for (size_t aux = 0; aux < w_array.size(); aux++)
     {
         double w_array_weights = w_array[aux] * weights[aux];
-        sumTotalWeightsWZ +=  (w_array_weights)*(z_array[aux]);
+        sumTotalWeightsWZ += (w_array_weights)*(z_array[aux]);
         sumTotalWeightW += w_array_weights;
     }
 

@@ -29,7 +29,7 @@ double ProborOrMethod::calculeProborOrMethod(std::vector<double> &valuesVector)
         }
         else
         {
-            result = (result + value) / (result - value);
+            result = (result + value) - (result * value);
         }
     }
     return result;

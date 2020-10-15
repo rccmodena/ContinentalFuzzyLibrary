@@ -37,7 +37,7 @@ public:
     ~FisService();
 
     // Importa um arquivo .fis e cria todos os componentes de um sistema fuzzy.
-    domain::fis::System& importFile(const QString &filename);
+    domain::fis::System& importFile(const QString &filename, bool useDictFaciesAssociation);
 
 private:
     /// Membros.

@@ -73,6 +73,8 @@ add_library(ContinentalFuzzy
     src/domain/fuzzy/SugenoVariable.cpp
     src/domain/fis/variable/Input.cpp
     src/domain/fis/variable/Output.cpp
+    src/domain/shared/Raster.cpp
+    src/util/RasterFileUtil.cpp
     src/service/fuzzy/AbstractFuzzyControllerService.cpp
     src/service/fuzzy/SugenoControllerService.cpp
     src/service/fuzzy/MamdaniControllerService.cpp

@@ -15,32 +15,24 @@ int main(int argc, char **argv)
 
     std::cout << "CONSOLE CONTINENTAL FUZZY" << std::endl;
 
-
-
+    std::cout << "***************** INICIO - TESTE FUZZY *****************" << std::endl;
     FisService import = FisService();
-    auto mySystem = import.importFile("C:/stratbr-oiv-1.12.5/plugins/visual/ContinentalCarbonatePlugin/Ramp_Arid.fis");
+    try
+    {
+        auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_3.fis", false);
 
-    SugenoControllerService sugenoControllerService = SugenoControllerService();
-    sugenoControllerService.createFromFisSystem(mySystem);
+        SugenoControllerService sugenoControllerService = SugenoControllerService();
+        sugenoControllerService.createFromFisSystem(mySystem);
 
-    std::vector<double> listInputs = {120.0, 0.7};
-    double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, true);
-
-
-    std::cout << "***************** INICIO - TESTE IMPORTACAO ARQUIVO .FIS *****************" << std::endl;
-//    FisService import;
-//    try
-//    {
-//        auto my_system = import.importFile("C:/stratbr-oiv-1.12.5/plugins/visual/ContinentalCarbonatePlugin/Ramp_Arid.fis", false);
-//        std::cout << my_system.getName().toStdString() << std::endl;
-//    }
-//    catch (const std::exception& e)
-//    {
-//        std::cout << e.what() << std::endl;
-//    }
-
-
-    std::cout << "***************** FIM - TESTE IMPORTACAO ARQUIVO .FIS *****************" << std::endl;
+        std::vector<double> listInputs = {5.455, 7.576};
+        double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
+        std::cout << resultFuzzy << std::endl;
+    }
+    catch (const std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
+    }
+    std::cout << "***************** FIM - TESTE FUZZY *****************" << std::endl;
 
     return 0;
 }
