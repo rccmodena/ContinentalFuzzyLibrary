@@ -328,7 +328,7 @@ TEST(ContinentalFuzzyTest, TestTipOneCompareMatlab)
             std::vector<double> listInputs = {rasterTipService->getData(i, j), rasterTipFood->getData(i, j)};
             double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
 
-            ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.01);
+            ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.001);
         }
     }
 }
@@ -361,7 +361,7 @@ TEST(ContinentalFuzzyTest, TestTipTwoCompareMatlab)
             std::vector<double> listInputs = {rasterTipService->getData(i, j), rasterTipFood->getData(i, j)};
             double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
 
-            ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.01);
+            ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.001);
         }
     }
 
@@ -395,158 +395,158 @@ TEST(ContinentalFuzzyTest, TestTipThreeCompareMatlab)
             std::vector<double> listInputs = {rasterTipService->getData(i, j), rasterTipFood->getData(i, j)};
             double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
 
-            ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.1);
+            ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.001);
         }
     }
 }
 
-//TEST(ContinentalFuzzyTest, TestAustraliaRampAridCompareMatlab)
-//{
-//    QString filenameDepth = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/depth.asc";
-//    auto rasterDepth = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameDepth));
+TEST(ContinentalFuzzyTest, TestAustraliaRampAridCompareMatlab)
+{
+    QString filenameDepth = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/depth.asc";
+    auto rasterDepth = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameDepth));
 
-//    QString filenameNormD = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/normD.asc";
-//    auto rasterNormD = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameNormD));
+    QString filenameNormD = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/normD.asc";
+    auto rasterNormD = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameNormD));
 
-//    QString filenameRampAridResultMatlab = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/fuzzy_Ramp_Arid_Result_Matlab.asc";
-//    auto fuzzyMatlabResult = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameRampAridResultMatlab));
+    QString filenameRampAridResultMatlab = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/fuzzy_Ramp_Arid_Result_Matlab.asc";
+    auto fuzzyMatlabResult = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameRampAridResultMatlab));
 
-//    FisService import = FisService();
-//    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Arid.fis", false);
+    FisService import = FisService();
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Arid.fis", false);
 
-//    SugenoControllerService sugenoControllerService = SugenoControllerService();
-//    sugenoControllerService.createFromFisSystem(mySystem);
+    SugenoControllerService sugenoControllerService = SugenoControllerService();
+    sugenoControllerService.createFromFisSystem(mySystem);
 
-//    // Informações do Raster
-//    const size_t rasterRows = rasterDepth->getRows();
-//    const size_t rasterCols = rasterDepth->getCols();
+    // Informações do Raster
+    const size_t rasterRows = rasterDepth->getRows();
+    const size_t rasterCols = rasterDepth->getCols();
 
-//    for (size_t j = 0; j < rasterCols; ++j)
-//    {
-//        for (size_t i = 0; i < rasterRows; ++i)
-//        {
-//            if (rasterDepth->getData(i, j) >= 0)
-//            {
-//                std::vector<double> listInputs = {rasterDepth->getData(i, j), rasterNormD->getData(i, j)};
-//                double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
+    for (size_t j = 0; j < rasterCols; ++j)
+    {
+        for (size_t i = 0; i < rasterRows; ++i)
+        {
+            if (rasterDepth->getData(i, j) >= 0)
+            {
+                std::vector<double> listInputs = {rasterDepth->getData(i, j), rasterNormD->getData(i, j)};
+                double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
 
-//                ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.01);
-//            }
-//        }
-//    }
+                ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.01);
+            }
+        }
+    }
 
-//}
+}
 
-//TEST(ContinentalFuzzyTest, TestAustraliaRampHumidCompareMatlab)
-//{
-//    QString filenameDepth = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/depth.asc";
-//    auto rasterDepth = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameDepth));
+TEST(ContinentalFuzzyTest, TestAustraliaRampHumidCompareMatlab)
+{
+    QString filenameDepth = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/depth.asc";
+    auto rasterDepth = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameDepth));
 
-//    QString filenameNormD = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/normD.asc";
-//    auto rasterNormD = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameNormD));
+    QString filenameNormD = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/normD.asc";
+    auto rasterNormD = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameNormD));
 
-//    QString filenameRampAridResultMatlab = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/fuzzy_Ramp_Humid_Result_Matlab.asc";
-//    auto fuzzyMatlabResult = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameRampAridResultMatlab));
+    QString filenameRampAridResultMatlab = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/fuzzy_Ramp_Humid_Result_Matlab.asc";
+    auto fuzzyMatlabResult = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameRampAridResultMatlab));
 
-//    FisService import = FisService();
-//    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Humid.fis", false);
+    FisService import = FisService();
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Humid.fis", false);
 
-//    SugenoControllerService sugenoControllerService = SugenoControllerService();
-//    sugenoControllerService.createFromFisSystem(mySystem);
+    SugenoControllerService sugenoControllerService = SugenoControllerService();
+    sugenoControllerService.createFromFisSystem(mySystem);
 
-//    // Informações do Raster
-//    const size_t rasterRows = rasterDepth->getRows();
-//    const size_t rasterCols = rasterDepth->getCols();
+    // Informações do Raster
+    const size_t rasterRows = rasterDepth->getRows();
+    const size_t rasterCols = rasterDepth->getCols();
 
-//    for (size_t j = 0; j < rasterCols; ++j)
-//    {
-//        for (size_t i = 0; i < rasterRows; ++i)
-//        {
-//            if (rasterDepth->getData(i, j) >= 0)
-//            {
-//                std::vector<double> listInputs = {rasterDepth->getData(i, j), rasterNormD->getData(i, j)};
-//                double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
+    for (size_t j = 0; j < rasterCols; ++j)
+    {
+        for (size_t i = 0; i < rasterRows; ++i)
+        {
+            if (rasterDepth->getData(i, j) >= 0)
+            {
+                std::vector<double> listInputs = {rasterDepth->getData(i, j), rasterNormD->getData(i, j)};
+                double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
 
-//                ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.01);
-//            }
-//        }
-//    }
+                ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.01);
+            }
+        }
+    }
 
-//}
+}
 
-//TEST(ContinentalFuzzyTest, TestAustraliaShelfAridCompareMatlab)
-//{
-//    QString filenameDepth = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/depth.asc";
-//    auto rasterDepth = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameDepth));
+TEST(ContinentalFuzzyTest, TestAustraliaShelfAridCompareMatlab)
+{
+    QString filenameDepth = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/depth.asc";
+    auto rasterDepth = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameDepth));
 
-//    QString filenameNormD = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/normD.asc";
-//    auto rasterNormD = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameNormD));
+    QString filenameNormD = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/normD.asc";
+    auto rasterNormD = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameNormD));
 
-//    QString filenameRampAridResultMatlab = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/fuzzy_Shelf_Arid_Result_Matlab.asc";
-//    auto fuzzyMatlabResult = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameRampAridResultMatlab));
+    QString filenameRampAridResultMatlab = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/fuzzy_Shelf_Arid_Result_Matlab.asc";
+    auto fuzzyMatlabResult = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameRampAridResultMatlab));
 
-//    FisService import = FisService();
-//    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Shelf_Arid.fis", false);
+    FisService import = FisService();
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Shelf_Arid.fis", false);
 
-//    SugenoControllerService sugenoControllerService = SugenoControllerService();
-//    sugenoControllerService.createFromFisSystem(mySystem);
+    SugenoControllerService sugenoControllerService = SugenoControllerService();
+    sugenoControllerService.createFromFisSystem(mySystem);
 
-//    // Informações do Raster
-//    const size_t rasterRows = rasterDepth->getRows();
-//    const size_t rasterCols = rasterDepth->getCols();
+    // Informações do Raster
+    const size_t rasterRows = rasterDepth->getRows();
+    const size_t rasterCols = rasterDepth->getCols();
 
-//    for (size_t j = 0; j < rasterCols; ++j)
-//    {
-//        for (size_t i = 0; i < rasterRows; ++i)
-//        {
-//            if (rasterDepth->getData(i, j) >= 0)
-//            {
-//                std::vector<double> listInputs = {rasterDepth->getData(i, j), rasterNormD->getData(i, j)};
-//                double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
+    for (size_t j = 0; j < rasterCols; ++j)
+    {
+        for (size_t i = 0; i < rasterRows; ++i)
+        {
+            if (rasterDepth->getData(i, j) >= 0)
+            {
+                std::vector<double> listInputs = {rasterDepth->getData(i, j), rasterNormD->getData(i, j)};
+                double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
 
-//                ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.01);
-//            }
-//        }
-//    }
+                ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.01);
+            }
+        }
+    }
 
-//}
+}
 
-//TEST(ContinentalFuzzyTest, TestAustraliaShelfHumidCompareMatlab)
-//{
-//    QString filenameDepth = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/depth.asc";
-//    auto rasterDepth = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameDepth));
+TEST(ContinentalFuzzyTest, TestAustraliaShelfHumidCompareMatlab)
+{
+    QString filenameDepth = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/depth.asc";
+    auto rasterDepth = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameDepth));
 
-//    QString filenameNormD = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/normD.asc";
-//    auto rasterNormD = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameNormD));
+    QString filenameNormD = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/normD.asc";
+    auto rasterNormD = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameNormD));
 
-//    QString filenameRampAridResultMatlab = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/fuzzy_Shelf_Humid_Result_Matlab.asc";
-//    auto fuzzyMatlabResult = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameRampAridResultMatlab));
+    QString filenameRampAridResultMatlab = "C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/fuzzy_Shelf_Humid_Result_Matlab.asc";
+    auto fuzzyMatlabResult = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameRampAridResultMatlab));
 
-//    FisService import = FisService();
-//    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Shelf_Humid.fis", false);
+    FisService import = FisService();
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Shelf_Humid.fis", false);
 
-//    SugenoControllerService sugenoControllerService = SugenoControllerService();
-//    sugenoControllerService.createFromFisSystem(mySystem);
+    SugenoControllerService sugenoControllerService = SugenoControllerService();
+    sugenoControllerService.createFromFisSystem(mySystem);
 
-//    // Informações do Raster
-//    const size_t rasterRows = rasterDepth->getRows();
-//    const size_t rasterCols = rasterDepth->getCols();
+    // Informações do Raster
+    const size_t rasterRows = rasterDepth->getRows();
+    const size_t rasterCols = rasterDepth->getCols();
 
-//    for (size_t j = 0; j < rasterCols; ++j)
-//    {
-//        for (size_t i = 0; i < rasterRows; ++i)
-//        {
-//            if (rasterDepth->getData(i, j) >= 0)
-//            {
-//                std::vector<double> listInputs = {rasterDepth->getData(i, j), rasterNormD->getData(i, j)};
-//                double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
+    for (size_t j = 0; j < rasterCols; ++j)
+    {
+        for (size_t i = 0; i < rasterRows; ++i)
+        {
+            if (rasterDepth->getData(i, j) >= 0)
+            {
+                std::vector<double> listInputs = {rasterDepth->getData(i, j), rasterNormD->getData(i, j)};
+                double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
 
-//                ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.01);
-//            }
-//        }
-//    }
+                ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.01);
+            }
+        }
+    }
 
-//}
+}
 
 int main(int argc, char **argv)
 {
