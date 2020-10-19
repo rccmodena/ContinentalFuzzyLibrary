@@ -2,10 +2,7 @@
 #define CONTINENTAFUZZY_SERVICE_FUZZY_ABSTRACTFUZZYCONTROLLERSERVICE_H
 
 #include "continental/fuzzy/export.h"
-#include "continental/fuzzy/domain/fuzzy/SugenoController.h"
-#include "continental/fuzzy/domain/fis/Rule.h"
 #include "continental/fuzzy/domain/fis/System.h"
-#include "continental/fuzzy/domain/fis/MembershipFunction.h"
 #include <vector>
 
 namespace continental {
@@ -17,9 +14,12 @@ class CONTINENTALFUZZY_EXPORT_DECL AbstractFuzzyControllerService
 {
 
 public:
-    virtual void createFromFisSystem(continental::fuzzy::domain::fis::System p_system);
+    /// Construtor.
+    AbstractFuzzyControllerService();
 
-    virtual double calcSingleValue(std::vector<double> v_inputs, bool useDictFaciesAssociation);
+    void createFromFisSystem(continental::fuzzy::domain::fis::System p_system);
+
+    double calcSingleValue(std::vector<double> v_inputs, bool useDictFaciesAssociation);
 };
 
 }

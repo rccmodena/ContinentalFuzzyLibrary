@@ -2,6 +2,7 @@
 #define CONTINENTAFUZZY_SERVICE_FUZZY_SUGENOCONTROLLERSERVICE_H
 
 #include "continental/fuzzy/export.h"
+#include "continental/fuzzy/service/fuzzy/AbstractFuzzyControllerService.h"
 #include "continental/fuzzy/domain/fuzzy/SugenoController.h"
 #include "continental/fuzzy/domain/fis/Rule.h"
 #include "continental/fuzzy/domain/fis/System.h"
@@ -13,7 +14,7 @@ namespace fuzzy {
 namespace service {
 namespace fuzzy {
 
-class CONTINENTALFUZZY_EXPORT_DECL SugenoControllerService
+class CONTINENTALFUZZY_EXPORT_DECL SugenoControllerService : public AbstractFuzzyControllerService
 {
 
 public:

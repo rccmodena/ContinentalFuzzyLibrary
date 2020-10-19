@@ -11,8 +11,6 @@
 #include "continental/fuzzy/domain/fis/definition/OutputFunctions.h"
 #include "continental/fuzzy/domain/fuzzy/variable/SugenoInput.h"
 #include "continental/fuzzy/domain/fuzzy/variable/SugenoOutput.h"
-#include "continental/fuzzy/domain/fuzzy/rulevariable/SugenoRuleInput.h"
-#include "continental/fuzzy/domain/fuzzy/rulevariable/SugenoRuleOutput.h"
 #include "continental/fuzzy/domain/fuzzy/SugenoRule.h"
 #include "continental/fuzzy/domain/fuzzy/SugenoRuleVariable.h"
 #include "continental/fuzzy/service/fuzzy/membershipfunction/GaussMembershipFunctionService.h"
@@ -30,6 +28,7 @@
 
 using namespace  continental::fuzzy::domain::fuzzy;
 using namespace  continental::fuzzy::domain::fis;
+using namespace  continental::fuzzy::domain::fis::membershipfunction;
 using namespace  continental::fuzzy::domain::fis::variable;
 using namespace  continental::fuzzy::domain::fis::definition;
 using namespace  continental::fuzzy::domain::fuzzy::variable;
@@ -91,6 +90,11 @@ double SugenoControllerService::getResultConnection(domain::fis::Rule p_rule, st
             }
         }
         break;
+        case definition::Connections::none:
+        {
+            resultCalc = -1;
+            break;
+        }
     }
     return resultCalc;
 }
@@ -103,7 +107,8 @@ double SugenoControllerService::executeCalcOutputFunctions(
 
     double result = 0;
 
-    auto memberFunction = m_sugenoController.getSugenoFisSystem().getOutputs()[1].getOutputMfs()[indexMemberFunction];
+    OutputMembershipFunction memberFunction = m_sugenoController.getSugenoFisSystem().getOutputs()[1].getOutputMfs()[static_cast<int>(indexMemberFunction)];
+
     switch(memberFunction.getFunction())
     {
         case OutputFunctions::linear:
@@ -128,8 +133,8 @@ double SugenoControllerService::executeCalcInputFunctions(
 {
     double result = 0;
 
-    auto inputObject = m_sugenoController.getSugenoFisSystem().getInputs()[indexInput];
-    auto memberFunction = inputObject.getInputMfs()[indexMemberFunction];
+    auto inputObject = m_sugenoController.getSugenoFisSystem().getInputs()[static_cast<int>(indexInput)];
+    auto memberFunction = inputObject.getInputMfs()[static_cast<int>(indexMemberFunction)];
 
     switch(memberFunction.getFunction())
     {
@@ -195,7 +200,7 @@ std::vector<double> SugenoControllerService::calcRuleWeights()
 {
     std::vector<double> resultWeightsList;
 
-    int sizeRules = m_sugenoController.getSugenoFisSystem().getRules().size();
+    int sizeRules = static_cast<int>(m_sugenoController.getSugenoFisSystem().getRules().size());
     for (int index = 0; index < sizeRules; index++)
     {
         resultWeightsList.push_back(m_sugenoController.getSugenoFisSystem().getRules()[index+1].getWeight());

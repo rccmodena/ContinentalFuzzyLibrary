@@ -1,5 +1,4 @@
 #include "continental/fuzzy/service/fuzzy/MamdaniControllerService.h"
-#include "continental/fuzzy/service/fuzzy/AbstractFuzzyControllerService.h"
 #include "continental/fuzzy/domain/fis/Rule.h"
 #include "continental/fuzzy/domain/fis/Variable.h"
 #include "continental/fuzzy/domain/fis/variable/Input.h"
@@ -10,7 +9,6 @@
 #include "continental/fuzzy/domain/fis/definition/OrMethods.h"
 #include "continental/fuzzy/domain/fis/definition/InputFunctions.h"
 #include "continental/fuzzy/domain/fis/definition/OutputFunctions.h"
-
 #include "continental/fuzzy/service/fuzzy/membershipfunction/GaussMembershipFunctionService.h"
 #include "continental/fuzzy/service/fuzzy/membershipfunction/GaussTwoMembershipFunctionService.h"
 #include "continental/fuzzy/service/fuzzy/membershipfunction/TrapezoidalMembershipFunctionService.h"
