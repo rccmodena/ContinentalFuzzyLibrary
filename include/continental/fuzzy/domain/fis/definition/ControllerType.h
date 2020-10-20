@@ -12,7 +12,8 @@ namespace definition {
 enum class ControllerType
 {
     sugeno = 1,
-    none = 2
+    mamdani = 2,
+    none = 3
 };
 
 }
