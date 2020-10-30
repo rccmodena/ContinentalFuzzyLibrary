@@ -7,7 +7,7 @@
 #include "continental/fuzzy/domain/fis/membershipFunction/InputMembershipFunction.h"
 #include <memory>
 #include <QString>
-#include <list>
+#include <vector>
 
 namespace continental {
 namespace fuzzy {
@@ -20,13 +20,13 @@ class CONTINENTALFUZZY_EXPORT_DECL Input : public Variable
 public:
     definition::VariableType getVariableType() const;
 
-    const std::map<int, membershipfunction::InputMembershipFunction>& getInputMfs() const;
-    void setInputMfs(const std::map<int, membershipfunction::InputMembershipFunction> &inputMfs);
-    void addInputMfs(const int mfsNumber, const membershipfunction::InputMembershipFunction &inputMfs);
+    const std::vector<membershipfunction::InputMembershipFunction>& getInputMfs() const;
+    void setInputMfs(const std::vector<membershipfunction::InputMembershipFunction> &inputMfs);
+    void addInputMfs(const membershipfunction::InputMembershipFunction &inputMfs);
 
 private:
     definition::VariableType m_variableType = definition::VariableType::antecedent;
-    std::map<int, membershipfunction::InputMembershipFunction> m_inputMfs;
+    std::vector<membershipfunction::InputMembershipFunction> m_inputMfs;
 };
 
 }

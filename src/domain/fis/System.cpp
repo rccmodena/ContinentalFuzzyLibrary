@@ -152,49 +152,49 @@ void System::setDefuzzMethod(const definition::DefuzzMethods &defuzzMethod)
     m_defuzzMethod = defuzzMethod;
 }
 
-const std::map<int, variable::Input>& System::getInputs() const
+const std::vector<variable::Input>& System::getInputs() const
 {
     return m_inputs;
 }
 
-void System::setInputs(const std::map<int, variable::Input> &inputs)
+void System::setInputs(const std::vector<variable::Input> &inputs)
 {
     m_inputs = inputs;
 }
 
-void System::addInput(const int inputNumber, const variable::Input &input)
+void System::addInput(const variable::Input &input)
 {
-    m_inputs.insert(std::pair<int,variable::Input>(inputNumber, input));
+    m_inputs.push_back(input);
 }
 
-const std::map<int, variable::Output>& System::getOutputs() const
+const std::vector<variable::Output>& System::getOutputs() const
 {
     return m_outputs;
 }
 
-void System::setOutputs(const std::map<int, variable::Output> &outputs)
+void System::setOutputs(const std::vector<variable::Output> &outputs)
 {
     m_outputs = outputs;
 }
 
-void System::addOutput(const int outputNumber, const variable::Output &output)
+void System::addOutput(const variable::Output &output)
 {
-    m_outputs.insert(std::pair<int,variable::Output>(outputNumber, output));
+    m_outputs.push_back(output);
 }
 
-const std::map<int, Rule>& System::getRules() const
+const std::vector<Rule>& System::getRules() const
 {
     return m_rules;
 }
 
-void System::setRules(const std::map<int, Rule> &rules)
+void System::setRules(const std::vector<Rule> &rules)
 {
     m_rules = rules;
 }
 
-void System::addRule(const int ruleNumber, const Rule &rule)
+void System::addRule(const Rule &rule)
 {
-    m_rules.insert(std::pair<int, Rule>(ruleNumber, rule));
+    m_rules.push_back(rule);
 }
 
 }

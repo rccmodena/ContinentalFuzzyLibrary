@@ -197,7 +197,7 @@ void FisService::createInputsFromMap(const std::map<int, std::list<QString>> &in
         {
             InputFisService fisInputService;
             fisInputService.createFromFisBlock(inputList.second);
-            m_system.addInput(inputList.first, fisInputService.getInput());
+            m_system.addInput(fisInputService.getInput());
         }
     }
     else
@@ -217,7 +217,7 @@ void FisService::createOutputsFromMap(const std::map<int, std::list<QString>> &o
         {
             OutputFisService fisOutputService;
             fisOutputService.createFromFisBlock(outputList.second, m_system.getNumInputs());
-            m_system.addOutput(outputList.first, fisOutputService.getOutput());
+            m_system.addOutput(fisOutputService.getOutput());
         }
     }
     else
@@ -233,7 +233,6 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
     int sizeRuleList = static_cast<int>(ruleList.size());
     if (sizeRuleList == m_system.getNumRules())
     {
-        int ruleNumber = 1;
         // Percorre cada uma das regras
         for (auto const& line : ruleList)
         {
@@ -246,8 +245,8 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
             // Armazena as entradas das regras
             if (splitRuleInputs.size() == m_system.getNumInputs())
             {
-                std::map<int, RuleVariable> inputsRuleMap;
-                int numInputRule = 1;
+                std::vector<RuleVariable> inputsRuleMap;
+                int numInputRule = 0;
                 for (QString const& ruleInputString : splitRuleInputs)
                 {
                     RuleVariable ruleInput;
@@ -267,8 +266,8 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
                     {
                         ruleInput.setInputVarNot(false);
                     }
-                    ruleInput.setIndex(std::abs(ruleInputValue));
-                    inputsRuleMap.insert(std::pair<int, RuleVariable>(numInputRule, ruleInput));
+                    ruleInput.setIndex(std::abs(ruleInputValue) - 1);
+                    inputsRuleMap.push_back(ruleInput);
                     ++numInputRule;
                 }
                 fisRule.setInputs(inputsRuleMap);
@@ -290,20 +289,15 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
             // Armazena a saída das regras
             if (splitRuleOutputs.size() == m_system.getNumOutputs())
             {
-                std::map<int, RuleVariable> outputsRuleMap;
-                int numInputRule = 1;
+                std::vector<RuleVariable> outputsRuleMap(splitRuleOutputs.length());
+                int numInputRule = 0;
                 for (QString const& ruleOuputString : splitRuleOutputs)
                 {
                     RuleVariable ruleOutput;
                     int ruleOutputValue = ruleOuputString.toInt();
 
-                    // Se o valor do antecedente for zero pula para o próximo
-                    if (ruleOutputValue == 0)
-                    {
-                        continue;
-                    }
                     // Verificar o operador NOT
-                    else if (ruleOutputValue < 0)
+                    if (ruleOutputValue < 0)
                     {
                         throw std::exception("O consequente da regra não pode ser negado!");
                     }
@@ -311,8 +305,8 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
                     {
                         ruleOutput.setInputVarNot(false);
                     }
-                    ruleOutput.setIndex(ruleOutputValue);
-                    outputsRuleMap.insert(std::pair<int, RuleVariable>(numInputRule, ruleOutput));
+                    ruleOutput.setIndex(ruleOutputValue - 1);
+                    outputsRuleMap[numInputRule] = ruleOutput;
                     ++numInputRule;
                 }
                 fisRule.setOutputs(outputsRuleMap);
@@ -329,8 +323,7 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
             // Salva os conectores dos antecedentes
             fisRule.setConnection(static_cast<Connections>(splitOutputConnector[1].toInt()));
 
-            m_system.addRule(ruleNumber, fisRule);
-            ++ruleNumber;
+            m_system.addRule(fisRule);
         }
     }
     else
@@ -342,10 +335,10 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
 
 void FisService::createFaciesAssociationConverter()
 {
-    const int sizeOutputMfs = static_cast<int>(m_system.getOutputs().at(1).getOutputMfs().size());
-    for (int index = 1; index <=sizeOutputMfs; ++index)
+    const int sizeOutputMfs = static_cast<int>(m_system.getOutputs().at(0).getOutputMfs().size());
+    for (int index = 0; index < sizeOutputMfs; ++index)
     {
-        const membershipfunction::OutputMembershipFunction &outputMfs = m_system.getOutputs().at(1).getOutputMfs().at(index);
+        const membershipfunction::OutputMembershipFunction &outputMfs = m_system.getOutputs().at(0).getOutputMfs().at(index);
         if (outputMfs.getFunction() == OutputFunctions::constant)
         {
             if (outputMfs.getName() == "Cape")
@@ -434,7 +427,6 @@ void FisService::validImport()
 
 System& FisService::importFile(const QString &filename, bool useDictFaciesAssociation)
 {
-
     // Armazena o caminho do arquivo .fis
     m_system.setFilename(filename);
 

@@ -32,22 +32,22 @@ void Rule::setConnection(const Connections &connection)
     m_connection = connection;
 }
 
-const std::map<int, RuleVariable>& Rule::getInputs() const
+const std::vector<RuleVariable>& Rule::getInputs() const
 {
     return m_ruleInputs;
 }
 
-void Rule::setInputs(const std::map<int, RuleVariable> &ruleInputs)
+void Rule::setInputs(const std::vector<RuleVariable> &ruleInputs)
 {
     m_ruleInputs = ruleInputs;
 }
 
-const std::map<int, RuleVariable>& Rule::getOutputs() const
+const std::vector<RuleVariable>& Rule::getOutputs() const
 {
     return m_ruleOutputs;
 }
 
-void Rule::setOutputs(const std::map<int, RuleVariable> &ruleOutputs)
+void Rule::setOutputs(const std::vector<RuleVariable> &ruleOutputs)
 {
     m_ruleOutputs = ruleOutputs;
 }

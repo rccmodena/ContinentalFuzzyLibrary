@@ -5,7 +5,7 @@
 #include "continental/fuzzy/domain/fis/definition/Connections.h"
 #include "continental/fuzzy/domain/fis/RuleVariable.h"
 #include <QString>
-#include <map>
+#include <vector>
 namespace continental {
 namespace fuzzy {
 namespace domain {
@@ -26,17 +26,17 @@ public:
     definition::Connections getConnection() const;
     void setConnection(const definition::Connections &connection);
 
-    const std::map<int, RuleVariable> &getInputs() const;
-    void setInputs(const std::map<int, RuleVariable> &ruleInputs);
+    const std::vector<RuleVariable> &getInputs() const;
+    void setInputs(const std::vector<RuleVariable> &ruleInputs);
 
-    const std::map<int, RuleVariable> &getOutputs() const;
-    void setOutputs(const std::map<int, RuleVariable> &ruleOutputs);
+    const std::vector<RuleVariable> &getOutputs() const;
+    void setOutputs(const std::vector<RuleVariable> &ruleOutputs);
 
 private:
     double m_weight;
     definition::Connections m_connection;
-    std::map<int, RuleVariable> m_ruleInputs;
-    std::map<int, RuleVariable> m_ruleOutputs;
+    std::vector<RuleVariable> m_ruleInputs;
+    std::vector<RuleVariable> m_ruleOutputs;
 };
 
 }

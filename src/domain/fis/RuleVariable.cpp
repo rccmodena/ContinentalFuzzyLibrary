@@ -5,15 +5,6 @@ namespace fuzzy {
 namespace domain {
 namespace fis {
 
-RuleVariable::RuleVariable()
-{
-}
-
-RuleVariable::~RuleVariable()
-{
-
-}
-
 int RuleVariable::getIndex() const
 {
     return m_index;

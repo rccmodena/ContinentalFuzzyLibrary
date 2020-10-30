@@ -13,19 +13,19 @@ definition::VariableType Input::getVariableType() const
     return m_variableType;
 }
 
-const std::map<int, InputMembershipFunction>& Input::getInputMfs() const
+const std::vector<InputMembershipFunction>& Input::getInputMfs() const
 {
     return m_inputMfs;
 }
 
-void Input::setInputMfs(const std::map<int, InputMembershipFunction> &inputMfs)
+void Input::setInputMfs(const std::vector<InputMembershipFunction> &inputMfs)
 {
     m_inputMfs = inputMfs;
 }
 
-void Input::addInputMfs(const int mfsNumber, const InputMembershipFunction &inputMfs)
+void Input::addInputMfs(const InputMembershipFunction &inputMfs)
 {
-    m_inputMfs.insert(std::pair<int, InputMembershipFunction>(mfsNumber, inputMfs));
+    m_inputMfs.push_back(inputMfs);
 }
 
 }

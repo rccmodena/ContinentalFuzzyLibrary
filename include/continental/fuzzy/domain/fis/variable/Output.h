@@ -20,13 +20,13 @@ class CONTINENTALFUZZY_EXPORT_DECL Output : public Variable
 public:
     definition::VariableType getVariableType() const;
 
-    const std::map<int, membershipfunction::OutputMembershipFunction>& getOutputMfs() const;
-    void setOutputMfs(const std::map<int, membershipfunction::OutputMembershipFunction> &outputMfs);
-    void addOutputMfs(const int mfsNumber, const membershipfunction::OutputMembershipFunction &outputMfs);
+    const std::vector<membershipfunction::OutputMembershipFunction>& getOutputMfs() const;
+    void setOutputMfs(const std::vector<membershipfunction::OutputMembershipFunction> &outputMfs);
+    void addOutputMfs(const membershipfunction::OutputMembershipFunction &outputMfs);
 
 private:
     definition::VariableType m_variableType = definition::VariableType::consequent;
-    std::map<int, membershipfunction::OutputMembershipFunction> m_outputMfs;
+    std::vector<membershipfunction::OutputMembershipFunction> m_outputMfs;
 
 };
 

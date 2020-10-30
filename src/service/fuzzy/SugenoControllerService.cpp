@@ -106,7 +106,7 @@ double SugenoControllerService::executeCalcOutputFunctions(
 {
     double result = 0;
 
-    const OutputMembershipFunction &memberFunction = m_sugenoController.getSugenoFisSystem().getOutputs().at(1).getOutputMfs().at(static_cast<int>(indexMemberFunction));
+    const OutputMembershipFunction &memberFunction = m_sugenoController.getSugenoFisSystem().getOutputs().at(0).getOutputMfs().at(static_cast<int>(indexMemberFunction));
 
     switch(memberFunction.getFunction())
     {
@@ -132,7 +132,7 @@ double SugenoControllerService::executeCalcInputFunctions(
 {
     double result = 0;
 
-    const auto &inputObject = m_sugenoController.getSugenoFisSystem().getInputs().at(static_cast<int>(indexInput));
+    const auto &inputObject = m_sugenoController.getSugenoFisSystem().getInputs().at(indexInput);
     const auto &memberFunction = inputObject.getInputMfs().at(static_cast<int>(indexMemberFunction));
 
     switch(memberFunction.getFunction())
@@ -199,7 +199,7 @@ std::vector<double> SugenoControllerService::calcRuleWeights()
 
     for (size_t index = 0; index < sizeRules; ++index)
     {
-        resultWeightsList[index] = m_sugenoController.getSugenoFisSystem().getRules().at(static_cast<int>(index + 1)).getWeight();
+        resultWeightsList[index] = m_sugenoController.getSugenoFisSystem().getRules().at(index).getWeight();
     }
 
     return resultWeightsList;
@@ -213,7 +213,7 @@ std::vector<double> SugenoControllerService::calcRuleOutputLevel(const std::vect
     for (const auto &r_rule : m_sugenoController.getSugenoFisSystem().getRules())
     {
         //indicie do output
-        const size_t indiceMemebershipFunction = static_cast<size_t>(r_rule.second.getOutputs().at(1).getIndex());
+        const size_t indiceMemebershipFunction = static_cast<size_t>(r_rule.getOutputs().at(0).getIndex());
         const auto result = executeCalcOutputFunctions(v_inputs, indiceMemebershipFunction);
 
         listResults.push_back(result);
@@ -229,19 +229,19 @@ std::vector<double> SugenoControllerService::calcRuleFiring(const std::vector<do
 
     std::vector<double> listResults(numberRules);
 
-    for (size_t auxIndiceRule = 1; auxIndiceRule <= numberRules; auxIndiceRule++)
+    for (size_t auxIndiceRule = 0; auxIndiceRule < numberRules; auxIndiceRule++)
     {
-        const Rule &rule = m_sugenoController.getSugenoFisSystem().getRules().at(static_cast<int>(auxIndiceRule));
+        const Rule &rule = m_sugenoController.getSugenoFisSystem().getRules().at(auxIndiceRule);
         const size_t inputsSize = rule.getInputs().size();
         std::vector<double> listTempInput(inputsSize);
 
-        for (size_t auxIndiceInputs = 1; auxIndiceInputs <= inputsSize; auxIndiceInputs++)
+        for (size_t auxIndiceInputs = 0; auxIndiceInputs < inputsSize; auxIndiceInputs++)
         {
             //Busca as informações do input da regra
             const RuleVariable &inputObject = rule.getInputs().at(static_cast<int>(auxIndiceInputs));
             const size_t indiceMemebershipFunction = static_cast<size_t>(inputObject.getIndex());
 
-            const double auxValue = inputsStratBR[auxIndiceInputs -1];
+            const double auxValue = inputsStratBR[auxIndiceInputs];
 
             const double result = executeCalcInputFunctions(
                         auxValue,
@@ -251,16 +251,16 @@ std::vector<double> SugenoControllerService::calcRuleFiring(const std::vector<do
             if(inputObject.getInputVarNot())
             {
                const double resultNot = NotMethod::calculeNotMethod(result);
-               listTempInput[auxIndiceInputs - 1] = resultNot;
+               listTempInput[auxIndiceInputs] = resultNot;
             }
             else
             {
-                listTempInput[auxIndiceInputs - 1] = result;
+                listTempInput[auxIndiceInputs] = result;
             }
         }
 
         const double resultCalc = getResultConnection(rule, listTempInput);
-        listResults[auxIndiceRule - 1] = resultCalc;
+        listResults[auxIndiceRule] = resultCalc;
    }
 
    return listResults;

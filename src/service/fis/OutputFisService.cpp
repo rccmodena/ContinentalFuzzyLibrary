@@ -21,7 +21,7 @@ OutputFisService::~OutputFisService()
 void OutputFisService::createFromFisBlock(const std::list<QString> &fisOutputList, const int numInputsFis)
 {
     // Armazena as informações sobre as funções de pertinência
-    std::map<int, QString> membershipFunctionsMap = std::map<int, QString>();
+    std::vector<QString> membershipFunctionsMap;
 
     for (QString line : fisOutputList)
     {
@@ -54,9 +54,7 @@ void OutputFisService::createFromFisBlock(const std::list<QString> &fisOutputLis
         }
         else if (systemField.left(2) == "MF")
         {
-            int fieldSize = systemField.size();
-            int mfsNumber = systemField.right(fieldSize - 2).toInt();
-            membershipFunctionsMap.insert(std::pair<int, QString>(mfsNumber, systemFieldValue));
+            membershipFunctionsMap.push_back(systemFieldValue);
         }
         else
         {
@@ -82,10 +80,9 @@ void OutputFisService::createFromFisBlock(const std::list<QString> &fisOutputLis
     int sizeMfsMap = static_cast<int>(membershipFunctionsMap.size());
     if (sizeMfsMap == m_outputFis.getNumMfs())
     {
-        for (auto const& item : membershipFunctionsMap)
+        for (QString rawItem : membershipFunctionsMap)
         {
             // Remover aspas e extrair nome de identificação
-            QString rawItem = item.second;
             QStringList itemSplitted = rawItem.replace("'","").split(":");
             QString mfName = itemSplitted[0];
 
@@ -96,7 +93,7 @@ void OutputFisService::createFromFisBlock(const std::list<QString> &fisOutputLis
 
             MembershipFunctionFisService mfService;
             mfService.createOutputMembershipFisFunction(mfName, functionName, functionValues, numInputsFis);
-            m_outputFis.addOutputMfs(item.first, mfService.getOutputMembershipFisFunction());
+            m_outputFis.addOutputMfs(mfService.getOutputMembershipFisFunction());
         }
     }
     else

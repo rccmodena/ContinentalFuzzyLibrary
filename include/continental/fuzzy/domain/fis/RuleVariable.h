@@ -14,11 +14,6 @@ class CONTINENTALFUZZY_EXPORT_DECL RuleVariable
 {
 
 public:
-    /// Construtor.
-    RuleVariable();
-
-    ~RuleVariable();
-
     int  getIndex() const;
     void setIndex(const int index);
 
@@ -26,8 +21,8 @@ public:
     void setInputVarNot(bool inputVarNot);
 
 private:
-    int m_index;
-    bool m_inputVarNot;
+    int m_index = 0;
+    bool m_inputVarNot = false;
 };
 
 }

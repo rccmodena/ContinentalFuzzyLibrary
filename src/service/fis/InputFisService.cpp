@@ -21,14 +21,15 @@ InputFisService::~InputFisService()
 void InputFisService::createFromFisBlock(const std::list<QString> &fisInputList)
 {
     // Armazena as informações sobre as funções de pertinência
-    std::map<int, QString> membershipFunctionsMap = std::map<int, QString>();
+    std::vector<QString> membershipFunctionsMap;
 
-    for (QString line : fisInputList)
+    for (const QString &line : fisInputList)
     {
         // Divide a string das linhas no sinal de "=" em nome e valor
-        QStringList splitLine = line.split("=");
+        const QStringList splitLine = line.split("=");
         const QString systemField = splitLine[0];
-        const QString systemFieldValue = splitLine[1].replace("'","");
+        QString systemFieldValue = splitLine[1];
+        systemFieldValue.replace("'", "");
 
         // Preenche os atributos da classe baseado nas  entradas do arquivo .fis
         if (systemField == "Name")
@@ -54,9 +55,7 @@ void InputFisService::createFromFisBlock(const std::list<QString> &fisInputList)
         }
         else if (systemField.left(2) == "MF")
         {
-            int fieldSize = systemField.size();
-            int mfsNumber = systemField.right(fieldSize - 2).toInt();
-            membershipFunctionsMap.insert(std::pair<int, QString>(mfsNumber, systemFieldValue));
+            membershipFunctionsMap.push_back(systemFieldValue);
         }
         else
         {
@@ -82,10 +81,11 @@ void InputFisService::createFromFisBlock(const std::list<QString> &fisInputList)
     int sizeMfsMap = static_cast<int>(membershipFunctionsMap.size());
     if (sizeMfsMap == m_inputFis.getNumMfs())
     {
-        for (auto const& item : membershipFunctionsMap)
+        for (size_t mfsIndex = 0; mfsIndex < membershipFunctionsMap.size(); ++mfsIndex)
         {
+            QString rawItem = membershipFunctionsMap[mfsIndex];
+
             // Remover aspas e extrair nome de identificação
-            QString rawItem = item.second;
             QStringList itemSplitted = rawItem.replace("'","").split(":");
             QString mfName = itemSplitted[0];
 
@@ -96,7 +96,7 @@ void InputFisService::createFromFisBlock(const std::list<QString> &fisInputList)
 
             MembershipFunctionFisService mfService;
             mfService.createInputMembershipFisFunction(mfName, functionName, functionValues);
-            m_inputFis.addInputMfs(item.first, mfService.getInputMembershipFisFunction());
+            m_inputFis.addInputMfs(mfService.getInputMembershipFisFunction());
         }
     }
     else
