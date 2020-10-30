@@ -66,22 +66,22 @@ public:
     definition::DefuzzMethods getDefuzzMethod() const;
     void setDefuzzMethod(const definition::DefuzzMethods &defuzzMethod);
 
-    std::map<int, variable::Input> getInputs() const;
+    const std::map<int, variable::Input>& getInputs() const;
     void setInputs(const std::map<int, variable::Input> &inputs);
     void addInput(const int inputNumber,const variable::Input &input);
 
-    std::map<int, variable::Output> getOutputs() const;
+    const std::map<int, variable::Output> &getOutputs() const;
     void setOutputs(const std::map<int, variable::Output> &outputs);
     void addOutput(const int outputNumber,const variable::Output &output);
 
-    std::map<int, Rule> getRules() const;
+    const std::map<int, Rule>& getRules() const;
     void setRules(const std::map<int, Rule> &rules);
     void addRule(const int ruleNumber,const Rule &rule);
 
     QString getName() const;
     void setName(const QString &name);
 
-    std::map<int, int> getFaciesAssociationConversion() const;
+    const std::map<int, int>& getFaciesAssociationConversion() const;
     void setFaciesAssociationConversion(const std::map<int, int> &faciesAssociationConversion);
     void addFaciesAssociationConversion(const int fisFaciesAssociation,const int faciesAssociation);
 

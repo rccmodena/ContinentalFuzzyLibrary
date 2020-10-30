@@ -6,17 +6,7 @@ namespace service {
 namespace fuzzy {
 namespace operators {
 
-ProborOrMethod::ProborOrMethod()
-{
-
-}
-
-ProborOrMethod::~ProborOrMethod()
-{
-
-}
-
-double ProborOrMethod::calculeProborOrMethod(std::vector<double> &valuesVector)
+double ProborOrMethod::calculeProborOrMethod(const std::vector<double> &valuesVector)
 {
     double result = 0;
     bool firstValue = true;

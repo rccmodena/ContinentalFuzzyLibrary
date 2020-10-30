@@ -21,12 +21,6 @@ class CONTINENTALFUZZY_EXPORT_DECL GaussTwoMembershipFunctionService
 {
 
 public:
-    /// Construtor.
-    GaussTwoMembershipFunctionService();
-
-    /// Destrutor.
-    ~GaussTwoMembershipFunctionService();
-
     /// Função que calcula a coordena y de uma função de pertinência combinação de duas curvas gaussianas.
     /// @param xValue Valor do eixo x.
     /// @param meanOne Primeira média para geração da curva de pertinência combinação de duas curvas gaussianas.
@@ -34,11 +28,11 @@ public:
     /// @param meanTwo Segunda média para geração da curva de pertinência combinação de duas curvas gaussianas.
     /// @param sigmaTwo Segundo desvio padrão para geração da curva de pertinência combinação de duas curvas gaussianas.
     /// @return Retorna um número do tipo double com a coordenada y da curva de pertinência combinação de duas curvas gaussianas.
-    static double calculeTwoGaussMf(double xValue,
-                                    double meanOne,
-                                    double sigmaOne,
-                                    double meanTwo,
-                                    double sigmaTwo);
+    static double calculeTwoGaussMf(const double xValue,
+                                    const double meanOne,
+                                    const double sigmaOne,
+                                    const double meanTwo,
+                                    const double sigmaTwo);
 };
 
 }

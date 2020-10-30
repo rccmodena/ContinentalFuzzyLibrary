@@ -6,17 +6,7 @@ namespace service {
 namespace fuzzy {
 namespace operators {
 
-MinAndMethod::MinAndMethod()
-{
-
-}
-
-MinAndMethod::~MinAndMethod()
-{
-
-}
-
-double MinAndMethod::calculeMinAndMethod(std::vector<double> &valuesVector)
+double MinAndMethod::calculeMinAndMethod(const std::vector<double> &valuesVector)
 {
     return *std::min_element(valuesVector.begin(), valuesVector.end());
 }

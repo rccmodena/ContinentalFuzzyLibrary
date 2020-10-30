@@ -21,17 +21,11 @@ class CONTINENTALFUZZY_EXPORT_DECL TrapezoidalMembershipFunctionService
 {
 
 public:
-    /// Construtor.
-    TrapezoidalMembershipFunctionService();
-
-    /// Destrutor.
-    ~TrapezoidalMembershipFunctionService();
-
-    static double calculeTrapezoidalMf(double xValue,
-                                       double pointA,
-                                       double pointB,
-                                       double pointC,
-                                       double pointD);
+    static double calculeTrapezoidalMf(const double xValue,
+                                       const double pointA,
+                                       const double pointB,
+                                       const double pointC,
+                                       const double pointD);
 };
 
 }

@@ -14,13 +14,7 @@ class CONTINENTALFUZZY_EXPORT_DECL LinearMF
 {
 
 public:
-    /// Construtor.
-    LinearMF();
-
-    /// Destrutor.
-    ~LinearMF();
-
-    std::vector<double> getParams() const;
+    std::vector<double>& getParams();
     void setParams(const std::vector<double> &params);
     void addParams(const double valorParam);
 

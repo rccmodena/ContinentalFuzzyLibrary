@@ -27,29 +27,26 @@ class CONTINENTALFUZZY_EXPORT_DECL SugenoController
 {
 
 public:
-    /// Construtor.
-    SugenoController();
+    const fis::System& getSugenoFisSystem() const;
+    void setSugenoFisSystem(const fis::System &sugenoFisSystem);
 
-    continental::fuzzy::domain::fis::System getSugenoFisSystem() const;
-    void setSugenoFisSystem(const continental::fuzzy::domain::fis::System &sugenoFisSystem);
-
-    std::map<QString, fuzzy::variable::SugenoInput> getSugenoInputs() const;
+    const std::map<QString, fuzzy::variable::SugenoInput>& getSugenoInputs() const;
     void setSugenoInputs(const std::map<QString, fuzzy::variable::SugenoInput> &sugenoInputs);
 
     void addSugenoInput(QString nameInput, fuzzy::variable::SugenoInput &sugenoInputs);
 
-    std::map<QString, fuzzy::variable::SugenoOutput> getSugenoOutputs() const;
+    const std::map<QString, fuzzy::variable::SugenoOutput>& getSugenoOutputs() const;
     void setSugenoOutputs(const std::map<QString, fuzzy::variable::SugenoOutput> &sugenoOutputs);
     void addSugenoOutput(QString nameInput, fuzzy::variable::SugenoOutput &sugenoOutputs);
 
-    std::map<QString, continental::fuzzy::domain::fuzzy::SugenoRule> getSugenoRules() const;
-    void setSugenoRules(const std::map<QString, continental::fuzzy::domain::fuzzy::SugenoRule> &sugenoRules);
+    const std::map<QString, fuzzy::SugenoRule>& getSugenoRules() const;
+    void setSugenoRules(const std::map<QString, fuzzy::SugenoRule> &sugenoRules);
 
 private:
-    continental::fuzzy::domain::fis::System m_sugenoFisSystem;
-    std::map<QString, continental::fuzzy::domain::fuzzy::variable::SugenoInput> m_sugenoInputs;
-    std::map<QString, continental::fuzzy::domain::fuzzy::variable::SugenoOutput> m_sugenoOutputs;
-    std::map<QString, continental::fuzzy::domain::fuzzy::SugenoRule> m_sugenoRules;
+    fis::System m_sugenoFisSystem;
+    std::map<QString, fuzzy::variable::SugenoInput> m_sugenoInputs;
+    std::map<QString, fuzzy::variable::SugenoOutput> m_sugenoOutputs;
+    std::map<QString, fuzzy::SugenoRule> m_sugenoRules;
 };
 
 }

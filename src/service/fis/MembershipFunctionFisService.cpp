@@ -24,14 +24,14 @@ void MembershipFunctionFisService::createInputMembershipFisFunction(const QStrin
 {
     if (functionName == "trimf")
     {
-        InputMembershipFunction membershipFunction = InputMembershipFunction();
+        InputMembershipFunction membershipFunction;
         membershipFunction.setName(mfName);
         membershipFunction.setFunction(InputFunctions::trimf);
         QString trimFunctionValues = functionValues.mid(1, functionValues.size() - 2);
         QStringList splitValues = trimFunctionValues.split(" ");
         if (splitValues.size() == 3)
         {
-            TriMF triMF = TriMF();
+            TriMF triMF;
             triMF.setA(splitValues[0].toDouble());
             triMF.setB(splitValues[1].toDouble());
             triMF.setC(splitValues[2].toDouble());
@@ -45,14 +45,14 @@ void MembershipFunctionFisService::createInputMembershipFisFunction(const QStrin
     }
     else if (functionName == "trapmf")
     {
-        InputMembershipFunction membershipFunction = InputMembershipFunction();
+        InputMembershipFunction membershipFunction;
         membershipFunction.setName(mfName);
         membershipFunction.setFunction(InputFunctions::trapmf);
         QString trimFunctionValues = functionValues.mid(1, functionValues.size() - 2);
         QStringList splitValues = trimFunctionValues.split(" ");
         if (splitValues.size() == 4)
         {
-            TrapMF trapMF = TrapMF();
+            TrapMF trapMF;
             trapMF.setA(splitValues[0].toDouble());
             trapMF.setB(splitValues[1].toDouble());
             trapMF.setC(splitValues[2].toDouble());
@@ -67,14 +67,14 @@ void MembershipFunctionFisService::createInputMembershipFisFunction(const QStrin
     }
     else if (functionName == "gaussmf")
     {
-        InputMembershipFunction membershipFunction = InputMembershipFunction();
+        InputMembershipFunction membershipFunction;
         membershipFunction.setName(mfName);
         membershipFunction.setFunction(InputFunctions::gaussmf);
         QString trimFunctionValues = functionValues.mid(1, functionValues.size() - 2);
         QStringList splitValues = trimFunctionValues.split(" ");
         if (splitValues.size() == 2)
         {
-            GaussMF gaussmf = GaussMF();
+            GaussMF gaussmf;
             gaussmf.setSigma(splitValues[0].toDouble());
             gaussmf.setMean(splitValues[1].toDouble());
             membershipFunction.setGaussmf(gaussmf);
@@ -87,14 +87,14 @@ void MembershipFunctionFisService::createInputMembershipFisFunction(const QStrin
     }
     else if (functionName == "gauss2mf")
     {
-        InputMembershipFunction membershipFunction = InputMembershipFunction();
+        InputMembershipFunction membershipFunction;
         membershipFunction.setName(mfName);
         membershipFunction.setFunction(InputFunctions::gauss2mf);
         QString trimFunctionValues = functionValues.mid(1, functionValues.size() - 2);
         QStringList splitValues = trimFunctionValues.split(" ");
         if (splitValues.size() == 4)
         {
-            Gauss2MF gauss2mf = Gauss2MF();
+            Gauss2MF gauss2mf;
             gauss2mf.setSigma1(splitValues[0].toDouble());
             gauss2mf.setMean1(splitValues[1].toDouble());
             gauss2mf.setSigma2(splitValues[2].toDouble());
@@ -120,14 +120,14 @@ void MembershipFunctionFisService::createOutputMembershipFisFunction(const QStri
 {
     if (functionName == "linear")
     {
-        OutputMembershipFunction membershipFunction = OutputMembershipFunction();
+        OutputMembershipFunction membershipFunction;
         membershipFunction.setName(mfName);
         membershipFunction.setFunction(OutputFunctions::linear);
         QString linearFunctionValues = functionValues.mid(1, functionValues.size() - 2);
         QStringList splitValues = linearFunctionValues.split(" ");
         if (splitValues.size() == (numberOfInputs + 1))
         {
-            LinearMF linearMF = LinearMF();
+            LinearMF linearMF;
             for (short i = 0; i < (numberOfInputs + 1); ++i)
             {
                 linearMF.addParams(splitValues[i].toDouble());
@@ -142,14 +142,14 @@ void MembershipFunctionFisService::createOutputMembershipFisFunction(const QStri
     }
     else if (functionName == "constant")
     {
-        OutputMembershipFunction membershipFunction = OutputMembershipFunction();
+        OutputMembershipFunction membershipFunction;
         membershipFunction.setName(mfName);
         membershipFunction.setFunction(OutputFunctions::constant);
         QString constantFunctionValues = functionValues.mid(1, functionValues.size() - 2);
         QStringList splitValues = constantFunctionValues.split(" ");
         if (splitValues.size() == 1)
         {
-            ConstantMF constantMF = ConstantMF();
+            ConstantMF constantMF;
             constantMF.setValue(splitValues[0].toDouble());
             membershipFunction.setConstantmf(constantMF);
             m_outputMembershipFisFunction = membershipFunction;

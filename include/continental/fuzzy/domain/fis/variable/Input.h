@@ -15,24 +15,18 @@ namespace domain {
 namespace fis {
 namespace variable {
 
-class CONTINENTALFUZZY_EXPORT_DECL Input : public continental::fuzzy::domain::fis::Variable
+class CONTINENTALFUZZY_EXPORT_DECL Input : public Variable
 {
 public:
-    /// Construtor.
-    Input();
+    definition::VariableType getVariableType() const;
 
-    /// Destrutor.
-    ~Input();
-
-    continental::fuzzy::domain::fis::definition::VariableType getVariableType() const;
-
-    std::map<int, continental::fuzzy::domain::fis::membershipfunction::InputMembershipFunction> getInputMfs() const;
-    void setInputMfs(const std::map<int, continental::fuzzy::domain::fis::membershipfunction::InputMembershipFunction> &inputMfs);
-    void addInputMfs(const int mfsNumber, const continental::fuzzy::domain::fis::membershipfunction::InputMembershipFunction &inputMfs);
+    const std::map<int, membershipfunction::InputMembershipFunction>& getInputMfs() const;
+    void setInputMfs(const std::map<int, membershipfunction::InputMembershipFunction> &inputMfs);
+    void addInputMfs(const int mfsNumber, const membershipfunction::InputMembershipFunction &inputMfs);
 
 private:
-    continental::fuzzy::domain::fis::definition::VariableType m_variableType = continental::fuzzy::domain::fis::definition::VariableType::antecedent;
-    std::map<int, continental::fuzzy::domain::fis::membershipfunction::InputMembershipFunction> m_inputMfs;
+    definition::VariableType m_variableType = definition::VariableType::antecedent;
+    std::map<int, membershipfunction::InputMembershipFunction> m_inputMfs;
 };
 
 }

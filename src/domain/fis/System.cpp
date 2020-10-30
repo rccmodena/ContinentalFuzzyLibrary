@@ -27,7 +27,7 @@ void System::setName(const QString &name)
     m_name = name;
 }
 
-std::map<int, int> System::getFaciesAssociationConversion() const
+const std::map<int, int>& System::getFaciesAssociationConversion() const
 {
     return m_faciesAssociationConversion;
 }
@@ -152,7 +152,7 @@ void System::setDefuzzMethod(const definition::DefuzzMethods &defuzzMethod)
     m_defuzzMethod = defuzzMethod;
 }
 
-std::map<int, variable::Input> System::getInputs() const
+const std::map<int, variable::Input>& System::getInputs() const
 {
     return m_inputs;
 }
@@ -167,7 +167,7 @@ void System::addInput(const int inputNumber, const variable::Input &input)
     m_inputs.insert(std::pair<int,variable::Input>(inputNumber, input));
 }
 
-std::map<int, variable::Output> System::getOutputs() const
+const std::map<int, variable::Output>& System::getOutputs() const
 {
     return m_outputs;
 }
@@ -182,7 +182,7 @@ void System::addOutput(const int outputNumber, const variable::Output &output)
     m_outputs.insert(std::pair<int,variable::Output>(outputNumber, output));
 }
 
-std::map<int, Rule> System::getRules() const
+const std::map<int, Rule>& System::getRules() const
 {
     return m_rules;
 }

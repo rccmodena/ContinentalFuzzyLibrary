@@ -6,17 +6,7 @@ namespace service {
 namespace fuzzy {
 namespace operators {
 
-ProdAndMethod::ProdAndMethod()
-{
-
-}
-
-ProdAndMethod::~ProdAndMethod()
-{
-
-}
-
-double ProdAndMethod::calculeProdAndMethod(std::vector<double> &valuesVector)
+double ProdAndMethod::calculeProdAndMethod(const std::vector<double> &valuesVector)
 {
     double result = 0;
     bool firstValue = true;

@@ -18,21 +18,15 @@ class CONTINENTALFUZZY_EXPORT_DECL Output : public Variable
 {
 
 public:
-    /// Construtor.
-    Output();
+    definition::VariableType getVariableType() const;
 
-    /// Destrutor.
-    ~Output();
-
-    continental::fuzzy::domain::fis::definition::VariableType getVariableType() const;
-
-    std::map<int, continental::fuzzy::domain::fis::membershipfunction::OutputMembershipFunction> getOutputMfs() const;
-    void setOutputMfs(const std::map<int, continental::fuzzy::domain::fis::membershipfunction::OutputMembershipFunction> &outputMfs);
-    void addOutputMfs(const int mfsNumber, const continental::fuzzy::domain::fis::membershipfunction::OutputMembershipFunction &outputMfs);
+    const std::map<int, membershipfunction::OutputMembershipFunction>& getOutputMfs() const;
+    void setOutputMfs(const std::map<int, membershipfunction::OutputMembershipFunction> &outputMfs);
+    void addOutputMfs(const int mfsNumber, const membershipfunction::OutputMembershipFunction &outputMfs);
 
 private:
-    continental::fuzzy::domain::fis::definition::VariableType m_variableType = continental::fuzzy::domain::fis::definition::VariableType::consequent;
-    std::map<int, continental::fuzzy::domain::fis::membershipfunction::OutputMembershipFunction> m_outputMfs;
+    definition::VariableType m_variableType = definition::VariableType::consequent;
+    std::map<int, membershipfunction::OutputMembershipFunction> m_outputMfs;
 
 };
 

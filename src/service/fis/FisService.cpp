@@ -195,7 +195,7 @@ void FisService::createInputsFromMap(const std::map<int, std::list<QString>> &in
         // Percorre cada um dos antecedentes
         for (auto const& inputList : inputsMap)
         {
-            InputFisService fisInputService = InputFisService();
+            InputFisService fisInputService;
             fisInputService.createFromFisBlock(inputList.second);
             m_system.addInput(inputList.first, fisInputService.getInput());
         }
@@ -215,7 +215,7 @@ void FisService::createOutputsFromMap(const std::map<int, std::list<QString>> &o
         // Percorre cada um dos antecedentes
         for (auto const& outputList : outputsMap)
         {
-            OutputFisService fisOutputService = OutputFisService();
+            OutputFisService fisOutputService;
             fisOutputService.createFromFisBlock(outputList.second, m_system.getNumInputs());
             m_system.addOutput(outputList.first, fisOutputService.getOutput());
         }
@@ -237,7 +237,7 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
         // Percorre cada uma das regras
         for (auto const& line : ruleList)
         {
-            Rule fisRule = Rule();
+            Rule fisRule;
 
             // Separa a string em antecedentes e o restante
             QStringList splitRule = line.split(",");
@@ -250,7 +250,7 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
                 int numInputRule = 1;
                 for (QString const& ruleInputString : splitRuleInputs)
                 {
-                    RuleVariable ruleInput = RuleVariable();
+                    RuleVariable ruleInput;
                     int ruleInputValue = ruleInputString.toInt();
 
                     // Se o valor do antecedente for zero pula para o próximo
@@ -294,7 +294,7 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
                 int numInputRule = 1;
                 for (QString const& ruleOuputString : splitRuleOutputs)
                 {
-                    RuleVariable ruleOutput = RuleVariable();
+                    RuleVariable ruleOutput;
                     int ruleOutputValue = ruleOuputString.toInt();
 
                     // Se o valor do antecedente for zero pula para o próximo
@@ -342,12 +342,10 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
 
 void FisService::createFaciesAssociationConverter()
 {
-    //for mf in self.system.outputs.get(1).mfs.values():
-    //for (auto const& nameOutput : m_system.getOutputs()[1].getOutputMfs())
-    int sizeOutputMfs = static_cast<int>(m_system.getOutputs()[1].getOutputMfs().size());
+    const int sizeOutputMfs = static_cast<int>(m_system.getOutputs().at(1).getOutputMfs().size());
     for (int index = 1; index <=sizeOutputMfs; ++index)
     {
-        membershipfunction::OutputMembershipFunction outputMfs = m_system.getOutputs()[1].getOutputMfs()[index];
+        const membershipfunction::OutputMembershipFunction &outputMfs = m_system.getOutputs().at(1).getOutputMfs().at(index);
         if (outputMfs.getFunction() == OutputFunctions::constant)
         {
             if (outputMfs.getName() == "Cape")
@@ -444,16 +442,16 @@ System& FisService::importFile(const QString &filename, bool useDictFaciesAssoci
     Blocks fisBlock = Blocks::none;
 
     // Armazena as informações sobre o sistema
-    std::list<QString> systemList = std::list<QString>();
+    std::list<QString> systemList;
 
     // Armazena as informações sobre os antecedentes
-    std::map<int, std::list<QString>> inputsMap = std::map<int, std::list<QString>>();
+    std::map<int, std::list<QString>> inputsMap;
 
     // Armazena as informações sobre os consequentes
-    std::map<int, std::list<QString>> outputsMap = std::map<int, std::list<QString>>();
+    std::map<int, std::list<QString>> outputsMap;
 
     // Armazena as informações sobre as regras
-    std::list<QString> rulesList = std::list<QString>();
+    std::list<QString> rulesList;
 
     // Armazena o número atual do antecedente ou consequente
     int linguisticVariableNumber;
@@ -469,7 +467,10 @@ System& FisService::importFile(const QString &filename, bool useDictFaciesAssoci
         {
             const QString line = fisFileTextStream.readLine();
 
-
+            if (line.length() == 0)
+            {
+                continue;
+            }
             if (line[0] == '[')
             {
                 // Verifica se está no bloco principal do sistema.

@@ -20,13 +20,7 @@ class CONTINENTALFUZZY_EXPORT_DECL TriangularMembershipFunctionService
 {
 
 public:
-    /// Construtor.
-    TriangularMembershipFunctionService();
-
-    /// Destrutor.
-    ~TriangularMembershipFunctionService();
-
-    static double calculeTriangularMf(double xValue, double pointA, double pointB, double pointC);
+    static double calculeTriangularMf(const double xValue, const double pointA, const double pointB, const double pointC);
 };
 
 }

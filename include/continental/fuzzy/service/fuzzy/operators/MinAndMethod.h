@@ -21,13 +21,7 @@ class CONTINENTALFUZZY_EXPORT_DECL MinAndMethod
 {
 
 public:
-    /// Construtor.
-    MinAndMethod();
-
-    /// Destrutor.
-    ~MinAndMethod();
-
-    static double calculeMinAndMethod(std::vector<double> &valuesVector);
+    static double calculeMinAndMethod(const std::vector<double> &valuesVector);
 };
 
 }

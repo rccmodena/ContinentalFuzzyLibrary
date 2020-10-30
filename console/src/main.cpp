@@ -16,12 +16,12 @@ int main(int argc, char **argv)
     std::cout << "CONSOLE CONTINENTAL FUZZY" << std::endl;
 
     std::cout << "***************** INICIO - TESTE FUZZY *****************" << std::endl;
-    FisService import = FisService();
+    FisService import;
     try
     {
         auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_3.fis", false);
 
-        SugenoControllerService sugenoControllerService = SugenoControllerService();
+        SugenoControllerService sugenoControllerService;
         sugenoControllerService.createFromFisSystem(mySystem);
 
         std::vector<double> listInputs = {5.455, 7.576};

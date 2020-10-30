@@ -20,18 +20,12 @@ class CONTINENTALFUZZY_EXPORT_DECL GaussMembershipFunctionService
 {
 
 public:
-    /// Construtor.
-    GaussMembershipFunctionService();
-
-    /// Destrutor.
-    ~GaussMembershipFunctionService();
-
     /// Função que calcula a coordena y de uma função de pertinência gaussiana.
     /// @param xValue Valor do eixo x.
     /// @param mean Média para geração da curva de pertinência gaussiana.
     /// @param sigma Desvio Padrão para geração da curva de pertinência gaussiana.
     /// @return Retorna um número do tipo double com a coordenada y da curva de pertinência gaussiana.
-    static double calculeGaussMf(double xValue, double mean, double sigma);
+    static double calculeGaussMf(const double xValue, const double mean, const double sigma);
 };
 
 }

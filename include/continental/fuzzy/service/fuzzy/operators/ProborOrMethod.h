@@ -21,13 +21,7 @@ class CONTINENTALFUZZY_EXPORT_DECL ProborOrMethod
 {
 
 public:
-    /// Construtor.
-    ProborOrMethod();
-
-    /// Destrutor.
-    ~ProborOrMethod();
-
-    static double calculeProborOrMethod(std::vector<double> &valuesVector);
+    static double calculeProborOrMethod(const std::vector<double> &valuesVector);
 };
 
 }

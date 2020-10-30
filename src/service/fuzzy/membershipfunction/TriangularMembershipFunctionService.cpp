@@ -6,29 +6,19 @@ namespace service {
 namespace fuzzy {
 namespace membershipfunction {
 
-TriangularMembershipFunctionService::TriangularMembershipFunctionService()
+double TriangularMembershipFunctionService::calculeTriangularMf(const double xValue, const double pointA, const double pointB, const double pointC)
 {
-
-}
-
-TriangularMembershipFunctionService::~TriangularMembershipFunctionService()
-{
-
-}
-
-double TriangularMembershipFunctionService::calculeTriangularMf(double xValue, double pointA, double pointB, double pointC)
-{
-    if ((pointA == pointB) && (pointB == pointC) && (pointC == xValue))
+    if (qFuzzyCompare(pointA, pointB) && qFuzzyCompare(pointB, pointC) && qFuzzyCompare(pointC, xValue))
     {
         return 1.0;
     }
-    else if ((pointA < xValue) && (xValue <= pointB))
+    else if ((pointA < xValue) && (xValue <= pointB || qFuzzyCompare(xValue, pointB)))
     {
-        return (xValue - pointA)/(pointB - pointA);
+        return (xValue - pointA) / (pointB - pointA);
     }
     else if ((pointB < xValue) && (xValue < pointC))
     {
-        return (pointC - xValue)/(pointC - pointB);
+        return (pointC - xValue) / (pointC - pointB);
     }
     else
     {

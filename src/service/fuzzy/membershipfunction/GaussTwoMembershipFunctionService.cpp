@@ -8,21 +8,11 @@ namespace service {
 namespace fuzzy {
 namespace membershipfunction {
 
-GaussTwoMembershipFunctionService::GaussTwoMembershipFunctionService()
-{
-
-}
-
-GaussTwoMembershipFunctionService::~GaussTwoMembershipFunctionService()
-{
-
-}
-
-double GaussTwoMembershipFunctionService::calculeTwoGaussMf(double xValue,
-                                                            double meanOne,
-                                                            double sigmaOne,
-                                                            double meanTwo,
-                                                            double sigmaTwo)
+double GaussTwoMembershipFunctionService::calculeTwoGaussMf(const double xValue,
+                                                            const double meanOne,
+                                                            const double sigmaOne,
+                                                            const double meanTwo,
+                                                            const double sigmaTwo)
 {
     // Se o valor de x estiver entre as duas médias ele será igual a 1.
     if ((xValue >= meanOne) && (xValue <= meanTwo))
@@ -31,8 +21,8 @@ double GaussTwoMembershipFunctionService::calculeTwoGaussMf(double xValue,
     }
 
     // Inicializa as duas curvas gaussianas com valor 1
-    float leftGauss = 1;
-    float rightGauss = 1;
+    double leftGauss = 1;
+    double rightGauss = 1;
 
     // Se o valor de x for menor que a primeira média calcula o valor de uma curva gaussiana usando a primeira média e desvio padrão.
     if (xValue < meanOne)

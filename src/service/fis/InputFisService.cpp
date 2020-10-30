@@ -94,7 +94,7 @@ void InputFisService::createFromFisBlock(const std::list<QString> &fisInputList)
             QString functionName = functionSplitted[0];
             QString functionValues = functionSplitted[1];
 
-            MembershipFunctionFisService mfService = MembershipFunctionFisService();
+            MembershipFunctionFisService mfService;
             mfService.createInputMembershipFisFunction(mfName, functionName, functionValues);
             m_inputFis.addInputMfs(item.first, mfService.getInputMembershipFisFunction());
         }

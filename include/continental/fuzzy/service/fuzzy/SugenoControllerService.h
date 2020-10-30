@@ -21,33 +21,33 @@ public:
     /// Construtor.
     SugenoControllerService();
 
-    void createFromFisSystem(continental::fuzzy::domain::fis::System p_system);
+    void createFromFisSystem(domain::fis::System p_system) override;
 
-    double calcSingleValue(std::vector<double> v_inputs, bool useDictFaciesAssociation);
+    double calcSingleValue(const std::vector<double> &v_inputs, bool useDictFaciesAssociation) override;
 
 private:
-    continental::fuzzy::domain::fuzzy::SugenoController m_sugenoController;
+    domain::fuzzy::SugenoController m_sugenoController;
 
-    double getResultConnection(continental::fuzzy::domain::fis::Rule p_rule, std::vector<double> listTempInput);
+    double getResultConnection(const domain::fis::Rule &p_rule, const std::vector<double> &listTempInput);
 
     double executeCalcInputFunctions(
-            double inputValue,
-            size_t indexInput,
-            size_t indexMemberFunction
-    );
+            const double inputValue,
+            const size_t indexInput,
+            const size_t indexMemberFunction
+        );
 
     double executeCalcOutputFunctions(
-            std::vector<double> valueOfPoint,
+            const std::vector<double> &valueOfPoint,
             size_t indexMemberFunction
     );
 
-    continental::fuzzy::domain::fuzzy::SugenoController getSugenoController() const;
+    const domain::fuzzy::SugenoController& getSugenoController() const;
 
     std::vector<double> calcRuleWeights();
 
-    std::vector<double> calcRuleOutputLevel(std::vector<double> v_inputs);
+    std::vector<double> calcRuleOutputLevel(const std::vector<double> &v_inputs);
 
-    std::vector<double> calcRuleFiring(std::vector<double> v_inputs);
+    std::vector<double> calcRuleFiring(const std::vector<double> &v_inputs);
 };
 
 }

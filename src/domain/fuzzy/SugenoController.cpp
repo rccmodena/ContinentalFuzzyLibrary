@@ -7,21 +7,17 @@ namespace fuzzy {
 namespace domain {
 namespace fuzzy {
 
-SugenoController::SugenoController()
-{
-}
-
-continental::fuzzy::domain::fis::System SugenoController::getSugenoFisSystem() const
+const fis::System& SugenoController::getSugenoFisSystem() const
 {
     return m_sugenoFisSystem;
 }
 
-void SugenoController::setSugenoFisSystem(const continental::fuzzy::domain::fis::System &sugenoFisSystem)
+void SugenoController::setSugenoFisSystem(const fis::System &sugenoFisSystem)
 {
     m_sugenoFisSystem = sugenoFisSystem;
 }
 
-std::map<QString, fuzzy::variable::SugenoInput> SugenoController::getSugenoInputs() const
+const std::map<QString, fuzzy::variable::SugenoInput>& SugenoController::getSugenoInputs() const
 {
     return m_sugenoInputs;
 }
@@ -36,7 +32,7 @@ void SugenoController::addSugenoInput(QString nameInput, variable::SugenoInput &
     m_sugenoInputs.insert(std::pair<QString,variable::SugenoInput>(nameInput, sugenoInputs));
 }
 
-std::map<QString, fuzzy::variable::SugenoOutput> SugenoController::getSugenoOutputs() const
+const std::map<QString, fuzzy::variable::SugenoOutput>& SugenoController::getSugenoOutputs() const
 {
     return m_sugenoOutputs;
 }
@@ -51,7 +47,7 @@ void SugenoController::addSugenoOutput(QString nameInput, variable::SugenoOutput
     m_sugenoOutputs.insert(std::pair<QString,variable::SugenoOutput>(nameInput, sugenoOutputs));
 }
 
-std::map<QString, SugenoRule> SugenoController::getSugenoRules() const
+const std::map<QString, SugenoRule>& SugenoController::getSugenoRules() const
 {
     return m_sugenoRules;
 }

@@ -8,32 +8,22 @@ namespace domain {
 namespace fis {
 namespace variable {
 
-Input::Input()
-{
-
-}
-
-Input::~Input()
-{
-
-}
-
-continental::fuzzy::domain::fis::definition::VariableType Input::getVariableType() const
+definition::VariableType Input::getVariableType() const
 {
     return m_variableType;
 }
 
-std::map<int, membershipfunction::InputMembershipFunction> Input::getInputMfs() const
+const std::map<int, InputMembershipFunction>& Input::getInputMfs() const
 {
     return m_inputMfs;
 }
 
-void Input::setInputMfs(const std::map<int, membershipfunction::InputMembershipFunction> &inputMfs)
+void Input::setInputMfs(const std::map<int, InputMembershipFunction> &inputMfs)
 {
     m_inputMfs = inputMfs;
 }
 
-void Input::addInputMfs(const int mfsNumber, const membershipfunction::InputMembershipFunction &inputMfs)
+void Input::addInputMfs(const int mfsNumber, const InputMembershipFunction &inputMfs)
 {
     m_inputMfs.insert(std::pair<int, InputMembershipFunction>(mfsNumber, inputMfs));
 }

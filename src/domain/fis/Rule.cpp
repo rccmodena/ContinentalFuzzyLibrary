@@ -32,7 +32,7 @@ void Rule::setConnection(const Connections &connection)
     m_connection = connection;
 }
 
-std::map<int, RuleVariable> Rule::getInputs() const
+const std::map<int, RuleVariable>& Rule::getInputs() const
 {
     return m_ruleInputs;
 }
@@ -42,7 +42,7 @@ void Rule::setInputs(const std::map<int, RuleVariable> &ruleInputs)
     m_ruleInputs = ruleInputs;
 }
 
-std::map<int, RuleVariable> Rule::getOutputs() const
+const std::map<int, RuleVariable>& Rule::getOutputs() const
 {
     return m_ruleOutputs;
 }

@@ -21,13 +21,7 @@ class CONTINENTALFUZZY_EXPORT_DECL ProdAndMethod
 {
 
 public:
-    /// Construtor.
-    ProdAndMethod();
-
-    /// Destrutor.
-    ~ProdAndMethod();
-
-    static double calculeProdAndMethod(std::vector<double> &valuesVector);
+    static double calculeProdAndMethod(const std::vector<double> &valuesVector);
 };
 
 }

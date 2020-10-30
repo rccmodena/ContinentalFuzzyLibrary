@@ -8,27 +8,17 @@ namespace service {
 namespace fuzzy {
 namespace membershipfunction {
 
-TrapezoidalMembershipFunctionService::TrapezoidalMembershipFunctionService()
+double TrapezoidalMembershipFunctionService::calculeTrapezoidalMf(const double xValue,
+                                                                  const double pointA,
+                                                                  const double pointB,
+                                                                  const double pointC,
+                                                                  const double pointD)
 {
-
-}
-
-TrapezoidalMembershipFunctionService::~TrapezoidalMembershipFunctionService()
-{
-
-}
-
-double TrapezoidalMembershipFunctionService::calculeTrapezoidalMf(double xValue,
-                                                                  double pointA,
-                                                                  double pointB,
-                                                                  double pointC,
-                                                                  double pointD)
-{
-    if ((pointA == pointB) && (pointB == pointC) && (pointC == pointD) && (pointD == xValue))
+    if (qFuzzyCompare(pointA, pointB) && qFuzzyCompare(pointB, pointC) && qFuzzyCompare(pointC, pointD) && qFuzzyCompare(pointD, xValue))
     {
         return 1.0;
     }
-    else if ((xValue >= pointB) && (xValue <= pointC))
+    else if ((xValue >= pointB || qFuzzyCompare(xValue, pointB)) && (xValue <= pointC || qFuzzyCompare(xValue, pointC)))
     {
         return 1.0;
     }

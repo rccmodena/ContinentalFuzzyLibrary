@@ -14,12 +14,9 @@ class CONTINENTALFUZZY_EXPORT_DECL AbstractFuzzyControllerService
 {
 
 public:
-    /// Construtor.
-    AbstractFuzzyControllerService();
+    virtual void createFromFisSystem(domain::fis::System p_system) = 0;
 
-    void createFromFisSystem(continental::fuzzy::domain::fis::System p_system);
-
-    double calcSingleValue(std::vector<double> v_inputs, bool useDictFaciesAssociation);
+    virtual double calcSingleValue(const std::vector<double> &v_inputs, bool useDictFaciesAssociation) = 0;
 };
 
 }

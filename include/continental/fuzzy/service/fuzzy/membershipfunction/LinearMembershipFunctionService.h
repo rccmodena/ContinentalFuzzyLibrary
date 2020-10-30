@@ -21,13 +21,7 @@ class CONTINENTALFUZZY_EXPORT_DECL LinearMembershipFunctionService
 {
 
 public:
-    /// Construtor.
-    LinearMembershipFunctionService();
-
-    /// Destrutor.
-    ~LinearMembershipFunctionService();
-
-    static double calculeLinearMembershipFunctionService(std::vector<double> &parameters, std::vector<double> &inputs);
+    static double calculeLinearMembershipFunctionService(const std::vector<double> &parameters, const std::vector<double> &inputs);
 };
 
 }

@@ -1,3 +1,6 @@
 /.project
 CMakeLists.txt.user
 CMakeLists.config
+.vs
+out
+CMakeSettings.json

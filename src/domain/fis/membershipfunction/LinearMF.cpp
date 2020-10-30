@@ -7,16 +7,7 @@ namespace domain {
 namespace fis {
 namespace membershipfunction {
 
-LinearMF::LinearMF()
-{
-}
-
-LinearMF::~LinearMF()
-{
-
-}
-
-std::vector<double> LinearMF::getParams() const
+std::vector<double>& LinearMF::getParams()
 {
     return m_params;
 }

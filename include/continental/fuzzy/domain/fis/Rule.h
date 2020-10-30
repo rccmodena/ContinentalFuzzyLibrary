@@ -26,17 +26,17 @@ public:
     definition::Connections getConnection() const;
     void setConnection(const definition::Connections &connection);
 
-    std::map<int, continental::fuzzy::domain::fis::RuleVariable> getInputs() const;
-    void setInputs(const std::map<int, continental::fuzzy::domain::fis::RuleVariable> &ruleInputs);
+    const std::map<int, RuleVariable> &getInputs() const;
+    void setInputs(const std::map<int, RuleVariable> &ruleInputs);
 
-    std::map<int, continental::fuzzy::domain::fis::RuleVariable> getOutputs() const;
-    void setOutputs(const std::map<int, continental::fuzzy::domain::fis::RuleVariable> &ruleOutputs);
+    const std::map<int, RuleVariable> &getOutputs() const;
+    void setOutputs(const std::map<int, RuleVariable> &ruleOutputs);
 
 private:
     double m_weight;
     definition::Connections m_connection;
-    std::map<int, continental::fuzzy::domain::fis::RuleVariable> m_ruleInputs;
-    std::map<int, continental::fuzzy::domain::fis::RuleVariable> m_ruleOutputs;
+    std::map<int, RuleVariable> m_ruleInputs;
+    std::map<int, RuleVariable> m_ruleOutputs;
 };
 
 }

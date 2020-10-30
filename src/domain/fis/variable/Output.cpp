@@ -8,22 +8,12 @@ namespace domain {
 namespace fis {
 namespace variable {
 
-Output::Output()
-{
-
-}
-
-Output::~Output()
-{
-
-}
-
 definition::VariableType Output::getVariableType() const
 {
     return m_variableType;
 }
 
-std::map<int, OutputMembershipFunction> Output::getOutputMfs() const
+const std::map<int, OutputMembershipFunction>& Output::getOutputMfs() const
 {
     return m_outputMfs;
 }
