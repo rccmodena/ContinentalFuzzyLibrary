@@ -306,7 +306,7 @@ double SugenoControllerService::calcSingleValue(const std::vector<double> &v_inp
 
     if (useDictFaciesAssociation)
     {
-        const int valueRound = static_cast<int>(result);
+        const int valueRound = static_cast<int>(std::round(result));
         const int faciesAssociationConversion = m_sugenoController.getSugenoFisSystem().getFaciesAssociationConversion().at(valueRound);
 
         return static_cast<double>(faciesAssociationConversion);

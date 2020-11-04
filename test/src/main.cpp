@@ -9,6 +9,7 @@
 #include <continental/fuzzy/domain/fis/definition/ImpMethods.h>
 #include <continental/fuzzy/domain/fis/definition/OrMethods.h>
 #include <continental/fuzzy/domain/fis/definition/InputFunctions.h>
+#include <continental/fuzzy/domain/fis/definition/FaciesAssociationsImplemented.h>
 #include <continental/fuzzy/service/fuzzy/membershipfunction/GaussMembershipFunctionService.h>
 #include <continental/fuzzy/service/fuzzy/membershipfunction/GaussTwoMembershipFunctionService.h>
 #include <continental/fuzzy/service/fuzzy/membershipfunction/TriangularMembershipFunctionService.h>
@@ -508,7 +509,6 @@ TEST(ContinentalFuzzyTest, TestAustraliaShelfAridCompareMatlab)
             }
         }
     }
-
 }
 
 TEST(ContinentalFuzzyTest, TestAustraliaShelfHumidCompareMatlab)
@@ -545,7 +545,226 @@ TEST(ContinentalFuzzyTest, TestAustraliaShelfHumidCompareMatlab)
             }
         }
     }
+}
 
+TEST(ContinentalFuzzyTest, TestRampAridFaciesAssociationConvertion)
+{
+    FisService import;
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Arid.fis", true);
+
+    // Valores de Paleobatimetria
+    double ShallowDepth = 0.0;
+    double IntermediaryDepth = 75.0;
+    double DeepDepth = 400.0;
+
+    // Valores de Dissipação de energia de onda
+    double LowEnergyDissipation = 0.0;
+    double ModerateEnergyDissipation = 0.5;
+    double HighEnergyDissipation = 1.0;
+
+    SugenoControllerService sugenoControllerService;
+    sugenoControllerService.createFromFisSystem(mySystem);
+
+    std::vector<double> listInputs = {ShallowDepth, LowEnergyDissipation};
+    int resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::LaminiteRamp), resultFuzzy);
+
+    listInputs = {ShallowDepth, ModerateEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::ModerateEnergyIntraclastic), resultFuzzy);
+
+    listInputs = {ShallowDepth, HighEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::Cape), resultFuzzy);
+
+    listInputs = {IntermediaryDepth, LowEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::LaminiteRamp), resultFuzzy);
+
+    listInputs = {IntermediaryDepth, ModerateEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::LaminiteRamp), resultFuzzy);
+
+    listInputs = {IntermediaryDepth, HighEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::HighEnergyIntraclastic), resultFuzzy);
+
+    listInputs = {DeepDepth, LowEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::SubCoastal), resultFuzzy);
+
+    listInputs = {DeepDepth, ModerateEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::Undefined), resultFuzzy);
+
+    listInputs = {DeepDepth, HighEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::Undefined), resultFuzzy);
+}
+
+TEST(ContinentalFuzzyTest, TestRampHumidFaciesAssociationConvertion)
+{
+    FisService import;
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Humid.fis", true);
+
+    // Valores de Paleobatimetria
+    double ShallowDepth = 0.0;
+    double IntermediaryDepth = 75.0;
+    double DeepDepth = 400.0;
+
+    // Valores de Dissipação de energia de onda
+    double LowEnergyDissipation = 0.0;
+    double ModerateEnergyDissipation = 0.5;
+    double HighEnergyDissipation = 1.0;
+
+    SugenoControllerService sugenoControllerService;
+    sugenoControllerService.createFromFisSystem(mySystem);
+
+    std::vector<double> listInputs = {ShallowDepth, LowEnergyDissipation};
+    int resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::LaminiteRamp), resultFuzzy);
+
+    listInputs = {ShallowDepth, ModerateEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::LaminiteRamp), resultFuzzy);
+
+    listInputs = {ShallowDepth, HighEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::Cape), resultFuzzy);
+
+    listInputs = {IntermediaryDepth, LowEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::LaminiteRamp), resultFuzzy);
+
+    listInputs = {IntermediaryDepth, ModerateEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::LaminiteRamp), resultFuzzy);
+
+    listInputs = {IntermediaryDepth, HighEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::Cape), resultFuzzy);
+
+    listInputs = {DeepDepth, LowEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::SubCoastal), resultFuzzy);
+
+    listInputs = {DeepDepth, ModerateEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::Undefined), resultFuzzy);
+
+    listInputs = {DeepDepth, HighEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::Undefined), resultFuzzy);
+}
+
+TEST(ContinentalFuzzyTest, TestShelfAridFaciesAssociationConvertion)
+{
+    FisService import;
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Shelf_Arid.fis", true);
+
+    // Valores de Paleobatimetria
+    double ShallowDepth = 0.0;
+    double IntermediaryDepth = 75.0;
+    double DeepDepth = 400.0;
+
+    // Valores de Dissipação de energia de onda
+    double LowEnergyDissipation = 0.0;
+    double ModerateEnergyDissipation = 0.5;
+    double HighEnergyDissipation = 1.0;
+
+    SugenoControllerService sugenoControllerService;
+    sugenoControllerService.createFromFisSystem(mySystem);
+
+    std::vector<double> listInputs = {ShallowDepth, LowEnergyDissipation};
+    int resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::ClayeyEmbayment), resultFuzzy);
+
+    listInputs = {ShallowDepth, ModerateEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::ShallowPlain), resultFuzzy);
+
+    listInputs = {ShallowDepth, HighEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::Cape), resultFuzzy);
+
+    listInputs = {IntermediaryDepth, LowEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::LowEnergyUnderwaterPlain), resultFuzzy);
+
+    listInputs = {IntermediaryDepth, ModerateEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::StromatoliteEmbayment), resultFuzzy);
+
+    listInputs = {IntermediaryDepth, HighEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::HighEnergyIntraclastic), resultFuzzy);
+
+    listInputs = {DeepDepth, LowEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::SubCoastal), resultFuzzy);
+
+    listInputs = {DeepDepth, ModerateEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::Undefined), resultFuzzy);
+
+    listInputs = {DeepDepth, HighEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::Undefined), resultFuzzy);
+}
+
+TEST(ContinentalFuzzyTest, TestShelfHumidFaciesAssociationConvertion)
+{
+    FisService import;
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Shelf_Humid.fis", true);
+
+    // Valores de Paleobatimetria
+    double ShallowDepth = 0.0;
+    double IntermediaryDepth = 75.0;
+    double DeepDepth = 400.0;
+
+    // Valores de Dissipação de energia de onda
+    double LowEnergyDissipation = 0.0;
+    double ModerateEnergyDissipation = 0.5;
+    double HighEnergyDissipation = 1.0;
+
+    SugenoControllerService sugenoControllerService;
+    sugenoControllerService.createFromFisSystem(mySystem);
+
+    std::vector<double> listInputs = {ShallowDepth, LowEnergyDissipation};
+    int resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::ModerateEnergyIntraclastic), resultFuzzy);
+
+    listInputs = {ShallowDepth, ModerateEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::Reef), resultFuzzy);
+
+    listInputs = {ShallowDepth, HighEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::Reef), resultFuzzy);
+
+    listInputs = {IntermediaryDepth, LowEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::InterpatchesPlain), resultFuzzy);
+
+    listInputs = {IntermediaryDepth, ModerateEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::ClayeyClasticDeposit), resultFuzzy);
+
+    listInputs = {IntermediaryDepth, HighEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::Reef), resultFuzzy);
+
+    listInputs = {DeepDepth, LowEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::SubCoastal), resultFuzzy);
+
+    listInputs = {DeepDepth, ModerateEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::Undefined), resultFuzzy);
+
+    listInputs = {DeepDepth, HighEnergyDissipation};
+    resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    ASSERT_EQ(static_cast<int>(FaciesAssociationsImplemented::Undefined), resultFuzzy);
 }
 
 int main(int argc, char **argv)
