@@ -502,30 +502,39 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
        }
 
 
-       file.close();
-
-
-       /*
-       switch(system.getAndMethod())
+       count = 1;
+       for (auto output : system.getOutputs())
        {
+           out << "[Output" << QString::number(count) <<"]"<< "\n";
+           out <<"Name="<<"'"<< output.getName() <<"'"<<"\n";
+           out <<"Range="<< "[" << output.getRange().first << " " << output.getRange().second << "]" << "\n";
+           out <<"NumMFs="<< QString::number(output.getNumMfs()) << "\n";
+           size_t countMfs = 1;
 
-       case AndMethods::min:
-           out << "'min'";
-           break;
+           for (auto mfs : output.getOutputMfs())
+                {
+                    out << "MF"<<QString::number(countMfs)<<"="<< "'" <<mfs.getName()<< "'" << " : ";
 
-       case AndMethods::prod:
-           out << "'prod'";
-           break;
+                    switch(mfs.getFunction())
+                    {
 
-       case AndMethods::none:
-           out << "'none'";
-           break;
+                    case OutputFunctions::constant:
+                        out << "'constant',[" << QString::number(mfs.getConstantmf().getValue()) << "] \n";
 
-       }
+                        break;
 
-       */
-   }
 
+                    case OutputFunctions::linear:
+
+                        out << "'constant',[" << QString::number(mfs.getLinearmf().getParams()[0]) << "] \n";
+
+                    }
+
+                countMfs++;
+                    }
+        }
+
+       file.close();
 
 }
 
