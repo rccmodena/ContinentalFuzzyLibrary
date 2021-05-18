@@ -4,6 +4,7 @@ using namespace continental::fuzzy::domain::fis;
 using namespace continental::fuzzy::domain::fis::definition;
 using namespace continental::fuzzy::service::fis;
 
+
 namespace continental {
 namespace fuzzy {
 namespace service {
@@ -455,6 +456,49 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
            out <<"Name="<<"'"<< input.getName() <<"'"<<"\n";
            out <<"Range="<< "[" << input.getRange().first << " " << input.getRange().second << "]" << "\n";
            out <<"NumMFs="<< QString::number(input.getNumMfs()) << "\n";
+
+           size_t countMfs = 1;
+           for (auto mfs : input.getInputMfs())
+                {
+                    out << "MF"<<QString::number(countMfs)<<"="<< "'" <<mfs.getName()<< "'" << " : ";
+
+                    switch(mfs.getFunction())
+                    {
+
+                    case InputFunctions::gauss2mf:
+                        out << "'gauss2mf',[" << QString::number(mfs.getGauss2mf().getMean1()) << " "
+                                              << QString::number(mfs.getGauss2mf().getMean2()) << " "
+                                              << QString::number(mfs.getGauss2mf().getSigma1()) << " "
+                                              << QString::number(mfs.getGauss2mf().getSigma2()) << "] \n";
+                        break;
+
+                    case InputFunctions::gaussmf:
+                        out << "'gaussmf',["<< QString::number(mfs.getGaussmf().getMean()) << " "
+                                              << QString::number(mfs.getGaussmf().getSigma()) << "] \n";
+
+                        break;
+
+                    case InputFunctions::trapmf:
+                        out << "'trapmf',["<< QString::number(mfs.getTrapmf().getA()) << " "
+                                              << QString::number(mfs.getTrapmf().getB()) << " "
+                                              << QString::number(mfs.getTrapmf().getC()) << " "
+                                              << QString::number(mfs.getTrapmf().getD()) << "] \n";
+
+
+                        break;
+
+                    case InputFunctions::trimf:
+                        out << "'trimf',[" << QString::number(mfs.getTrimf().getA()) << " "
+                                              << QString::number(mfs.getTrimf().getB()) << " "
+                                              << QString::number(mfs.getTrimf().getC()) << "] \n";;
+                        break;
+                    }
+
+                countMfs++;
+                }
+
+           out << "\n";
+           count++;
        }
 
 
