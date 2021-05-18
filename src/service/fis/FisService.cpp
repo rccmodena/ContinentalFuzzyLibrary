@@ -425,6 +425,66 @@ void FisService::validImport()
     }
 }
 
+
+void FisService::exportFile(const QString &filename, const domain::fis::System &system)
+{
+    QFile file(filename);
+       if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+       {
+           throw std::exception("Não foi possível gravar o arquivo fis");
+       }
+       QTextStream out(&file);
+       out << "[System]\n";
+       out << "Name=" << "'" << system.getName() << "'" << "\n";
+       out << "Type=" << (system.getType() == definition::ControllerType::mamdani ? "'mandani'" : "'sugeno'") << "\n";
+       out << "Version=" <<  system.getVersion() << "\n";
+       out << "NumInputs=" << QString::number(system.getNumInputs())<<  "\n";
+       out << "NumOutputs=" << QString::number(system.getNumOutputs()) << "\n";
+       out << "NumRules=" << QString::number(system.getNumRules()) << "\n";
+       out << "AndMethod=" << (system.getAndMethod() == definition::AndMethods::min ? "'min'" : "'prod'") << "\n";
+       out << "OrMethod=" << (system.getOrMethod() == definition::OrMethods::max ? "'max'" : "'probor'") << "\n";
+       out << "ImpMethod=" << "'prod'"<< "\n";
+       out << "AggMethod=" << "'sum'"<< "\n";
+       out << "DefuzzMethod=" << (system.getDefuzzMethod() == definition::DefuzzMethods::wtaver ? "'wtaver'" : "'wtsum'") << "\n";
+
+       out << "\n";
+       size_t count = 1;
+       for (auto input : system.getInputs())
+       {
+           out << "[Input" << QString::number(count) <<"]"<< "\n";
+           out <<"Name="<<"'"<< input.getName() <<"'"<<"\n";
+           out <<"Range="<< "[" << input.getRange().first << " " << input.getRange().second << "]" << "\n";
+           out <<"NumMFs="<< QString::number(input.getNumMfs()) << "\n";
+       }
+
+
+       file.close();
+
+
+       /*
+       switch(system.getAndMethod())
+       {
+
+       case AndMethods::min:
+           out << "'min'";
+           break;
+
+       case AndMethods::prod:
+           out << "'prod'";
+           break;
+
+       case AndMethods::none:
+           out << "'none'";
+           break;
+
+       }
+
+       */
+   }
+
+
+}
+
 System& FisService::importFile(const QString &filename, bool useDictFaciesAssociation)
 {
     // Armazena o caminho do arquivo .fis
@@ -574,7 +634,6 @@ System& FisService::importFile(const QString &filename, bool useDictFaciesAssoci
     return m_system;
 }
 
-}
 }
 }
 }

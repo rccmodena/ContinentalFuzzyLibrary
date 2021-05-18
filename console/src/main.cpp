@@ -34,5 +34,14 @@ int main(int argc, char **argv)
     }
     std::cout << "***************** FIM - TESTE FUZZY *****************" << std::endl;
 
+
+    std::cout << "***************** INICIO - TESTE EXPORT FIS *****************" << std::endl;
+
+    FisService export_;
+    auto mySystem = export_.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_3.fis", false);
+    export_.exportFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_TESTE.fis", mySystem);
+
+    std::cout << "***************** FIM - TESTE FUZZY *****************" << std::endl;
+
     return 0;
 }

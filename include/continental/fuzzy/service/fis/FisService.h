@@ -39,6 +39,8 @@ public:
     // Importa um arquivo .fis e cria todos os componentes de um sistema fuzzy.
     domain::fis::System& importFile(const QString &filename, bool useDictFaciesAssociation);
 
+    void exportFile(const QString &filename, const domain::fis::System &system);
+
 private:
     /// Membros.
     domain::fis::System m_system = domain::fis::System();
@@ -63,6 +65,8 @@ private:
 
     // Verifica se a importação preencheu todas as informações.
     void validImport();
+
+
 };
 
 }
