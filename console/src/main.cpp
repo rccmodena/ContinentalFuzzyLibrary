@@ -14,7 +14,7 @@ int main(int argc, char **argv)
     QStringList args = app.arguments();
 
     std::cout << "CONSOLE CONTINENTAL FUZZY" << std::endl;
-
+/*
     std::cout << "***************** INICIO - TESTE FUZZY *****************" << std::endl;
     FisService import;
     try
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     }
     std::cout << "***************** FIM - TESTE FUZZY *****************" << std::endl;
 
-
+*/
     std::cout << "***************** INICIO - TESTE EXPORT FIS *****************" << std::endl;
 
     FisService export_;

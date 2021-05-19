@@ -25,6 +25,16 @@ void RuleVariable::setInputVarNot(bool inputVarNot)
     m_inputVarNot = inputVarNot;
 }
 
+float RuleVariable::getValueFromOrigFis() const
+{
+    return m_valueFromOrigFis;
+}
+
+void RuleVariable::setValueFromOrigFis(float valueFromOrigFis)
+{
+    m_valueFromOrigFis = valueFromOrigFis;
+}
+
 }
 }
 }

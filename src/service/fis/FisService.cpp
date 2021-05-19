@@ -256,15 +256,18 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
                     // Se o valor do antecedente for zero pula para o próximo
                     if (ruleInputValue == 0)
                     {
+                        ruleInput.setValueFromOrigFis(ruleInputValue);
                         continue;
                     }
                     // Verificar o operador NOT
                     else if (ruleInputValue < 0)
                     {
+                        ruleInput.setValueFromOrigFis(ruleInputValue);
                         ruleInput.setInputVarNot(true);
                     }
                     else
                     {
+                        ruleInput.setValueFromOrigFis(ruleInputValue);
                         ruleInput.setInputVarNot(false);
                     }
                     ruleInput.setIndex(std::abs(ruleInputValue) - 1);
@@ -304,6 +307,7 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
                     }
                     else
                     {
+                        ruleOutput.setValueFromOrigFis(ruleOutputValue);
                         ruleOutput.setInputVarNot(false);
                     }
                     ruleOutput.setIndex(ruleOutputValue - 1);
@@ -525,13 +529,41 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
 
 
                     case OutputFunctions::linear:
-
-                        out << "'constant',[" << QString::number(mfs.getLinearmf().getParams()[0]) << "] \n";
+                        // OLHAR LISTA DE PARAMETROS DE OUTPUT LINEAR
+                        out << "'linear',[" << QString::number(mfs.getLinearmf().getParams()[0]) << "] \n";
 
                     }
 
                 countMfs++;
                     }
+           out << "\n";
+           count++;
+        }
+
+
+       out << "[Rules] \n";
+       for (auto rule : system.getRules())
+       {
+           for (auto ruleInputs : rule.getInputs())
+           {
+
+               out << QString::number(ruleInputs.getValueFromOrigFis()) << " ";
+
+           }
+
+           for (auto ruleOutput : rule.getOutputs())
+           {
+
+               out << QString::number(ruleOutput.getValueFromOrigFis()) << " ";
+
+           }
+
+
+               out << rule.getWeight() << " : ";
+
+               out << (rule.getConnection() == definition::Connections::AND ? "1" : "2") << "\n";
+
+           out << "\n";
         }
 
        file.close();
@@ -687,6 +719,7 @@ System& FisService::importFile(const QString &filename, bool useDictFaciesAssoci
     return m_system;
 }
 
+}
 }
 }
 }
