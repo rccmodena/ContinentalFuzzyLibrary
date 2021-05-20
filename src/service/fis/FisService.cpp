@@ -256,18 +256,15 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
                     // Se o valor do antecedente for zero pula para o próximo
                     if (ruleInputValue == 0)
                     {
-                        ruleInput.setValueFromOrigFis(ruleInputValue);
                         continue;
                     }
                     // Verificar o operador NOT
                     else if (ruleInputValue < 0)
-                    {
-                        ruleInput.setValueFromOrigFis(ruleInputValue);
+                    {;
                         ruleInput.setInputVarNot(true);
                     }
                     else
-                    {
-                        ruleInput.setValueFromOrigFis(ruleInputValue);
+                    {;
                         ruleInput.setInputVarNot(false);
                     }
                     ruleInput.setIndex(std::abs(ruleInputValue) - 1);
@@ -307,7 +304,6 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
                     }
                     else
                     {
-                        ruleOutput.setValueFromOrigFis(ruleOutputValue);
                         ruleOutput.setInputVarNot(false);
                     }
                     ruleOutput.setIndex(ruleOutputValue - 1);
@@ -464,7 +460,7 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
            size_t countMfs = 1;
            for (auto mfs : input.getInputMfs())
                 {
-                    out << "MF"<<QString::number(countMfs)<<"="<< "'" <<mfs.getName()<< "'" << " : ";
+                    out << "MF"<<QString::number(countMfs)<<"="<< "'" <<mfs.getName()<< "'" << ":";
 
                     switch(mfs.getFunction())
                     {
@@ -517,7 +513,7 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
 
            for (auto mfs : output.getOutputMfs())
                 {
-                    out << "MF"<<QString::number(countMfs)<<"="<< "'" <<mfs.getName()<< "'" << " : ";
+                    out << "MF"<<QString::number(countMfs)<<"="<< "'" <<mfs.getName()<< "'" << ":";
 
                     switch(mfs.getFunction())
                     {
@@ -530,8 +526,14 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
 
                     case OutputFunctions::linear:
                         // OLHAR LISTA DE PARAMETROS DE OUTPUT LINEAR
-                        out << "'linear',[" << QString::number(mfs.getLinearmf().getParams()[0]) << "] \n";
+                        out << "'linear',[" ;
+                        for (auto linearParams : mfs.getLinearmf().getParams())
+                        {
+                            out << QString::number(linearParams) << " ";
 
+                            std::cout << 1;
+                        }
+                        out << "]\n";
                     }
 
                 countMfs++;
@@ -542,29 +544,89 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
 
 
        out << "[Rules] \n";
+       size_t numOfOtherChars = 2;
+       size_t numOfCols = system.getNumInputs() + system.getNumOutputs() + numOfOtherChars;
+       size_t numOfLines = system.getNumRules();
+
+       std::vector<std::vector<float>> rulesForPrint;
+       rulesForPrint.resize(numOfLines);
+
+       for (int line = 0; line <= numOfLines - 1; line++)
+       {
+            rulesForPrint[line].resize(numOfCols);
+       }
+
+
+
+       int line = 0;
        for (auto rule : system.getRules())
        {
+
+           int col = 0;
            for (auto ruleInputs : rule.getInputs())
            {
-
-               out << QString::number(ruleInputs.getValueFromOrigFis()) << " ";
-
+              rulesForPrint[line][col] = (ruleInputs.getInputVarNot() == true ? -(ruleInputs.getIndex() + 1) : ruleInputs.getIndex() + 1);
+              col++;
            }
+
+           col = system.getNumInputs();
 
            for (auto ruleOutput : rule.getOutputs())
            {
 
-               out << QString::number(ruleOutput.getValueFromOrigFis()) << " ";
-
+              rulesForPrint[line][col] = (ruleOutput.getInputVarNot() == true ? -(ruleOutput.getIndex() + 1) : ruleOutput.getIndex() + 1);
+              col ++;
            }
 
+               col = system.getNumInputs() + system.getNumOutputs();
+               rulesForPrint[line][col] = rule.getWeight();
+               col++;
+               rulesForPrint[line][col] = (rule.getConnection() == definition::Connections::AND ? 1 : 2);
 
-               out << rule.getWeight() << " : ";
+        line ++;
+       }
 
-               out << (rule.getConnection() == definition::Connections::AND ? "1" : "2") << "\n";
 
-           out << "\n";
-        }
+       for (line = 0; line <= numOfLines - 1; line++)
+       {
+
+               for (int input = 0; input <= system.getNumInputs() - 1; input++)
+               {
+                    out << QString::number(rulesForPrint[line][input]);
+                    if (input != system.getNumInputs() - 1)
+                    {
+                        out << " ";
+                    }
+                    else
+                    {
+                        out << ",";
+                    }
+
+               }
+
+
+               out << " ";
+
+               for (int output = 0; output <= system.getNumOutputs() - 1; output++)
+               {
+                    out << QString::number(rulesForPrint[line][system.getNumInputs() + output]);
+                    if (output != system.getNumOutputs() - 1)
+                    {
+                        out << " ";
+                    }
+
+               }
+
+               out << " (" << QString::number(rulesForPrint[line][system.getNumInputs() + system.getNumInputs() - 1]) << ") : ";
+
+               out << QString::number(rulesForPrint[line][system.getNumInputs() + system.getNumInputs()]);
+
+               out << "\n";
+
+       }
+
+
+
 
        file.close();
 
