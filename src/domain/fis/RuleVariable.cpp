@@ -25,6 +25,16 @@ void RuleVariable::setInputVarNot(bool inputVarNot)
     m_inputVarNot = inputVarNot;
 }
 
+int RuleVariable::getIndexOfInput() const
+{
+    return m_indexOfInput;
+}
+
+void RuleVariable::setIndexOfInput(int indexOfInput)
+{
+    m_indexOfInput = indexOfInput;
+}
+
 
 
 }

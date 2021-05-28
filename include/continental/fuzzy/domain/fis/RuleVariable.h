@@ -21,9 +21,14 @@ public:
     void setInputVarNot(bool inputVarNot);   
 
 
+    int getIndexOfInput() const;
+    void setIndexOfInput(int indexOfInput);
+
 private:
     int m_index = 0;
     bool m_inputVarNot = false;
+
+    int m_indexOfInput = 0;
 
 
 };

@@ -37,6 +37,7 @@ private:
     definition::Connections m_connection;
     std::vector<RuleVariable> m_ruleInputs;
     std::vector<RuleVariable> m_ruleOutputs;
+
 };
 
 }
