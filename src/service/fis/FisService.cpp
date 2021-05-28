@@ -247,7 +247,7 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
             if (splitRuleInputs.size() == m_system.getNumInputs())
             {
                 std::vector<RuleVariable> inputsRuleMap;
-                int numInputRule = 0;
+
                 int indexOfInput = 0;
 
                 for (QString const& ruleInputString : splitRuleInputs)
@@ -258,7 +258,7 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
                     // Se o valor do antecedente for zero pula para o próximo
                     if (ruleInputValue == 0)
                     {
-                        indexOfInput++;
+                        ++indexOfInput;
                         continue;
                     }
                     // Verificar o operador NOT
@@ -273,8 +273,8 @@ void FisService::createRulesFromList(const std::list<QString> &ruleList)
                     ruleInput.setIndexOfInput(indexOfInput);
                     ruleInput.setIndex(std::abs(ruleInputValue) - 1);
                     inputsRuleMap.push_back(ruleInput);
-                    indexOfInput++;
-                    ++numInputRule;
+                    ++indexOfInput;
+
                 }
                 fisRule.setInputs(inputsRuleMap);
             }
