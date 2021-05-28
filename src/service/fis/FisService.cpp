@@ -570,7 +570,7 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
            int col = 0;
            for (auto ruleInputs : rule.getInputs())
            {
-              rulesForPrint[line][col] = (ruleInputs.getInputVarNot() == true ? -(ruleInputs.getIndex() + 1) : ruleInputs.getIndex() + 1);
+              rulesForPrint[line][ruleInputs.getIndexOfInput()] = (ruleInputs.getInputVarNot() == true ? -(ruleInputs.getIndex() + 1) : ruleInputs.getIndex() + 1);
               col++;
            }
 
