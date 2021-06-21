@@ -435,205 +435,205 @@ void FisService::validImport()
 void FisService::exportFile(const QString &filename, const domain::fis::System &system)
 {
     QFile file(filename);
-       if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
-       {
-           throw std::exception("Não foi possível gravar o arquivo fis");
-       }
-       QTextStream out(&file);
-       out << "[System]\n";
-       out << "Name=" << "'" << system.getName() << "'" << "\n";
-       out << "Type=" << (system.getType() == definition::ControllerType::mamdani ? "'mandani'" : "'sugeno'") << "\n";
-       out << "Version=" <<  system.getVersion() << "\n";
-       out << "NumInputs=" << QString::number(system.getNumInputs())<<  "\n";
-       out << "NumOutputs=" << QString::number(system.getNumOutputs()) << "\n";
-       out << "NumRules=" << QString::number(system.getNumRules()) << "\n";
-       out << "AndMethod=" << (system.getAndMethod() == definition::AndMethods::min ? "'min'" : "'prod'") << "\n";
-       out << "OrMethod=" << (system.getOrMethod() == definition::OrMethods::max ? "'max'" : "'probor'") << "\n";
-       out << "ImpMethod=" << "'prod'"<< "\n";
-       out << "AggMethod=" << "'sum'"<< "\n";
-       out << "DefuzzMethod=" << (system.getDefuzzMethod() == definition::DefuzzMethods::wtaver ? "'wtaver'" : "'wtsum'") << "\n";
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        throw std::exception("Não foi possível gravar o arquivo fis");
+    }
+    QTextStream out(&file);
+    out << "[System]\n";
+    out << "Name=" << "'" << system.getName() << "'" << "\n";
+    out << "Type=" << (system.getType() == definition::ControllerType::mamdani ? "'mandani'" : "'sugeno'") << "\n";
+    out << "Version=" <<  system.getVersion() << "\n";
+    out << "NumInputs=" << QString::number(system.getNumInputs())<<  "\n";
+    out << "NumOutputs=" << QString::number(system.getNumOutputs()) << "\n";
+    out << "NumRules=" << QString::number(system.getNumRules()) << "\n";
+    out << "AndMethod=" << (system.getAndMethod() == definition::AndMethods::min ? "'min'" : "'prod'") << "\n";
+    out << "OrMethod=" << (system.getOrMethod() == definition::OrMethods::max ? "'max'" : "'probor'") << "\n";
+    out << "ImpMethod=" << "'prod'"<< "\n";
+    out << "AggMethod=" << "'sum'"<< "\n";
+    out << "DefuzzMethod=" << (system.getDefuzzMethod() == definition::DefuzzMethods::wtaver ? "'wtaver'" : "'wtsum'") << "\n";
 
-       out << "\n";
-       size_t count = 1;
-       for (auto input : system.getInputs())
-       {
-           out << "[Input" << QString::number(count) <<"]"<< "\n";
-           out <<"Name="<<"'"<< input.getName() <<"'"<<"\n";
-           out <<"Range="<< "[" << input.getRange().first << " " << input.getRange().second << "]" << "\n";
-           out <<"NumMFs="<< QString::number(input.getNumMfs()) << "\n";
+    out << "\n";
+    size_t count = 1;
+    for (auto input : system.getInputs())
+    {
+        out << "[Input" << QString::number(count) <<"]"<< "\n";
+        out <<"Name="<<"'"<< input.getName() <<"'"<<"\n";
+        out <<"Range="<< "[" << input.getRange().first << " " << input.getRange().second << "]" << "\n";
+        out <<"NumMFs="<< QString::number(input.getNumMfs()) << "\n";
 
-           size_t countMfs = 1;
-           for (auto mfs : input.getInputMfs())
+        size_t countMfs = 1;
+        for (auto mfs : input.getInputMfs())
+        {
+            out << "MF"<<QString::number(countMfs)<<"="<< "'" <<mfs.getName()<< "'" << ":";
+
+            switch(mfs.getFunction())
+            {
+
+            case InputFunctions::gauss2mf:
+                out << "'gauss2mf',[" << QString::number(mfs.getGauss2mf().getMean1()) << " "
+                    << QString::number(mfs.getGauss2mf().getMean2()) << " "
+                    << QString::number(mfs.getGauss2mf().getSigma1()) << " "
+                    << QString::number(mfs.getGauss2mf().getSigma2()) << "] \n";
+                break;
+
+            case InputFunctions::gaussmf:
+                out << "'gaussmf',["<< QString::number(mfs.getGaussmf().getMean()) << " "
+                    << QString::number(mfs.getGaussmf().getSigma()) << "] \n";
+
+                break;
+
+            case InputFunctions::trapmf:
+                out << "'trapmf',["<< QString::number(mfs.getTrapmf().getA()) << " "
+                    << QString::number(mfs.getTrapmf().getB()) << " "
+                    << QString::number(mfs.getTrapmf().getC()) << " "
+                    << QString::number(mfs.getTrapmf().getD()) << "] \n";
+
+
+                break;
+
+            case InputFunctions::trimf:
+                out << "'trimf',[" << QString::number(mfs.getTrimf().getA()) << " "
+                    << QString::number(mfs.getTrimf().getB()) << " "
+                    << QString::number(mfs.getTrimf().getC()) << "] \n";;
+                break;
+            }
+
+            countMfs++;
+        }
+
+        out << "\n";
+        count++;
+    }
+
+
+    count = 1;
+    for (auto output : system.getOutputs())
+    {
+        out << "[Output" << QString::number(count) <<"]"<< "\n";
+        out <<"Name="<<"'"<< output.getName() <<"'"<<"\n";
+        out <<"Range="<< "[" << output.getRange().first << " " << output.getRange().second << "]" << "\n";
+        out <<"NumMFs="<< QString::number(output.getNumMfs()) << "\n";
+        size_t countMfs = 1;
+
+        for (auto mfs : output.getOutputMfs())
+        {
+            out << "MF"<<QString::number(countMfs)<<"="<< "'" <<mfs.getName()<< "'" << ":";
+
+            switch(mfs.getFunction())
+            {
+
+            case OutputFunctions::constant:
+                out << "'constant',[" << QString::number(mfs.getConstantmf().getValue()) << "] \n";
+
+                break;
+
+
+            case OutputFunctions::linear:
+                // OLHAR LISTA DE PARAMETROS DE OUTPUT LINEAR
+                out << "'linear',[" ;
+                for (auto linearParams : mfs.getLinearmf().getParams())
                 {
-                    out << "MF"<<QString::number(countMfs)<<"="<< "'" <<mfs.getName()<< "'" << ":";
+                    out << QString::number(linearParams) << " ";
 
-                    switch(mfs.getFunction())
-                    {
-
-                    case InputFunctions::gauss2mf:
-                        out << "'gauss2mf',[" << QString::number(mfs.getGauss2mf().getMean1()) << " "
-                                              << QString::number(mfs.getGauss2mf().getMean2()) << " "
-                                              << QString::number(mfs.getGauss2mf().getSigma1()) << " "
-                                              << QString::number(mfs.getGauss2mf().getSigma2()) << "] \n";
-                        break;
-
-                    case InputFunctions::gaussmf:
-                        out << "'gaussmf',["<< QString::number(mfs.getGaussmf().getMean()) << " "
-                                              << QString::number(mfs.getGaussmf().getSigma()) << "] \n";
-
-                        break;
-
-                    case InputFunctions::trapmf:
-                        out << "'trapmf',["<< QString::number(mfs.getTrapmf().getA()) << " "
-                                              << QString::number(mfs.getTrapmf().getB()) << " "
-                                              << QString::number(mfs.getTrapmf().getC()) << " "
-                                              << QString::number(mfs.getTrapmf().getD()) << "] \n";
-
-
-                        break;
-
-                    case InputFunctions::trimf:
-                        out << "'trimf',[" << QString::number(mfs.getTrimf().getA()) << " "
-                                              << QString::number(mfs.getTrimf().getB()) << " "
-                                              << QString::number(mfs.getTrimf().getC()) << "] \n";;
-                        break;
-                    }
-
-                countMfs++;
+                    std::cout << 1;
                 }
+                out << "]\n";
+            }
 
-           out << "\n";
-           count++;
-       }
-
-
-       count = 1;
-       for (auto output : system.getOutputs())
-       {
-           out << "[Output" << QString::number(count) <<"]"<< "\n";
-           out <<"Name="<<"'"<< output.getName() <<"'"<<"\n";
-           out <<"Range="<< "[" << output.getRange().first << " " << output.getRange().second << "]" << "\n";
-           out <<"NumMFs="<< QString::number(output.getNumMfs()) << "\n";
-           size_t countMfs = 1;
-
-           for (auto mfs : output.getOutputMfs())
-                {
-                    out << "MF"<<QString::number(countMfs)<<"="<< "'" <<mfs.getName()<< "'" << ":";
-
-                    switch(mfs.getFunction())
-                    {
-
-                    case OutputFunctions::constant:
-                        out << "'constant',[" << QString::number(mfs.getConstantmf().getValue()) << "] \n";
-
-                        break;
+            countMfs++;
+        }
+        out << "\n";
+        count++;
+    }
 
 
-                    case OutputFunctions::linear:
-                        // OLHAR LISTA DE PARAMETROS DE OUTPUT LINEAR
-                        out << "'linear',[" ;
-                        for (auto linearParams : mfs.getLinearmf().getParams())
-                        {
-                            out << QString::number(linearParams) << " ";
+    out << "[Rules] \n";
+    size_t numOfOtherChars = 2;
+    size_t numOfCols = system.getNumInputs() + system.getNumOutputs() + numOfOtherChars;
+    size_t numOfLines = system.getNumRules();
 
-                            std::cout << 1;
-                        }
-                        out << "]\n";
-                    }
+    std::vector<std::vector<float>> rulesForPrint;
+    rulesForPrint.resize(numOfLines);
 
-                countMfs++;
-                    }
-           out << "\n";
-           count++;
+    for (size_t line = 0; line < numOfLines; line++)
+    {
+        rulesForPrint[line].resize(numOfCols);
+    }
+
+
+
+    size_t line = 0;
+    for (auto rule : system.getRules())
+    {
+
+        int col = 0;
+        for (auto ruleInputs : rule.getInputs())
+        {
+            rulesForPrint[line][ruleInputs.getIndexOfInput()] = (ruleInputs.getInputVarNot() == true ? -(ruleInputs.getIndex() + 1) : ruleInputs.getIndex() + 1);
+            col++;
+        }
+
+        col = system.getNumInputs();
+
+        for (auto ruleOutput : rule.getOutputs())
+        {
+
+            rulesForPrint[line][col] = (ruleOutput.getInputVarNot() == true ? -(ruleOutput.getIndex() + 1) : ruleOutput.getIndex() + 1);
+            ++col;
+        }
+
+        col = system.getNumInputs() + system.getNumOutputs();
+        rulesForPrint[line][col] = rule.getWeight();
+        ++col;
+        rulesForPrint[line][col] = (rule.getConnection() == definition::Connections::AND ? 1 : 2);
+
+        ++line;
+    }
+
+
+    for (line = 0; line < numOfLines; ++line)
+    {
+
+        for (int input = 0; input <= system.getNumInputs() - 1; input++)
+        {
+            out << QString::number(rulesForPrint[line][input]);
+            if (input != system.getNumInputs() - 1)
+            {
+                out << " ";
+            }
+            else
+            {
+                out << ",";
+            }
+
         }
 
 
-       out << "[Rules] \n";
-       size_t numOfOtherChars = 2;
-       size_t numOfCols = system.getNumInputs() + system.getNumOutputs() + numOfOtherChars;
-       size_t numOfLines = system.getNumRules();
+        out << " ";
 
-       std::vector<std::vector<float>> rulesForPrint;
-       rulesForPrint.resize(numOfLines);
+        for (int output = 0; output < system.getNumOutputs(); ++output)
+        {
+            out << QString::number(rulesForPrint[line][system.getNumInputs() + output]);
+            if (output != system.getNumOutputs() - 1)
+            {
+                out << " ";
+            }
 
-       for (size_t line = 0; line < numOfLines; line++)
-       {
-            rulesForPrint[line].resize(numOfCols);
-       }
+        }
 
+        out << " (" << QString::number(rulesForPrint[line][system.getNumInputs() + system.getNumInputs() - 1]) << ") : ";
 
+        out << QString::number(rulesForPrint[line][system.getNumInputs() + system.getNumInputs()]);
 
-       int line = 0;
-       for (auto rule : system.getRules())
-       {
+        out << "\n";
 
-           int col = 0;
-           for (auto ruleInputs : rule.getInputs())
-           {
-              rulesForPrint[line][ruleInputs.getIndexOfInput()] = (ruleInputs.getInputVarNot() == true ? -(ruleInputs.getIndex() + 1) : ruleInputs.getIndex() + 1);
-              col++;
-           }
-
-           col = system.getNumInputs();
-
-           for (auto ruleOutput : rule.getOutputs())
-           {
-
-              rulesForPrint[line][col] = (ruleOutput.getInputVarNot() == true ? -(ruleOutput.getIndex() + 1) : ruleOutput.getIndex() + 1);
-              col ++;
-           }
-
-               col = system.getNumInputs() + system.getNumOutputs();
-               rulesForPrint[line][col] = rule.getWeight();
-               col++;
-               rulesForPrint[line][col] = (rule.getConnection() == definition::Connections::AND ? 1 : 2);
-
-        line ++;
-       }
-
-
-       for (line = 0; line <= numOfLines - 1; line++)
-       {
-
-               for (int input = 0; input <= system.getNumInputs() - 1; input++)
-               {
-                    out << QString::number(rulesForPrint[line][input]);
-                    if (input != system.getNumInputs() - 1)
-                    {
-                        out << " ";
-                    }
-                    else
-                    {
-                        out << ",";
-                    }
-
-               }
-
-
-               out << " ";
-
-               for (int output = 0; output <= system.getNumOutputs() - 1; output++)
-               {
-                    out << QString::number(rulesForPrint[line][system.getNumInputs() + output]);
-                    if (output != system.getNumOutputs() - 1)
-                    {
-                        out << " ";
-                    }
-
-               }
-
-               out << " (" << QString::number(rulesForPrint[line][system.getNumInputs() + system.getNumInputs() - 1]) << ") : ";
-
-               out << QString::number(rulesForPrint[line][system.getNumInputs() + system.getNumInputs()]);
-
-               out << "\n";
-
-       }
+    }
 
 
 
 
-       file.close();
+    file.close();
 
 }
 
@@ -736,22 +736,22 @@ System& FisService::importFile(const QString &filename, bool useDictFaciesAssoci
                 {
                     switch( fisBlock )
                     {
-                        case Blocks::system:
-                            systemList.push_back(line);
-                            break;
-                        case Blocks::inputs:
-                            // Adciona a linha no antecedente com o número correto
-                            inputsMap[linguisticVariableNumber].push_back(line);
-                            break;
-                        case Blocks::outputs:
-                            // Adciona a linha no consequente com o número correto
-                            outputsMap[linguisticVariableNumber].push_back(line);
-                            break;
-                        case Blocks::rules:
-                            rulesList.push_back(line);
-                            break;
-                        default:
-                            throw std::exception("Bloco não identificado!");
+                    case Blocks::system:
+                        systemList.push_back(line);
+                        break;
+                    case Blocks::inputs:
+                        // Adciona a linha no antecedente com o número correto
+                        inputsMap[linguisticVariableNumber].push_back(line);
+                        break;
+                    case Blocks::outputs:
+                        // Adciona a linha no consequente com o número correto
+                        outputsMap[linguisticVariableNumber].push_back(line);
+                        break;
+                    case Blocks::rules:
+                        rulesList.push_back(line);
+                        break;
+                    default:
+                        throw std::exception("Bloco não identificado!");
                     }
                 }
             }
