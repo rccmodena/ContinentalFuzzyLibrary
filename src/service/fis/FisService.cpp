@@ -556,7 +556,7 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
        std::vector<std::vector<float>> rulesForPrint;
        rulesForPrint.resize(numOfLines);
 
-       for (int line = 0; line <= numOfLines - 1; line++)
+       for (size_t line = 0; line < numOfLines; line++)
        {
             rulesForPrint[line].resize(numOfCols);
        }
