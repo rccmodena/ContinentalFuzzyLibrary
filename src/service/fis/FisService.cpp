@@ -401,7 +401,8 @@ void FisService::createFaciesAssociationConverter()
             }
             else
             {
-                throw std::exception("A Associação de fácies não cadastrada!");
+                QString text = QString("A Associação de fácies não cadastrada!" ) + outputMfs.getName();
+                throw std::exception(text.toStdString().c_str());
             }
         }
         else
