@@ -6,16 +6,6 @@ namespace domain {
 namespace fis {
 namespace membershipfunction {
 
-TrapMF::TrapMF()
-{
-
-}
-
-TrapMF::~TrapMF()
-{
-
-}
-
 double TrapMF::getA() const
 {
     return m_a;

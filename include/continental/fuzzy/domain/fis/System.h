@@ -67,6 +67,7 @@ public:
     void setDefuzzMethod(const definition::DefuzzMethods &defuzzMethod);
 
     const std::vector<variable::Input>& getInputs() const;
+    std::vector<variable::Input>& getInputs();
     void setInputs(const std::vector<variable::Input> &inputs);
     void addInput(const variable::Input &input);
 

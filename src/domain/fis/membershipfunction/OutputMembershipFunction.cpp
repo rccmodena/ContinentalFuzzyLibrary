@@ -6,41 +6,32 @@ namespace domain {
 namespace fis {
 namespace membershipfunction {
 
-OutputMembershipFunction::OutputMembershipFunction()
-{
-}
-
-OutputMembershipFunction::~OutputMembershipFunction()
-{
-
-}
-
-domain::fis::membershipfunction::LinearMF OutputMembershipFunction::getLinearmf() const
+const LinearMF & OutputMembershipFunction::getLinearmf() const
 {
     return m_linearmf;
 }
 
-void OutputMembershipFunction::setLinearmf(const domain::fis::membershipfunction::LinearMF &linearmf)
+void OutputMembershipFunction::setLinearmf(const LinearMF &linearmf)
 {
     m_linearmf = linearmf;
 }
 
-domain::fis::membershipfunction::ConstantMF OutputMembershipFunction::getConstantmf() const
+const ConstantMF & OutputMembershipFunction::getConstantmf() const
 {
     return m_constantmf;
 }
 
-void OutputMembershipFunction::setConstantmf(const domain::fis::membershipfunction::ConstantMF &constantmf)
+void OutputMembershipFunction::setConstantmf(const ConstantMF &constantmf)
 {
     m_constantmf = constantmf;
 }
 
-domain::fis::definition::OutputFunctions OutputMembershipFunction::getFunction() const
+const definition::OutputFunctions & OutputMembershipFunction::getFunction() const
 {
     return m_function;
 }
 
-void OutputMembershipFunction::setFunction(const domain::fis::definition::OutputFunctions &function)
+void OutputMembershipFunction::setFunction(const definition::OutputFunctions &function)
 {
     m_function = function;
 }

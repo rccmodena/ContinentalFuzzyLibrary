@@ -152,7 +152,12 @@ void System::setDefuzzMethod(const definition::DefuzzMethods &defuzzMethod)
     m_defuzzMethod = defuzzMethod;
 }
 
-const std::vector<variable::Input>& System::getInputs() const
+const std::vector<variable::Input> &System::getInputs() const
+{
+    return m_inputs;
+}
+
+std::vector<variable::Input>& System::getInputs()
 {
     return m_inputs;
 }

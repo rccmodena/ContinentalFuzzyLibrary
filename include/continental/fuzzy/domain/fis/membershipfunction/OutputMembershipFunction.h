@@ -14,29 +14,23 @@ namespace domain {
 namespace fis {
 namespace membershipfunction {
 
-class CONTINENTALFUZZY_EXPORT_DECL OutputMembershipFunction : public continental::fuzzy::domain::fis::MembershipFunction
+class CONTINENTALFUZZY_EXPORT_DECL OutputMembershipFunction : public MembershipFunction
 {
 
 public:
-    /// Construtor.
-    OutputMembershipFunction();
+    const LinearMF & getLinearmf() const;
+    void setLinearmf(const LinearMF &linearmf);
 
-    /// Destrutor.
-    ~OutputMembershipFunction();
+    const ConstantMF & getConstantmf() const;
+    void setConstantmf(const ConstantMF &constantmf);
 
-    domain::fis::membershipfunction::LinearMF getLinearmf() const;
-    void setLinearmf(const domain::fis::membershipfunction::LinearMF &linearmf);
-
-    domain::fis::membershipfunction::ConstantMF getConstantmf() const;
-    void setConstantmf(const domain::fis::membershipfunction::ConstantMF &constantmf);
-
-    domain::fis::definition::OutputFunctions getFunction() const;
-    void setFunction(const domain::fis::definition::OutputFunctions &function);
+    const definition::OutputFunctions & getFunction() const;
+    void setFunction(const definition::OutputFunctions &function);
 
 private:
-    domain::fis::definition::OutputFunctions m_function = domain::fis::definition::OutputFunctions();
-    domain::fis::membershipfunction::LinearMF m_linearmf = domain::fis::membershipfunction::LinearMF();
-    domain::fis::membershipfunction::ConstantMF m_constantmf = domain::fis::membershipfunction::ConstantMF();
+    definition::OutputFunctions m_function;
+    membershipfunction::LinearMF m_linearmf;
+    membershipfunction::ConstantMF m_constantmf;
 
 };
 

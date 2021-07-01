@@ -46,6 +46,11 @@ SugenoControllerService::SugenoControllerService()
 
 }
 
+SugenoController &SugenoControllerService::getSugenoController()
+{
+    return m_sugenoController;
+}
+
 const SugenoController& SugenoControllerService::getSugenoController() const
 {
     return m_sugenoController;
@@ -112,7 +117,7 @@ double SugenoControllerService::executeCalcOutputFunctions(
     {
         case OutputFunctions::linear:
         {
-            std::vector<double> &auxVectorInputFis = memberFunction.getLinearmf().getParams();
+            const std::vector<double> &auxVectorInputFis = memberFunction.getLinearmf().getParams();
             result = LinearMembershipFunctionService::calculeLinearMembershipFunctionService(auxVectorInputFis, valueOfPoint);
             break;
         }
@@ -186,7 +191,7 @@ double SugenoControllerService::executeCalcInputFunctions(
     return result;
 }
 
-void SugenoControllerService::createFromFisSystem(System p_system)
+void SugenoControllerService::createFromFisSystem(const System &p_system)
 {
     m_sugenoController.setSugenoFisSystem(p_system);
 }

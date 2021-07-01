@@ -16,37 +16,32 @@ namespace domain {
 namespace fis {
 namespace membershipfunction {
 
-class CONTINENTALFUZZY_EXPORT_DECL InputMembershipFunction : public continental::fuzzy::domain::fis::MembershipFunction
+class CONTINENTALFUZZY_EXPORT_DECL InputMembershipFunction : public MembershipFunction
 {
 
 public:
-    /// Construtor.
-    InputMembershipFunction();
+    const definition::InputFunctions & getFunction() const;
+    void setFunction(const definition::InputFunctions &function);
 
-    /// Destrutor.
-    ~InputMembershipFunction();
+    const GaussMF & getGaussmf() const;
+    void setGaussmf(const GaussMF &gaussmf);
 
-    domain::fis::definition::InputFunctions getFunction() const;
-    void setFunction(const domain::fis::definition::InputFunctions &function);
+    const Gauss2MF & getGauss2mf() const;
+    void setGauss2mf(const Gauss2MF &gauss2mf);
 
-    domain::fis::membershipfunction::GaussMF getGaussmf() const;
-    void setGaussmf(const domain::fis::membershipfunction::GaussMF &gaussmf);
+    const TriMF & getTrimf() const;
+    void setTrimf(const TriMF &trimf);
 
-    domain::fis::membershipfunction::Gauss2MF getGauss2mf() const;
-    void setGauss2mf(const domain::fis::membershipfunction::Gauss2MF &gauss2mf);
-
-    domain::fis::membershipfunction::TriMF getTrimf() const;
-    void setTrimf(const domain::fis::membershipfunction::TriMF &trimf);
-
-    domain::fis::membershipfunction::TrapMF getTrapmf() const;
-    void setTrapmf(const domain::fis::membershipfunction::TrapMF &trapmf);
+    TrapMF & getTrapmf();
+    const TrapMF & getTrapmf() const;
+    void setTrapmf(const TrapMF &trapmf);
 
 private:
-    domain::fis::definition::InputFunctions m_function = domain::fis::definition::InputFunctions();
-    domain::fis::membershipfunction::TriMF m_trimf = domain::fis::membershipfunction::TriMF();
-    domain::fis::membershipfunction::TrapMF m_trapmf = domain::fis::membershipfunction::TrapMF();
-    domain::fis::membershipfunction::GaussMF m_gaussmf = domain::fis::membershipfunction::GaussMF();
-    domain::fis::membershipfunction::Gauss2MF m_gauss2mf = domain::fis::membershipfunction::Gauss2MF();
+    definition::InputFunctions m_function;
+    TriMF m_trimf;
+    TrapMF m_trapmf;
+    GaussMF m_gaussmf;
+    Gauss2MF m_gauss2mf;
 };
 
 }

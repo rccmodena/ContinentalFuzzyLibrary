@@ -21,10 +21,13 @@ public:
     /// Construtor.
     SugenoControllerService();
 
-    void createFromFisSystem(domain::fis::System p_system) override;
+    void createFromFisSystem(const domain::fis::System &p_system) override;
 
     double calcSingleValue(const std::vector<double> &v_inputs, bool useDictFaciesAssociation) override;
 
+    domain::fuzzy::SugenoController& getSugenoController();
+
+    const domain::fuzzy::SugenoController& getSugenoController() const;
 private:
     domain::fuzzy::SugenoController m_sugenoController;
 
@@ -40,8 +43,6 @@ private:
             const std::vector<double> &valueOfPoint,
             size_t indexMemberFunction
     );
-
-    const domain::fuzzy::SugenoController& getSugenoController() const;
 
     std::vector<double> calcRuleWeights();
 

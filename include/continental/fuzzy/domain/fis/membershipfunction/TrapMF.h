@@ -13,12 +13,6 @@ class CONTINENTALFUZZY_EXPORT_DECL TrapMF
 {
 
 public:
-    /// Construtor.
-    TrapMF();
-
-    /// Destrutor.
-    ~TrapMF();
-
     double getA() const;
     void setA(double a);
 

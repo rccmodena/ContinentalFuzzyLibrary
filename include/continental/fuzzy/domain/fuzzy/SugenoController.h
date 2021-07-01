@@ -27,6 +27,7 @@ class CONTINENTALFUZZY_EXPORT_DECL SugenoController
 {
 
 public:
+    fis::System& getSugenoFisSystem();
     const fis::System& getSugenoFisSystem() const;
     void setSugenoFisSystem(const fis::System &sugenoFisSystem);
 

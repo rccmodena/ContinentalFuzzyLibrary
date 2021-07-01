@@ -21,6 +21,7 @@ public:
     definition::VariableType getVariableType() const;
 
     const std::vector<membershipfunction::InputMembershipFunction>& getInputMfs() const;
+    std::vector<membershipfunction::InputMembershipFunction>& getInputMfs();
     void setInputMfs(const std::vector<membershipfunction::InputMembershipFunction> &inputMfs);
     void addInputMfs(const membershipfunction::InputMembershipFunction &inputMfs);
 

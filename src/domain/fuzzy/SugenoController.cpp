@@ -7,6 +7,11 @@ namespace fuzzy {
 namespace domain {
 namespace fuzzy {
 
+fis::System& SugenoController::getSugenoFisSystem()
+{
+    return m_sugenoFisSystem;
+}
+
 const fis::System& SugenoController::getSugenoFisSystem() const
 {
     return m_sugenoFisSystem;

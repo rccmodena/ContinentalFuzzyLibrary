@@ -13,7 +13,12 @@ definition::VariableType Input::getVariableType() const
     return m_variableType;
 }
 
-const std::vector<InputMembershipFunction>& Input::getInputMfs() const
+const std::vector<InputMembershipFunction> &Input::getInputMfs() const
+{
+    return m_inputMfs;
+}
+
+std::vector<InputMembershipFunction>& Input::getInputMfs()
 {
     return m_inputMfs;
 }
