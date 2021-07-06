@@ -11,7 +11,7 @@ namespace domain {
 namespace fuzzy {
 namespace rulevariable {
 
-class CONTINENTALFUZZY_EXPORT_DECL SugenoRuleInput : public continental::fuzzy::domain::fuzzy::SugenoRuleVariable
+class CONTINENTALFUZZY_EXPORT_DECL SugenoRuleInput : public SugenoRuleVariable
 {
 
 public:

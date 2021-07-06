@@ -27,21 +27,6 @@ void System::setName(const QString &name)
     m_name = name;
 }
 
-const std::map<int, int>& System::getFaciesAssociationConversion() const
-{
-    return m_faciesAssociationConversion;
-}
-
-void System::setFaciesAssociationConversion(const std::map<int, int> &faciesAssociationConversion)
-{
-    m_faciesAssociationConversion = faciesAssociationConversion;
-}
-
-void System::addFaciesAssociationConversion(const int fisFaciesAssociation, const int faciesAssociation)
-{
-    m_faciesAssociationConversion.insert(std::pair<int, int>(fisFaciesAssociation, faciesAssociation));
-}
-
 QString System::getFilename() const
 {
     return m_filename;

@@ -37,7 +37,7 @@ public:
     ~FisService();
 
     // Importa um arquivo .fis e cria todos os componentes de um sistema fuzzy.
-    domain::fis::System& importFile(const QString &filename, bool useDictFaciesAssociation);
+    domain::fis::System& importFile(const QString &filename);
 
     void exportFile(const QString &filename, const domain::fis::System &system);
 
@@ -59,9 +59,6 @@ private:
 
     // Cria as regras com as informações do bloco de rules do arquivo .fis.
     void createRulesFromList(const std::list<QString> &ruleList);
-
-    //def create_dict_facies_association(self, p_use_dict: bool):
-    void createFaciesAssociationConverter();
 
     // Verifica se a importação preencheu todas as informações.
     void validImport();

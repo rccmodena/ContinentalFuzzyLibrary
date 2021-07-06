@@ -5,11 +5,6 @@ namespace fuzzy {
 namespace domain {
 namespace fuzzy {
 
-SugenoVariable::SugenoVariable()
-{
-
-}
-
 int SugenoVariable::getNumMfs() const
 {
     return m_numMfs;

@@ -36,7 +36,7 @@ using namespace continental::fuzzy::service::fuzzy::operators;
 TEST(ContinentalFuzzyTest, TestImportFisFile)
 {
     FisService import;
-    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Arid.fis", true);
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Arid.fis");
 
     // Testes do Bloco System
     ASSERT_EQ(1, (mySystem.getName() == "Ramp_Arid"));
@@ -212,27 +212,6 @@ TEST(ContinentalFuzzyTest, TestImportFisFile)
     ASSERT_EQ(5, myRules[8].getOutputs().at(0).getIndex());
     ASSERT_DOUBLE_EQ(1.0, myRules[8].getWeight());
     ASSERT_EQ(1, (myRules[8].getConnection() == Connections::AND));
-
-    //Teste conversão associação de fácies
-    auto myFaciesAssociation = mySystem.getFaciesAssociationConversion();
-
-    // (1):Cape -> (0):Cape
-    ASSERT_EQ(0, myFaciesAssociation[0]);
-
-    // (2):HighEnergyIntraclastic -> (8):HighEnergyIntraclastic
-    ASSERT_EQ(8, myFaciesAssociation[1]);
-
-    // (3):ModerateEnergyIntraclastic -> (7):ModerateEnergyIntraclastic
-    ASSERT_EQ(7, myFaciesAssociation[2]);
-
-    // (4):LaminiteRamp -> (6):LaminiteRamp
-    ASSERT_EQ(6, myFaciesAssociation[3]);
-
-    // (5):SubCoastal -> (9):SubCoastal
-    ASSERT_EQ(9, myFaciesAssociation[4]);
-
-    // (6):Undefined -> (12):Undefined
-    ASSERT_EQ(12, myFaciesAssociation[5]);
 }
 
 TEST(ContinentalFuzzyTest, TestMembershipFunctions)
@@ -290,7 +269,7 @@ TEST(ContinentalFuzzyTest, TestOperators)
 TEST(ContinentalFuzzyTest, TestSugeno)
 {
     FisService import;
-    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Arid.fis", true);
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Arid.fis");
 
     SugenoControllerService sugenoControllerService;
     sugenoControllerService.createFromFisSystem(mySystem);
@@ -313,7 +292,7 @@ TEST(ContinentalFuzzyTest, TestTipOneCompareMatlab)
     auto fuzzyMatlabResult = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameTipFuzzyliteOneResultMatlab));
 
     FisService import;
-    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_1.fis", false);
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_1.fis");
 
     SugenoControllerService sugenoControllerService;
     sugenoControllerService.createFromFisSystem(mySystem);
@@ -346,7 +325,7 @@ TEST(ContinentalFuzzyTest, TestTipTwoCompareMatlab)
     auto fuzzyMatlabResult = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameTipFuzzyliteTwoResultMatlab));
 
     FisService import;
-    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_2.fis", false);
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_2.fis");
 
     SugenoControllerService sugenoControllerService;
     sugenoControllerService.createFromFisSystem(mySystem);
@@ -380,7 +359,7 @@ TEST(ContinentalFuzzyTest, TestTipThreeCompareMatlab)
     auto fuzzyMatlabResult = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameTipFuzzyliteThreeResultMatlab));
 
     FisService import;
-    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_3.fis", false);
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_3.fis");
 
     SugenoControllerService sugenoControllerService;
     sugenoControllerService.createFromFisSystem(mySystem);
@@ -413,7 +392,7 @@ TEST(ContinentalFuzzyTest, TestAustraliaRampAridCompareMatlab)
     auto fuzzyMatlabResult = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameRampAridResultMatlab));
 
     FisService import;
-    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Arid.fis", false);
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Arid.fis");
 
     SugenoControllerService sugenoControllerService;
     sugenoControllerService.createFromFisSystem(mySystem);
@@ -450,7 +429,7 @@ TEST(ContinentalFuzzyTest, TestAustraliaRampHumidCompareMatlab)
     auto fuzzyMatlabResult = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameRampAridResultMatlab));
 
     FisService import;
-    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Humid.fis", false);
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Humid.fis");
 
     SugenoControllerService sugenoControllerService;
     sugenoControllerService.createFromFisSystem(mySystem);
@@ -487,7 +466,7 @@ TEST(ContinentalFuzzyTest, TestAustraliaShelfAridCompareMatlab)
     auto fuzzyMatlabResult = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameRampAridResultMatlab));
 
     FisService import;
-    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Shelf_Arid.fis", false);
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Shelf_Arid.fis");
 
     SugenoControllerService sugenoControllerService;
     sugenoControllerService.createFromFisSystem(mySystem);
@@ -523,7 +502,7 @@ TEST(ContinentalFuzzyTest, TestAustraliaShelfHumidCompareMatlab)
     auto fuzzyMatlabResult = std::make_shared<Raster<double>>(RasterFileUtil<double>::read(filenameRampAridResultMatlab));
 
     FisService import;
-    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Shelf_Humid.fis", false);
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Shelf_Humid.fis");
 
     SugenoControllerService sugenoControllerService;
     sugenoControllerService.createFromFisSystem(mySystem);
@@ -550,7 +529,7 @@ TEST(ContinentalFuzzyTest, TestAustraliaShelfHumidCompareMatlab)
 TEST(ContinentalFuzzyTest, TestRampAridFaciesAssociationConvertion)
 {
     FisService import;
-    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Arid.fis", true);
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Arid.fis");
 
     // Valores de Paleobatimetria
     double ShallowDepth = 0.0;
@@ -605,7 +584,7 @@ TEST(ContinentalFuzzyTest, TestRampAridFaciesAssociationConvertion)
 TEST(ContinentalFuzzyTest, TestRampHumidFaciesAssociationConvertion)
 {
     FisService import;
-    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Humid.fis", true);
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Ramp_Humid.fis");
 
     // Valores de Paleobatimetria
     double ShallowDepth = 0.0;
@@ -660,7 +639,7 @@ TEST(ContinentalFuzzyTest, TestRampHumidFaciesAssociationConvertion)
 TEST(ContinentalFuzzyTest, TestShelfAridFaciesAssociationConvertion)
 {
     FisService import;
-    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Shelf_Arid.fis", true);
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Shelf_Arid.fis");
 
     // Valores de Paleobatimetria
     double ShallowDepth = 0.0;
@@ -715,7 +694,7 @@ TEST(ContinentalFuzzyTest, TestShelfAridFaciesAssociationConvertion)
 TEST(ContinentalFuzzyTest, TestShelfHumidFaciesAssociationConvertion)
 {
     FisService import;
-    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Shelf_Humid.fis", true);
+    auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Australia/Shelf_Humid.fis");
 
     // Valores de Paleobatimetria
     double ShallowDepth = 0.0;

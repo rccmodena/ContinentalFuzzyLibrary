@@ -46,7 +46,7 @@ int main(int argc, char **argv)
     //export_.exportFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_TESTE_2.fis", mySystem);
 
 
-    auto mySystem = export_.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_4.fis", false);
+    auto mySystem = export_.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_4.fis");
     export_.exportFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_TESTE_4.fis", mySystem);
 
 

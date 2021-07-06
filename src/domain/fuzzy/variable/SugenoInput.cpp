@@ -12,7 +12,6 @@ SugenoInput::SugenoInput()
     setType("antecedent");
 }
 
-
 int SugenoInput::getNumMfs() const
 {
     return m_numMfs;
@@ -22,8 +21,6 @@ void SugenoInput::setNumMfs(int numMfs)
 {
     m_numMfs = numMfs;
 }
-
-
 
 std::pair<double, double> SugenoInput::getRange() const
 {

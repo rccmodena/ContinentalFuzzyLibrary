@@ -31,7 +31,7 @@ public:
 private:
     std::pair<double, double> m_range = std::pair<double, double>(0.0, 0.0);
     int m_numMfs;
-    std::map<std::string, continental::fuzzy::domain::fis::MembershipFunction> m_mfs;
+    std::map<std::string, fis::MembershipFunction> m_mfs;
 };
 
 }

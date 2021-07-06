@@ -7,11 +7,6 @@ namespace fuzzy {
 namespace domain {
 namespace fuzzy {
 
-SugenoRuleVariable::SugenoRuleVariable()
-{
-
-}
-
 QString SugenoRuleVariable::getName() const
 {
     return m_name;

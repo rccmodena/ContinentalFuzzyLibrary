@@ -17,30 +17,27 @@ class CONTINENTALFUZZY_EXPORT_DECL SugenoRule
 {
 
 public:
-    /// Construtor.
-    SugenoRule();
-
     QString getName() const;
     void setName(const QString &name);
 
     float getWeight() const;
     void setWeight(float weight);
 
-    std::list<continental::fuzzy::domain::fuzzy::rulevariable::SugenoRuleInput> getInputs() const;
-    void setInputs(const std::list<continental::fuzzy::domain::fuzzy::rulevariable::SugenoRuleInput> &inputs);
+    std::list<rulevariable::SugenoRuleInput> getInputs() const;
+    void setInputs(const std::list<rulevariable::SugenoRuleInput> &inputs);
 
-    std::list<continental::fuzzy::domain::fuzzy::rulevariable::SugenoRuleOutput> getOutputs() const;
-    void setOutputs(const std::list<continental::fuzzy::domain::fuzzy::rulevariable::SugenoRuleOutput> &outputs);
+    std::list<rulevariable::SugenoRuleOutput> getOutputs() const;
+    void setOutputs(const std::list<rulevariable::SugenoRuleOutput> &outputs);
 
     fis::definition::Connections getConnection() const;
     void setConnection(const fis::definition::Connections &connection);
 
 private:
     QString m_name;
-    float m_weight;
+    float m_weight = 0.0f;
     fis::definition::Connections m_connection;
-    std::list<continental::fuzzy::domain::fuzzy::rulevariable::SugenoRuleInput> m_inputs;
-    std::list<continental::fuzzy::domain::fuzzy::rulevariable::SugenoRuleOutput> m_outputs;
+    std::list<rulevariable::SugenoRuleInput> m_inputs;
+    std::list<rulevariable::SugenoRuleOutput> m_outputs;
 };
 
 

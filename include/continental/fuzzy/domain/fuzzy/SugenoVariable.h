@@ -15,15 +15,12 @@ class CONTINENTALFUZZY_EXPORT_DECL SugenoVariable
 {
 
 public:
-    /// Construtor.
-    SugenoVariable();
-
     int getNumMfs() const;
     void setNumMfs(int numMfs);
 
-    std::map<std::string, continental::fuzzy::domain::fis::MembershipFunction> getMfs() const;
-    void setMfs(const std::map<std::string, continental::fuzzy::domain::fis::MembershipFunction> &mfs);
-    void addMfs(std::string name, continental::fuzzy::domain::fis::MembershipFunction &mfs);
+    std::map<std::string, fis::MembershipFunction> getMfs() const;
+    void setMfs(const std::map<std::string, fis::MembershipFunction> &mfs);
+    void addMfs(std::string name, fis::MembershipFunction &mfs);
 
     std::string getType() const;
     void setType(const std::string &type);
@@ -37,7 +34,7 @@ protected:
 private:
     std::pair<double, double> m_range = std::pair<double, double>(0.0, 0.0);
     int m_numMfs;
-    std::map<std::string, continental::fuzzy::domain::fis::MembershipFunction> m_mfs;
+    std::map<std::string, fis::MembershipFunction> m_mfs;
 
 };
 

@@ -13,9 +13,6 @@ class CONTINENTALFUZZY_EXPORT_DECL SugenoRuleVariable
 {
 
 public:
-    /// Construtor.
-    SugenoRuleVariable();
-
     QString getName() const;
     void setName(const QString &name);
 
@@ -23,14 +20,10 @@ public:
     void setType(const QString &type);
 
 protected:
-    QString m_type = "";
+    QString m_type;
 private:
     QString m_name;
-
-    //Callable m_ruleFunction;
-    //Dict[str, Union[float, List[float]]] m_params;
 };
-
 
 }
 }

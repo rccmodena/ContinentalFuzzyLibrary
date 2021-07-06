@@ -81,16 +81,11 @@ public:
 
     QString getName() const;
     void setName(const QString &name);
-
-    const std::map<int, int>& getFaciesAssociationConversion() const;
-    void setFaciesAssociationConversion(const std::map<int, int> &faciesAssociationConversion);
-    void addFaciesAssociationConversion(const int fisFaciesAssociation,const int faciesAssociation);
-
 private:
-    QString m_name = "";
-    QString m_filename = "";
+    QString m_name;
+    QString m_filename;
     definition::ControllerType m_type = definition::ControllerType::none;
-    QString m_version = "";
+    QString m_version;
     int m_numInputs = 0;
     int m_numOutputs = 0;
     int m_numRules = 0;
@@ -102,7 +97,6 @@ private:
     std::vector<domain::fis::variable::Input> m_inputs;
     std::vector<domain::fis::variable::Output> m_outputs;
     std::vector<fis::Rule> m_rules;
-    std::map<int, int> m_faciesAssociationConversion = std::map<int, int>();
 };
 
 }
