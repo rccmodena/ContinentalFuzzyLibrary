@@ -15,14 +15,35 @@ namespace domain {
 namespace fis {
 namespace variable {
 
+/**
+ * Varíavel de entrada Fuzzy
+ */
 class CONTINENTALFUZZY_EXPORT_DECL Input : public Variable
 {
 public:
+    /**
+     * Retorna o tipo da varíavel
+     * @return Tipo da varíavel de entrada
+     */
     definition::VariableType getVariableType() const;
 
+    /**
+     * Retorna as membership functions da varíavel de entrada
+     * @return Membership functions da varíavel de entrada
+     */
     const std::vector<membershipfunction::InputMembershipFunction>& getInputMfs() const;
     std::vector<membershipfunction::InputMembershipFunction>& getInputMfs();
+
+    /**
+     * Define as membership functions da varíavel de entrada
+     * @param inputMfs Varíaveis de entrada
+     */
     void setInputMfs(const std::vector<membershipfunction::InputMembershipFunction> &inputMfs);
+
+    /**
+     * Adiciona uma membership function na varíavel de entrada
+     * @param inputMfs Varíavel de entrada
+     */
     void addInputMfs(const membershipfunction::InputMembershipFunction &inputMfs);
 
 private:

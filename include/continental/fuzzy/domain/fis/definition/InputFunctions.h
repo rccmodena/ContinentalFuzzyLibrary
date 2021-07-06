@@ -9,9 +9,13 @@ namespace domain {
 namespace fis {
 namespace definition {
 
+/**
+ * Tipo da curva da varíavel de entrada do Fuzzy
+ */
 enum class InputFunctions
 {
     trimf = 1,
+    // Trapezoidal membership function
     trapmf = 2,
     gaussmf = 3,
     gauss2mf = 4
