@@ -14,9 +14,12 @@ namespace definition {
  */
 enum class InputFunctions
 {
-    trimf = 1,
+    // Triangular membership function
+	trimf = 1,
+	
     // Trapezoidal membership function
     trapmf = 2,
+	
     gaussmf = 3,
     gauss2mf = 4
 };
