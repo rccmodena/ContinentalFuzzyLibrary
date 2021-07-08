@@ -9,9 +9,15 @@ namespace domain {
 namespace fis {
 namespace definition {
 
+/**
+ * Tipo de agregação para as regras Fuzzy. Processo que representa as saidas das regras Fuzzy em um único conjunto.
+ */
 enum class AggMethods
 {
+    //Soma dos conjuntos de saída das regras. Utilizado quando o ControllerType é Sugeno
     sum = 1,
+
+    //Indefinido
     none = 2
 };
 

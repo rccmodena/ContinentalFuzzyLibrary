@@ -9,6 +9,7 @@ namespace domain {
 namespace fis {
 namespace definition {
 
+
 enum class OutputFunctions
 {
     linear = 1,

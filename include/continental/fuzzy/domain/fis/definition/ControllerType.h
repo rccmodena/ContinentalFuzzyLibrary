@@ -9,10 +9,18 @@ namespace domain {
 namespace fis {
 namespace definition {
 
+/**
+ * Tipo de sistema de inferência a ser utilizado no Fuzzy.
+ */
 enum class ControllerType
 {
+    // Sistema Fuzzy do tipo Sugeno
     sugeno = 1,
+
+    //Sistema Fuzzy do tipo Mamdani
     mamdani = 2,
+
+    //Indefinido
     none = 3
 };
 

@@ -9,10 +9,18 @@ namespace domain {
 namespace fis {
 namespace definition {
 
+/**
+ * Tipo de operadores que conectam as regras Fuzzy.
+ */
 enum class Connections
 {
+    //Junção de duas regras (Conjunção)
     AND = 1,
+
+    // Disjunção de duas regras
     OR = 2,
+
+    //Indefinido
     none = 3
 };
 
