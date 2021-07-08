@@ -20,7 +20,10 @@ enum class InputFunctions
     // Trapezoidal membership function
     trapmf = 2,
 	
+	// Gaussian membership function
     gaussmf = 3,
+	
+	//Gaussian combination membership function
     gauss2mf = 4
 };
 

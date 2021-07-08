@@ -9,6 +9,9 @@ namespace domain {
 namespace fis {
 namespace definition {
 
+/**
+ * Tipo das associações de fácies que será retornado pelas regras Fuzzy.
+ */
 enum class FaciesAssociationsImplemented
 {
     Cape = 0,

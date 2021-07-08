@@ -9,9 +9,15 @@ namespace domain {
 namespace fis {
 namespace definition {
 
+/**
+ * Tipo de implicação para calcular o conjunto de regras Fuzzy.
+ */
 enum class ImpMethods
 {
+    //Dimensiona a função de associação consequente pelo valor do resultado antecedente. É o método padrão quando o ControllerType é Sugeno
     prod = 1,
+
+    //Indefinido
     none = 2
 };
 

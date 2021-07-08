@@ -9,10 +9,18 @@ namespace domain {
 namespace fis {
 namespace definition {
 
+/**
+ * Conector OR utilizado nas regras Fuzzy.
+ */
 enum class OrMethods
 {
+    //Máximo, utilizado quando o método de inferência é Mandani
     max = 1,
+
+    //Probabilistico, utilizado quando o método de inferência é Sugeno
     probor = 2,
+
+    //Indefinido
     none = 3
 };
 

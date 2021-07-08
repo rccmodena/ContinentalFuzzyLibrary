@@ -11,6 +11,7 @@ namespace definition {
 
 enum class VariableType
 {
+
     antecedent = 1,
     consequent = 2
 };

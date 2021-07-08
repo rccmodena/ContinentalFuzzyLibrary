@@ -9,10 +9,18 @@ namespace domain {
 namespace fis {
 namespace definition {
 
+/**
+ * Conector lógico AND utilizado nas regras Fuzzy.
+ */
 enum class AndMethods
 {
+    //Mínimo, utilizado quando o ControllerType é Mandani
     min = 1,
+
+    //Produto, utilizado quando o ControllerType é Sugeno
     prod = 2,
+
+    //Indefinido
     none = 3
 };
 
