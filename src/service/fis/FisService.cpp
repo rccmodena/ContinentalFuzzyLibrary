@@ -10,16 +10,6 @@ namespace fuzzy {
 namespace service {
 namespace fis {
 
-FisService::FisService()
-{
-
-}
-
-FisService::~FisService()
-{
-
-}
-
 void FisService::createSystemFromList(const std::list<QString> &systemList)
 {
     for (QString line : systemList)
@@ -384,46 +374,39 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
     size_t count = 1;
     for (auto input : system.getInputs())
     {
-        out << "[Input" << QString::number(count) <<"]"<< "\n";
-        out <<"Name="<<"'"<< input.getName() <<"'"<<"\n";
-        out <<"Range="<< "[" << input.getRange().first << " " << input.getRange().second << "]" << "\n";
-        out <<"NumMFs="<< QString::number(input.getNumMfs()) << "\n";
+        out << "[Input" << QString::number(count) << "]\n";
+        out <<"Name='" << input.getName() <<"'\n";
+        out <<"Range=[" << input.getRange().first << " " << input.getRange().second << "]\n";
+        out <<"NumMFs=" << QString::number(input.getNumMfs()) << "\n";
 
         size_t countMfs = 1;
         for (auto mfs : input.getInputMfs())
         {
-            out << "MF"<<QString::number(countMfs)<<"="<< "'" <<mfs.getName()<< "'" << ":";
+            out << "MF" << QString::number(countMfs) << "='" <<mfs.getName()<< "':";
 
             switch(mfs.getFunction())
             {
-
-            case InputFunctions::gauss2mf:
-                out << "'gauss2mf',[" << QString::number(mfs.getGauss2mf().getMean1()) << " "
-                    << QString::number(mfs.getGauss2mf().getMean2()) << " "
-                    << QString::number(mfs.getGauss2mf().getSigma1()) << " "
-                    << QString::number(mfs.getGauss2mf().getSigma2()) << "] \n";
-                break;
-
-            case InputFunctions::gaussmf:
-                out << "'gaussmf',["<< QString::number(mfs.getGaussmf().getMean()) << " "
-                    << QString::number(mfs.getGaussmf().getSigma()) << "] \n";
-
-                break;
-
-            case InputFunctions::trapmf:
-                out << "'trapmf',["<< QString::number(mfs.getTrapmf().getA()) << " "
-                    << QString::number(mfs.getTrapmf().getB()) << " "
-                    << QString::number(mfs.getTrapmf().getC()) << " "
-                    << QString::number(mfs.getTrapmf().getD()) << "] \n";
-
-
-                break;
-
-            case InputFunctions::trimf:
-                out << "'trimf',[" << QString::number(mfs.getTrimf().getA()) << " "
-                    << QString::number(mfs.getTrimf().getB()) << " "
-                    << QString::number(mfs.getTrimf().getC()) << "] \n";;
-                break;
+                case InputFunctions::gauss2mf:
+                    out << "'gauss2mf',[" << QString::number(mfs.getGauss2mf().getMean1()) << " "
+                        << QString::number(mfs.getGauss2mf().getMean2()) << " "
+                        << QString::number(mfs.getGauss2mf().getSigma1()) << " "
+                        << QString::number(mfs.getGauss2mf().getSigma2()) << "]\n";
+                    break;
+                case InputFunctions::gaussmf:
+                    out << "'gaussmf',["<< QString::number(mfs.getGaussmf().getMean()) << " "
+                        << QString::number(mfs.getGaussmf().getSigma()) << "]\n";
+                    break;
+                case InputFunctions::trapmf:
+                    out << "'trapmf',["<< QString::number(mfs.getTrapmf().getA()) << " "
+                        << QString::number(mfs.getTrapmf().getB()) << " "
+                        << QString::number(mfs.getTrapmf().getC()) << " "
+                        << QString::number(mfs.getTrapmf().getD()) << "]\n";
+                    break;
+                case InputFunctions::trimf:
+                    out << "'trimf',[" << QString::number(mfs.getTrimf().getA()) << " "
+                        << QString::number(mfs.getTrimf().getB()) << " "
+                        << QString::number(mfs.getTrimf().getC()) << "]\n";;
+                    break;
             }
 
             countMfs++;
@@ -437,35 +420,30 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
     count = 1;
     for (auto output : system.getOutputs())
     {
-        out << "[Output" << QString::number(count) <<"]"<< "\n";
-        out <<"Name="<<"'"<< output.getName() <<"'"<<"\n";
-        out <<"Range="<< "[" << output.getRange().first << " " << output.getRange().second << "]" << "\n";
-        out <<"NumMFs="<< QString::number(output.getNumMfs()) << "\n";
+        out << "[Output" << QString::number(count) << "]\n";
+        out <<"Name='" << output.getName() << "'\n";
+        out <<"Range=[" << output.getRange().first << " " << output.getRange().second << "]\n";
+        out <<"NumMFs=" << QString::number(output.getNumMfs()) << "\n";
         size_t countMfs = 1;
 
         for (auto mfs : output.getOutputMfs())
         {
-            out << "MF"<<QString::number(countMfs)<<"="<< "'" <<mfs.getName()<< "'" << ":";
+            out << "MF" << QString::number(countMfs) << "='" <<mfs.getName() << "':";
 
             switch(mfs.getFunction())
             {
+                case OutputFunctions::constant:
+                    out << "'constant',[" << QString::number(mfs.getConstantmf().getValue()) << "]\n";
+                    break;
+                case OutputFunctions::linear:
+                    out << "'linear',[" ;
+                    for (auto linearParams : mfs.getLinearmf().getParams())
+                    {
+                        out << QString::number(linearParams) << " ";
 
-            case OutputFunctions::constant:
-                out << "'constant',[" << QString::number(mfs.getConstantmf().getValue()) << "] \n";
-
-                break;
-
-
-            case OutputFunctions::linear:
-                // OLHAR LISTA DE PARAMETROS DE OUTPUT LINEAR
-                out << "'linear',[" ;
-                for (auto linearParams : mfs.getLinearmf().getParams())
-                {
-                    out << QString::number(linearParams) << " ";
-
-                    std::cout << 1;
-                }
-                out << "]\n";
+                        std::cout << 1;
+                    }
+                    out << "]\n";
             }
 
             countMfs++;
@@ -475,7 +453,7 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
     }
 
 
-    out << "[Rules] \n";
+    out << "[Rules]\n";
     size_t numOfOtherChars = 2;
     size_t numOfCols = system.getNumInputs() + system.getNumOutputs() + numOfOtherChars;
     size_t numOfLines = system.getNumRules();
@@ -488,12 +466,9 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
         rulesForPrint[line].resize(numOfCols);
     }
 
-
-
     size_t line = 0;
     for (auto rule : system.getRules())
     {
-
         int col = 0;
         for (auto ruleInputs : rule.getInputs())
         {
@@ -505,7 +480,6 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
 
         for (auto ruleOutput : rule.getOutputs())
         {
-
             rulesForPrint[line][col] = (ruleOutput.getInputVarNot() == true ? -(ruleOutput.getIndex() + 1) : ruleOutput.getIndex() + 1);
             ++col;
         }
@@ -521,7 +495,6 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
 
     for (line = 0; line < numOfLines; ++line)
     {
-
         for (int input = 0; input <= system.getNumInputs() - 1; input++)
         {
             out << QString::number(rulesForPrint[line][input]);
@@ -533,12 +506,10 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
             {
                 out << ",";
             }
-
         }
 
 
         out << " ";
-
         for (int output = 0; output < system.getNumOutputs(); ++output)
         {
             out << QString::number(rulesForPrint[line][system.getNumInputs() + output]);
@@ -546,7 +517,6 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
             {
                 out << " ";
             }
-
         }
 
         out << " (" << QString::number(rulesForPrint[line][system.getNumInputs() + system.getNumInputs() - 1]) << ") : ";
@@ -554,14 +524,8 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
         out << QString::number(rulesForPrint[line][system.getNumInputs() + system.getNumInputs()]);
 
         out << "\n";
-
     }
-
-
-
-
     file.close();
-
 }
 
 System& FisService::importFile(const QString &filename)
