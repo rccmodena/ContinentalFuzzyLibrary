@@ -9,10 +9,15 @@ namespace domain {
 namespace fis {
 namespace definition {
 
-
+/**
+ * Tipo da função de saída do Fuzzy.
+ */
 enum class OutputFunctions
 {
+    //Função do tipo linear para as saídas do ControllerType Sugeno
     linear = 1,
+
+    //Função do tipo constante para as saídas do ControllerType Sugeno
     constant = 2
 };
 

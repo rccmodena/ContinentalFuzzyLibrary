@@ -14,10 +14,10 @@ namespace definition {
  */
 enum class OrMethods
 {
-    //Máximo, utilizado quando o método de inferência é Mandani
+    //Máximo, utilizado quando o ControllerType é Mandani
     max = 1,
 
-    //Probabilistico, utilizado quando o método de inferência é Sugeno
+    //Probabilistico, quando o ControllerType é Sugeno
     probor = 2,
 
     //Indefinido
