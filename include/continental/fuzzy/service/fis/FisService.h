@@ -11,7 +11,6 @@
 #include "continental/fuzzy/domain/fis/System.h"
 #include "continental/fuzzy/domain/fis/RuleVariable.h"
 #include "continental/fuzzy/domain/fis/definition/Blocks.h"
-#include "continental/fuzzy/domain/fis/definition/FaciesAssociationsImplemented.h"
 #include "continental/fuzzy/service/fis/InputFisService.h"
 #include "continental/fuzzy/service/fis/OutputFisService.h"
 #include <memory>
