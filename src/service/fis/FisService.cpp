@@ -519,7 +519,7 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
             }
         }
 
-        out << " (" << QString::number(rulesForPrint[line][system.getNumInputs() + system.getNumInputs() - 1]) << ") : ";
+        out << " (" << QString::number(rulesForPrint[line][system.getNumInputs() + system.getNumInputs() - 1], 'f', 4) << ") : ";
 
         out << QString::number(rulesForPrint[line][system.getNumInputs() + system.getNumInputs()]);
 
