@@ -45,7 +45,7 @@ void MamdaniControllerService::createFromFisSystem(System p_system)
      throw "MamdaniControllerService not implemented!";
 }
 
-double MamdaniControllerService::calcSingleValue(std::vector<double> v_inputs, bool useDictFaciesAssociation)
+double MamdaniControllerService::calcSingleValue(std::vector<double> v_inputs)
 {
   throw "MamdaniControllerService not implemented!";
   return -1;

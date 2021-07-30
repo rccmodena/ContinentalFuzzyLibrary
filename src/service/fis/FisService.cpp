@@ -113,6 +113,10 @@ void FisService::createSystemFromList(const std::list<QString> &systemList)
             {
                 m_system.setDefuzzMethod(DefuzzMethods::wtsum);
             }
+            else if (systemFieldValue == "winner")
+            {
+                m_system.setDefuzzMethod(DefuzzMethods::winner);
+            }
             else
             {
                 throw std::exception("O método de defuzzificação " + systemFieldValue.toLocal8Bit() + " não foi implementado para inferência Sugeno!");

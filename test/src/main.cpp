@@ -274,7 +274,7 @@ TEST(ContinentalFuzzyTest, TestSugeno)
     sugenoControllerService.createFromFisSystem(mySystem);
 
     std::vector<double> listInputs = {120.0, 0.7};
-    int resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs, true));
+    int resultFuzzy = static_cast<int>(sugenoControllerService.calcSingleValue(listInputs));
 
     ASSERT_EQ(7, resultFuzzy);
 }
@@ -305,7 +305,7 @@ TEST(ContinentalFuzzyTest, TestTipOneCompareMatlab)
         for (size_t i = 0; i < rasterRows; ++i)
         {
             std::vector<double> listInputs = {rasterTipService->getData(i, j), rasterTipFood->getData(i, j)};
-            double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
+            double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs);
 
             ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.001);
         }
@@ -338,7 +338,7 @@ TEST(ContinentalFuzzyTest, TestTipTwoCompareMatlab)
         for (size_t i = 0; i < rasterRows; ++i)
         {
             std::vector<double> listInputs = {rasterTipService->getData(i, j), rasterTipFood->getData(i, j)};
-            double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
+            double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs);
 
             ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.001);
         }
@@ -372,7 +372,7 @@ TEST(ContinentalFuzzyTest, TestTipThreeCompareMatlab)
         for (size_t i = 0; i < rasterRows; ++i)
         {
             std::vector<double> listInputs = {rasterTipService->getData(i, j), rasterTipFood->getData(i, j)};
-            double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
+            double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs);
 
             ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.001);
         }
@@ -407,7 +407,7 @@ TEST(ContinentalFuzzyTest, TestAustraliaRampAridCompareMatlab)
             if (rasterDepth->getData(i, j) >= 0)
             {
                 std::vector<double> listInputs = {rasterDepth->getData(i, j), rasterNormD->getData(i, j)};
-                double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
+                double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs);
 
                 ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.01);
             }
@@ -444,7 +444,7 @@ TEST(ContinentalFuzzyTest, TestAustraliaRampHumidCompareMatlab)
             if (rasterDepth->getData(i, j) >= 0)
             {
                 std::vector<double> listInputs = {rasterDepth->getData(i, j), rasterNormD->getData(i, j)};
-                double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
+                double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs);
 
                 ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.01);
             }
@@ -481,7 +481,7 @@ TEST(ContinentalFuzzyTest, TestAustraliaShelfAridCompareMatlab)
             if (rasterDepth->getData(i, j) >= 0)
             {
                 std::vector<double> listInputs = {rasterDepth->getData(i, j), rasterNormD->getData(i, j)};
-                double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
+                double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs);
 
                 ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.01);
             }
@@ -517,7 +517,7 @@ TEST(ContinentalFuzzyTest, TestAustraliaShelfHumidCompareMatlab)
             if (rasterDepth->getData(i, j) >= 0)
             {
                 std::vector<double> listInputs = {rasterDepth->getData(i, j), rasterNormD->getData(i, j)};
-                double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
+                double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs);
 
                 ASSERT_NEAR(fuzzyMatlabResult->getData(i, j), resultFuzzy, 0.01);
             }

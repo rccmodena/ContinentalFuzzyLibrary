@@ -23,7 +23,7 @@ public:
 
     void createFromFisSystem(const domain::fis::System &p_system) override;
 
-    double calcSingleValue(const std::vector<double> &v_inputs, bool useDictFaciesAssociation) override;
+    double calcSingleValue(const std::vector<double> &v_inputs) override;
 
     domain::fuzzy::SugenoController& getSugenoController();
 

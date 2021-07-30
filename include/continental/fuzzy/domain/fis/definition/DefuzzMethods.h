@@ -14,14 +14,19 @@ namespace definition {
  */
 enum class DefuzzMethods
 {
-    //Média ponderada de todos os outputs das regras. Método padrão utilizado quando o ControllerType é Sugeno
+    /// Média ponderada de todos os outputs das regras. Método padrão utilizado quando o ControllerType é Sugeno
+    /// Weighted average of all rule outputs
     wtaver = 1,
 
-    //Soma ponderada de todos os outputs das regras
+    /// Soma ponderada de todos os outputs das regras
+    /// Weighted sum of all rule outputs
     wtsum = 2,
 
-    //Indefinido
-    none = 3
+    /// Regra de maior valor de todos os outputs das regras
+    winner = 3,
+
+    /// Indefinido
+    none = 4
 };
 
 }

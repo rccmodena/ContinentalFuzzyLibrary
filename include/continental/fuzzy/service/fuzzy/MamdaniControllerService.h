@@ -22,7 +22,7 @@ public:
 
     void createFromFisSystem(continental::fuzzy::domain::fis::System p_system);
 
-    double calcSingleValue(std::vector<double> v_inputs, bool useDictFaciesAssociation);
+    double calcSingleValue(std::vector<double> v_inputs);
 };
 
 }

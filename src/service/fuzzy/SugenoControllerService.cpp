@@ -271,9 +271,11 @@ std::vector<double> SugenoControllerService::calcRuleFiring(const std::vector<do
    return listResults;
 }
 
-double SugenoControllerService::calcSingleValue(const std::vector<double> &v_inputs, bool useDictFaciesAssociation)
+double SugenoControllerService::calcSingleValue(const std::vector<double> &v_inputs)
 {
     double result = -1;
+
+    definition::DefuzzMethods defuzzMethods = m_sugenoController.getSugenoFisSystem().getDefuzzMethod();
 
     std::vector<double> w_array = calcRuleFiring(v_inputs);
     std::vector<double> z_array = calcRuleOutputLevel(v_inputs);
@@ -282,15 +284,18 @@ double SugenoControllerService::calcSingleValue(const std::vector<double> &v_inp
     double sumTotalWeightsWZ = 0;
     double sumTotalWeightW = 0;
 
-    const size_t limit = w_array.size();
-    for (size_t aux = 0; aux < limit; aux++)
+    if (defuzzMethods == definition::DefuzzMethods::wtsum || defuzzMethods == definition::DefuzzMethods::wtaver)
     {
-        const double w_array_weights = w_array[aux] * weights[aux];
-        sumTotalWeightsWZ += w_array_weights * z_array[aux];
-        sumTotalWeightW += w_array_weights;
+        const size_t limit = w_array.size();
+        for (size_t aux = 0; aux < limit; aux++)
+        {
+            const double w_array_weights = w_array[aux] * weights[aux];
+            sumTotalWeightsWZ += w_array_weights * z_array[aux];
+            sumTotalWeightW += w_array_weights;
+        }
     }
 
-    switch(m_sugenoController.getSugenoFisSystem().getDefuzzMethod())
+    switch (defuzzMethods)
     {
         case definition::DefuzzMethods::wtsum:
         {
@@ -300,6 +305,23 @@ double SugenoControllerService::calcSingleValue(const std::vector<double> &v_inp
         case definition::DefuzzMethods::wtaver:
         {
             result = (sumTotalWeightW != 0 ) ? (sumTotalWeightsWZ / sumTotalWeightW):0;
+            break;
+        }
+        case definition::DefuzzMethods::winner:
+        {
+            const size_t limit = w_array.size();
+
+            double max = -std::numeric_limits<double>::max();
+            for (size_t aux = 0; aux < limit; aux++)
+            {
+                const double w_array_weights = w_array[aux] * weights[aux];
+
+                if (w_array_weights > max)
+                {
+                    max = w_array_weights;
+                    result = z_array[aux];
+                }
+            }
             break;
         }
         case definition::DefuzzMethods::none:
