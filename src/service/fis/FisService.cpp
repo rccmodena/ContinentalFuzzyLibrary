@@ -372,7 +372,20 @@ void FisService::exportFile(const QString &filename, const domain::fis::System &
     out << "OrMethod=" << (system.getOrMethod() == definition::OrMethods::max ? "'max'" : "'probor'") << "\n";
     out << "ImpMethod=" << "'prod'"<< "\n";
     out << "AggMethod=" << "'sum'"<< "\n";
-    out << "DefuzzMethod=" << (system.getDefuzzMethod() == definition::DefuzzMethods::wtaver ? "'wtaver'" : "'wtsum'") << "\n";
+    switch (system.getDefuzzMethod())
+    {
+        case definition::DefuzzMethods::wtaver:
+            out << "DefuzzMethod='wtaver'";
+            break;
+        case definition::DefuzzMethods::wtsum:
+            out << "DefuzzMethod='wtsum'";
+            break;
+        case definition::DefuzzMethods::winner:
+            out << "DefuzzMethod='winner'";
+            break;
+        default:
+            out << "DefuzzMethod='none'";
+    }
 
     out << "\n";
     size_t count = 1;
