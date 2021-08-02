@@ -16,7 +16,7 @@ class CONTINENTALFUZZY_EXPORT_DECL AbstractFuzzyControllerService
 public:
     virtual void createFromFisSystem(const domain::fis::System &p_system) = 0;
 
-    virtual double calcSingleValue(const std::vector<double> &v_inputs) = 0;
+    virtual double calcSingleValue(std::vector<double> v_inputs) = 0;
 };
 
 }

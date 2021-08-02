@@ -14,18 +14,20 @@ int main(int argc, char **argv)
     QStringList args = app.arguments();
 
     std::cout << "CONSOLE CONTINENTAL FUZZY" << std::endl;
-/*
+
     std::cout << "***************** INICIO - TESTE FUZZY *****************" << std::endl;
     FisService import;
     try
     {
-        auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_3.fis", false);
+        //auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_3.fis");
+        auto mySystem = import.importFile("C:/Users/ADM_LOCAL/Desktop/teste_plugin/sem_ttulo/sem_ttulo_continentalcarbonate/fuzzy/Ramp_Arid.fis");
+
 
         SugenoControllerService sugenoControllerService;
         sugenoControllerService.createFromFisSystem(mySystem);
 
-        std::vector<double> listInputs = {5.455, 7.576};
-        double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs, false);
+        std::vector<double> listInputs = {20,20000};
+        double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs);
         std::cout << resultFuzzy << std::endl;
     }
     catch (const std::exception& e)
@@ -34,7 +36,9 @@ int main(int argc, char **argv)
     }
     std::cout << "***************** FIM - TESTE FUZZY *****************" << std::endl;
 
-*/
+    return 0;
+
+/*
     std::cout << "***************** INICIO - TESTE EXPORT FIS *****************" << std::endl;
 
     FisService export_;
@@ -61,4 +65,5 @@ int main(int argc, char **argv)
     std::cout << "***************** FIM - TESTE FUZZY *****************" << std::endl;
 
     return 0;
+*/
 }

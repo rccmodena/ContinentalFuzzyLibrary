@@ -271,9 +271,29 @@ std::vector<double> SugenoControllerService::calcRuleFiring(const std::vector<do
    return listResults;
 }
 
-double SugenoControllerService::calcSingleValue(const std::vector<double> &v_inputs)
+double SugenoControllerService::calcSingleValue(std::vector<double> v_inputs)
 {
     double result = -1;
+
+    int i = 0;
+
+    auto m_system = m_sugenoController.getSugenoFisSystem();
+
+    for(auto input : v_inputs)
+    {
+        if(input > m_system.getInputs().at(i).getRange().second)
+        {
+            v_inputs.at(i) = m_system.getInputs().at(i).getRange().second;
+        }
+
+        if(input < m_system.getInputs().at(i).getRange().first)
+        {
+            v_inputs.at(i) = m_system.getInputs().at(i).getRange().first;
+        }
+
+        ++i;
+    }
+
 
     definition::DefuzzMethods defuzzMethods = m_sugenoController.getSugenoFisSystem().getDefuzzMethod();
 
