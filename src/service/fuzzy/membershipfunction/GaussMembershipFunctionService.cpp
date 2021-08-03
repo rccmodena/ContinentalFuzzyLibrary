@@ -1,4 +1,5 @@
 #include "continental/fuzzy/service/fuzzy/membershipfunction/GaussMembershipFunctionService.h"
+#include <cmath>
 
 namespace continental {
 namespace fuzzy {

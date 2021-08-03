@@ -228,44 +228,45 @@ std::vector<double> SugenoControllerService::calcRuleOutputLevel(const std::vect
 }
 
 
-std::vector<double> SugenoControllerService::calcRuleFiring(const std::vector<double> &inputsStratBR)
+std::vector<double> SugenoControllerService::calcRuleFiring(const std::vector<double> &inputs)
 {
     const size_t numberRules = m_sugenoController.getSugenoFisSystem().getRules().size();
 
     std::vector<double> listResults(numberRules);
 
-    for (size_t auxIndiceRule = 0; auxIndiceRule < numberRules; auxIndiceRule++)
+    for (size_t indexRule = 0; indexRule < numberRules; indexRule++)
     {
-        const Rule &rule = m_sugenoController.getSugenoFisSystem().getRules().at(auxIndiceRule);
+        const Rule &rule = m_sugenoController.getSugenoFisSystem().getRules().at(indexRule);
         const size_t inputsSize = rule.getInputs().size();
         std::vector<double> listTempInput(inputsSize);
 
-        for (size_t auxIndiceInputs = 0; auxIndiceInputs < inputsSize; auxIndiceInputs++)
+        for (size_t indexInputInRule = 0; indexInputInRule < inputsSize; indexInputInRule++)
         {
             //Busca as informações do input da regra
-            const RuleVariable &inputObject = rule.getInputs().at(static_cast<int>(auxIndiceInputs));
-            const size_t indiceMemebershipFunction = static_cast<size_t>(inputObject.getIndex());
+            const RuleVariable &inputObject = rule.getInputs().at(indexInputInRule);
+            const size_t indexMemebershipFunction = static_cast<size_t>(inputObject.getIndex());
+            const size_t indexInput = rule.getInputs().at(indexInputInRule).getIndexOfInput();
 
-            const double auxValue = inputsStratBR[auxIndiceInputs];
+            const double auxValue = inputs[indexInput];
 
             const double result = executeCalcInputFunctions(
                         auxValue,
-                        auxIndiceInputs,
-                        indiceMemebershipFunction);
+                        indexInput,
+                        indexMemebershipFunction);
 
             if(inputObject.getInputVarNot())
             {
                const double resultNot = NotMethod::calculeNotMethod(result);
-               listTempInput[auxIndiceInputs] = resultNot;
+               listTempInput[indexInputInRule] = resultNot;
             }
             else
             {
-                listTempInput[auxIndiceInputs] = result;
+                listTempInput[indexInputInRule] = result;
             }
         }
 
         const double resultCalc = getResultConnection(rule, listTempInput);
-        listResults[auxIndiceRule] = resultCalc;
+        listResults[indexRule] = resultCalc;
    }
 
    return listResults;
@@ -331,7 +332,7 @@ double SugenoControllerService::calcSingleValue(std::vector<double> v_inputs)
         {
             const size_t limit = w_array.size();
 
-            double max = -std::numeric_limits<double>::max();
+            double max = 0;
             for (size_t aux = 0; aux < limit; aux++)
             {
                 const double w_array_weights = w_array[aux] * weights[aux];
