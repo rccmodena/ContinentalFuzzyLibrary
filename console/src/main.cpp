@@ -19,14 +19,12 @@ int main(int argc, char **argv)
     FisService import;
     try
     {
-        //auto mySystem = import.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_3.fis");
         auto mySystem = import.importFile("C:/Users/ADM_LOCAL/Desktop/teste_plugin/sem_ttulo/sem_ttulo_continentalcarbonate/fuzzy/Ramp_Arid.fis");
-
 
         SugenoControllerService sugenoControllerService;
         sugenoControllerService.createFromFisSystem(mySystem);
 
-        std::vector<double> listInputs = {20,20000};
+        std::vector<double> listInputs = {20, 20000};
         double resultFuzzy = sugenoControllerService.calcSingleValue(listInputs);
         std::cout << resultFuzzy << std::endl;
     }
