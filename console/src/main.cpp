@@ -19,7 +19,7 @@ int main(int argc, char **argv)
     FisService import;
     try
     {
-        auto mySystem = import.importFile("C:/Users/ADM_LOCAL/Desktop/teste_plugin/sem_ttulo/sem_ttulo_continentalcarbonate/fuzzy/Ramp_Arid.fis");
+        auto mySystem = import.importFile("C:/Git/ContinentalOptimizerTest/mock/Facies.fis");
 
         SugenoControllerService sugenoControllerService;
         sugenoControllerService.createFromFisSystem(mySystem);
@@ -36,15 +36,15 @@ int main(int argc, char **argv)
 
     return 0;
 
-/*
+
     std::cout << "***************** INICIO - TESTE EXPORT FIS *****************" << std::endl;
 
     FisService export_;
-    //auto mySystem = export_.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_3.fis", false);
-    //export_.exportFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_TESTE.fis", mySystem);
+    auto mySystem = export_.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_3.fis");
+    export_.exportFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_TESTE.fis", mySystem);
 
 
-    //auto mySystem = export_.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_2.fis", false);
+  /*  //auto mySystem = export_.importFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_2.fis", false);
     //export_.exportFile("C:/genesis/ContinentalCarbonatePluginMock/Fuzzy/Tip/Tip_fuzzylite_TESTE_2.fis", mySystem);
 
 
